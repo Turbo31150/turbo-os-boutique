@@ -699,7 +699,7 @@
       <a href="#niveaux">Tous Niveaux</a>
       <a href="#catalogue">Catalogue Packs</a>
       <a href="#bundle">Le Fonds Complet</a>
-      <a href="/box">Pour l'entreprise</a>
+      <a href="#catalogue">Pour l'entreprise</a>
       <a href="#faq">FAQ</a>
     </div>
     <div class="nav-right">
@@ -767,7 +767,7 @@
         <p style="color:var(--fg-dim); margin-bottom:22px; font-size:0.95rem;">
           Vous voulez le vrai calcul <i>cloud vs. local</i> (matériel, électricité, maintenance sur 3 ans) ? Il est sur la page entreprise, honnête et chiffré — y compris quand le cloud reste gagnant.
         </p>
-        <a href="/box#calculateur" class="btn btn-fire">Voir le calculateur coût total (page entreprise) →</a>
+        <a href="#catalogue" class="btn btn-fire">Voir le calculateur coût total (page entreprise) →</a>
       </div>
     </div>
   </section>
@@ -1371,7 +1371,7 @@
       <div style="display:flex; flex-direction:column; gap:6px;">
         <a href="#catalogue" style="color:var(--fg-dim); text-decoration:none;">Catalogue des Packs</a>
         <a href="#bundle" style="color:var(--fg-dim); text-decoration:none;">Le Fonds Complet (dès 199 €)</a>
-        <a href="/box" style="color:var(--fg-dim); text-decoration:none;">IA d'entreprise · JARVIS BOX</a>
+        <a href="#catalogue" style="color:var(--fg-dim); text-decoration:none;">IA d'entreprise · JARVIS BOX</a>
         <a href="#table-ronde" style="color:var(--fg-dim); text-decoration:none;">Table Ronde des 7 Sièges</a>
       </div>
     </div>
@@ -2501,6 +2501,14 @@
       showBoutiqueMsg('Paiement Stripe confirmé ! Vos packs et formations sont débloqués.', 'ok');
     }
   });
+</script>
+
+<script>
+/* Overrides version STATIQUE (GitHub Pages, aucun /api) — vente B2B via Stripe Payment Links */
+window.openSample = function(){ window.location.href = './protocoles-formats.tgz'; };
+window.applyPromo = function(){ if(window.showBoutiqueMsg){showBoutiqueMsg("Codes promo non disponibles sur cette boutique.","err");} };
+window.checkoutCart = function(){ alert("Pour commander : cliquez \u00ab Acheter (pro) \u00bb sur le pack voulu \u2014 paiement s\u00e9curis\u00e9 Stripe."); };
+window.openCourse = function(){ alert("Le d\u00e9tail est sur la fiche de chaque pack. Cliquez \u00ab Acheter (pro) \u00bb pour commander."); };
 </script>
 </body>
 </html>
