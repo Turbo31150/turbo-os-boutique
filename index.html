@@ -946,8 +946,8 @@
     </div>
 
     <div class="catalog-filters">
-      <button class="filter-btn active" onclick="filterCatalog('all', this)">Tous les Packs (8)</button>
-      <button class="filter-btn" onclick="filterCatalog('infra', this)">⚡ Infra &amp; Multi-GPU</button>
+      <button class="filter-btn active" onclick="filterCatalog('all', this)">Tous les Packs (9)</button>
+      <button class="filter-btn" onclick="filterCatalog('infra', this)">⚡ Infra, Sécurité &amp; Identité</button>
       <button class="filter-btn" onclick="filterCatalog('agents', this)">🤖 Agents &amp; FSM</button>
       <button class="filter-btn" onclick="filterCatalog('rag', this)">🧠 RAG &amp; Connaissance</button>
       <button class="filter-btn" onclick="filterCatalog('doctrine', this)">🏛️ Doctrine &amp; Formats</button>
@@ -1399,6 +1399,19 @@
   // ═══ DONNÉES DU CATALOGUE ═══
   // ═══ DONNÉES DU CATALOGUE SOUVERAIN (SOURCE FACTORY / DISQUE .TGZ) ═══
   const CATALOG = [
+    {
+      id: "identification-numerique",
+      title: "Identification Numérique & Sécurité Zero-Trust",
+      category: "infra",
+      icon: "🛡️",
+      desc: "Passerelle d'accès cryptographique souveraine (SHA-256), jetons d'accès éphémères (TTL), gestion des abonnements, protection anti-RCE et isolation de l'Orbe Turbo.",
+      tags: ["Identification Numérique", "Zero-Trust", "SHA-256", "Tokens TTL", "Anti-RCE", "Orbe Turbo"],
+      size: "1.2 Mo",
+      chunks: "2 140 blocs",
+      price: 69,
+      origPrice: 149,
+      courseId: "identification-numerique"
+    },
     {
       id: "doctrine-omega",
       title: "Doctrine & Architecture Turbo OS / OMEGA",
