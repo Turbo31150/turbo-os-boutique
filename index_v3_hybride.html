@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TURBO OS × ALKYMIA — Systèmes IA & Corpus RAG Souverains</title>
-<meta name="description" content="L'écosystème IA souverain complet : Packs de corpus RAG instantanés et Implantation clé en main sur site pour PME et Industrie. 0€ de cloud récurrent.">
+<title>TURBO OS × ALKYMIA — Systèmes IA & Corpus RAG Souverains (0€ de Cloud Récurrent)</title>
+<meta name="description" content="L'écosystème IA souverain complet : Packs de corpus RAG instantanés et Implantation clé en main sur site pour PME, ETI et Industrie. 0€ d'abonnement cloud, 100% privé.">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&display=swap');
 :root {
@@ -54,112 +54,155 @@ nav {
 .nav-actions { display: flex; gap: 10px; align-items: center; }
 .btn-cta {
   background: var(--red); color: #fff; padding: 9px 20px; border-radius: 6px;
-  font-size: 13px; font-weight: 700; transition: 0.2s;
+  font-size: 13px; font-weight: 700; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center;
 }
 .btn-cta:hover { background: var(--red-hover); transform: translateY(-1px); }
 
 /* Hero */
 .hero {
-  padding: 170px 5% 100px; text-align: center; position: relative;
-  background: radial-gradient(circle at 50% 20%, rgba(229,9,20,0.12), transparent 70%);
+  padding: 150px 5% 70px; text-align: center; max-width: 1000px; margin: 0 auto;
 }
 .hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(229,9,20,0.1); border: 1px solid rgba(229,9,20,0.3);
-  padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;
-  color: #ff6b6b; margin-bottom: 24px;
+  background: var(--bg2); border: 1px solid var(--border);
+  padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600;
+  color: var(--cyan); margin-bottom: 24px;
 }
-.hero-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); box-shadow: 0 0 8px var(--red); }
-.hero h1 { font-size: clamp(36px, 6vw, 68px); font-weight: 900; letter-spacing: -2px; line-height: 1.08; margin-bottom: 24px; }
-.hero h1 span.grad { background: linear-gradient(135deg, #fff, var(--muted)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero-badge span.dot { width: 8px; height: 8px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 8px var(--cyan); }
+.hero h1 {
+  font-size: clamp(34px, 5.5vw, 62px); font-weight: 900; line-height: 1.1;
+  letter-spacing: -1.5px; margin-bottom: 20px;
+}
 .hero h1 span.red { color: var(--red); }
-.hero-p { font-size: clamp(16px, 2vw, 19px); color: var(--muted); max-width: 720px; margin: 0 auto 36px; line-height: 1.6; }
+.hero h1 span.grad {
+  background: linear-gradient(90deg, #fff, var(--muted));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-p {
+  font-size: clamp(16px, 2vw, 19px); color: var(--muted); max-width: 720px;
+  margin: 0 auto 36px; line-height: 1.6;
+}
 
-/* Hybrid Dual-Engine Selector */
+/* Dual Engine Switcher */
 .engine-switcher {
   display: inline-flex; background: var(--bg2); border: 1px solid var(--border);
-  padding: 4px; border-radius: 40px; margin: 0 auto 50px;
+  padding: 5px; border-radius: 30px; margin-bottom: 40px;
 }
 .switch-btn {
-  padding: 12px 28px; border-radius: 30px; font-size: 14px; font-weight: 700;
-  cursor: pointer; border: none; background: transparent; color: var(--muted);
-  transition: 0.25s; display: flex; align-items: center; gap: 8px;
+  background: transparent; border: none; color: var(--muted);
+  padding: 10px 24px; border-radius: 25px; font-size: 14px; font-weight: 700;
+  cursor: pointer; transition: 0.2s;
 }
 .switch-btn.active {
-  background: var(--red); color: #fff; box-shadow: 0 4px 20px rgba(229,9,20,0.4);
+  background: var(--red); color: #fff; box-shadow: 0 4px 15px rgba(229,9,20,0.3);
 }
 
-/* Proof Numbers */
+/* Key Metrics */
 .stats-strip {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px; max-width: 1000px; margin: 0 auto 80px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px; margin: 20px auto 60px; max-width: 900px;
 }
 .stat-card {
-  background: var(--bg2); border: 1px solid var(--border); border-radius: 8px;
-  padding: 22px; text-align: center;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 12px; padding: 18px 12px; text-align: center;
 }
-.stat-val { font-size: 32px; font-weight: 900; font-family:'JetBrains Mono',monospace; color: #fff; }
-.stat-lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 4px; }
+.stat-val { font-size: 28px; font-weight: 900; font-family:'JetBrains Mono',monospace; color: var(--text); }
+.stat-lbl { font-size: 12px; color: var(--muted); margin-top: 4px; font-weight: 600; text-transform: uppercase; }
 
 /* Sections */
-section { padding: 80px 5%; max-width: 1300px; margin: 0 auto; }
-.sec-tag { font-size: 11px; font-weight: 800; color: var(--red); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
-.sec-title { font-size: clamp(26px, 4vw, 42px); font-weight: 900; letter-spacing: -1px; margin-bottom: 12px; }
-.sec-sub { font-size: 16px; color: var(--muted); max-width: 640px; margin-bottom: 40px; }
+section { padding: 70px 5%; max-width: 1200px; margin: 0 auto; }
+.sec-tag { font-size: 12px; font-weight: 800; color: var(--red); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; }
+.sec-title { font-size: clamp(26px, 3.5vw, 40px); font-weight: 900; margin-bottom: 14px; letter-spacing: -0.5px; }
+.sec-sub { font-size: 16px; color: var(--muted); max-width: 650px; margin-bottom: 40px; }
 
 /* Cards Grid */
-.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+.cards-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
 .card {
-  background: var(--bg2); border: 1px solid var(--border); border-radius: 12px;
-  padding: 32px; display: flex; flex-direction: column; justify-content: space-between;
-  transition: 0.3s; position: relative; overflow: hidden;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 16px; padding: 30px; display: flex; flex-direction: column;
+  justify-content: space-between; transition: 0.25s; position: relative;
 }
-.card:hover { border-color: rgba(229,9,20,0.5); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.4); }
-.card.highlight { border-color: rgba(229,9,20,0.4); background: linear-gradient(180deg, rgba(229,9,20,0.06), var(--bg2)); }
+.card:hover { border-color: rgba(229,9,20,0.4); transform: translateY(-3px); }
+.card.highlight {
+  border-color: var(--red); background: linear-gradient(180deg, rgba(229,9,20,0.06), var(--bg2));
+}
 .card-badge {
-  position: absolute; top: 16px; right: 16px; font-size: 10px; font-weight: 800;
-  padding: 4px 10px; border-radius: 20px; background: rgba(229,9,20,0.15); color: var(--red); border: 1px solid rgba(229,9,20,0.3);
+  display: inline-block; font-size: 11px; font-weight: 800; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 6px; background: rgba(255,255,255,0.06);
+  color: var(--gold); margin-bottom: 14px;
 }
-.card h3 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
-.card p.desc { font-size: 14px; color: var(--muted); line-height: 1.5; margin-bottom: 24px; min-height: 42px; }
-.card-price { font-size: 40px; font-weight: 900; font-family:'JetBrains Mono',monospace; margin-bottom: 20px; }
+.card.highlight .card-badge { background: var(--red); color: #fff; }
+.card h3 { font-size: 21px; font-weight: 800; margin-bottom: 8px; }
+.card p.desc { font-size: 14px; color: var(--muted); line-height: 1.5; margin-bottom: 20px; }
+.card-price { font-size: 38px; font-weight: 900; font-family:'JetBrains Mono',monospace; margin-bottom: 20px; }
 .card-price span.unit { font-size: 14px; color: var(--muted); font-family:'Inter',sans-serif; font-weight: 400; }
-.card ul { list-style: none; margin-bottom: 30px; display: flex; flex-direction: column; gap: 10px; font-size: 13px; color: var(--muted); }
-.card ul li { display: flex; gap: 10px; align-items: flex-start; }
-.card ul li span.check { color: var(--green); font-weight: 800; }
+.card ul { list-style: none; margin-bottom: 26px; }
+.card ul li { font-size: 13px; color: #ccc; margin-bottom: 10px; display: flex; gap: 10px; align-items: baseline; }
+.card ul li span.check { color: var(--green); font-weight: 900; }
+
 .card-btn {
-  display: block; text-align: center; padding: 14px; border-radius: 6px;
-  font-weight: 800; font-size: 14px; background: rgba(255,255,255,0.08); color: #fff; transition: 0.2s;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+  color: #fff; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 700;
+  text-align: center; transition: 0.2s; display: block;
 }
-.card-btn:hover { background: var(--red); box-shadow: 0 6px 20px rgba(229,9,20,0.3); }
-.card.highlight .card-btn { background: var(--red); }
+.card-btn:hover { background: var(--red); border-color: var(--red); }
+.card.highlight .card-btn { background: var(--red); border-color: var(--red); }
 .card.highlight .card-btn:hover { background: var(--red-hover); }
+
+/* Comparatif Table */
+.table-wrap {
+  overflow-x: auto; background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 16px; margin: 30px 0;
+}
+table.comp-table {
+  width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;
+}
+table.comp-table th, table.comp-table td {
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+}
+table.comp-table th { background: var(--bg3); font-weight: 800; font-size: 13px; text-transform: uppercase; color: var(--muted); }
+table.comp-table tr:last-child td { border-bottom: none; }
+.tag-bad { color: #f43f5e; font-weight: 700; }
+.tag-good { color: var(--green); font-weight: 700; }
+
+/* FAQ */
+.faq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 30px; }
+.faq-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 22px; }
+.faq-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: #fff; }
+.faq-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
 
 /* Footer */
 footer {
-  border-top: 1px solid var(--border); padding: 50px 5% 30px;
+  border-top: 1px solid var(--border); padding: 60px 5% 40px;
   text-align: center; font-size: 13px; color: var(--muted); background: #060608;
 }
+footer a { color: var(--muted); transition: 0.2s; text-decoration: underline; }
+footer a:hover { color: #fff; }
+.footer-links { display: flex; justify-content: center; gap: 20px; margin-top: 20px; flex-wrap: wrap; }
 </style>
 </head>
 <body>
 
 <div class="top-bar">
-  🔥 Écosystème Unifié Turbo OS × Alkymia · <span class="pill">Double Moteur</span> Produits RAG Self-Service + Implantation sur site
+  ⚡ Écosystème Unifié Turbo OS × Alkymia · <span class="pill">0€ Cloud Récurrent</span> Données 100% sur site · Audit de Souveraineté 48h disponible
 </div>
 
 <nav>
   <div class="logo">
-    TURBO<span class="brand">.OS</span> <span class="badge">v3-HYBRIDE</span>
+    TURBO<span class="brand">.OS</span> <span class="badge">SOUVERAIN</span>
   </div>
   <div class="nav-links">
-    <a href="#catalogue">Catalogue</a>
-    <a href="#services">Services Clés en Main</a>
-    <a href="#roi">Calculateur ROI</a>
-    <a href="#garantie">Garantie Souveraine</a>
+    <a href="#catalogue">Catalogue RAG</a>
+    <a href="#view-pro">Offres Entreprise</a>
+    <a href="#comparatif">Cloud vs Local</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
   </div>
   <div class="nav-actions">
-    <a href="#contact" class="btn-cta">Réserver Audit (0€) →</a>
+    <a href="#contact" class="btn-cta">Réserver Audit (1 500 €) →</a>
   </div>
 </nav>
 
@@ -167,8 +210,9 @@ footer {
   <div class="hero-badge"><span class="dot"></span> IA LOCALE SOUVERAINE & INTÉGRATION SUR SITE</div>
   <h1>Votre activité.<br><span class="red">Automatisée.</span> <span class="grad">Sans cloud récurrent.</span></h1>
   <p class="hero-p">
-    Le pont parfait entre les <strong>packs de corpus RAG bruts</strong> (pour ingénieurs et développeurs)
-    et les <strong>systèmes clé en main déployés sur site</strong> (pour PME, cabinets et usines).
+    L'alternative radicale aux abonnements cloud américains : 
+    <strong>Packs de corpus RAG instantanés</strong> (ingénieurs & devs) et 
+    <strong>systèmes clés en main déployés sur site</strong> (PME, cabinets, ETI et industrie).
   </p>
 
   <!-- Dual Mode Selector -->
@@ -177,7 +221,7 @@ footer {
       📦 Packs & Corpus RAG (Self-Service)
     </button>
     <button class="switch-btn" id="btn-pro" onclick="switchView('pro')">
-      🏭 Implantation & Clés en main (Entreprise)
+      🏭 Implantation & Entreprise (Clés en Main)
     </button>
   </div>
 
@@ -195,19 +239,20 @@ footer {
       <div class="stat-lbl">Souverain & RGPD</div>
     </div>
     <div class="stat-card">
-      <div class="stat-val">2 sem.</div>
-      <div class="stat-lbl">ROI Moyen Client</div>
+      <div class="stat-val">48 h</div>
+      <div class="stat-lbl">Audit Diagnostic Flash</div>
     </div>
   </div>
 </header>
 
 <!-- SECTION 1 : PACKS DIGITAUX / RAG (DIY & DEVS) -->
 <section id="view-diy">
-  <div class="sec-tag">Rayon 1 — Produits Digitaux Immédiats</div>
+  <div class="sec-tag">Rayon 1 — Produits Digitaux Instantanés</div>
   <h2 class="sec-title">Les 7 Packs de Corpus RAG Souverains</h2>
-  <p class="sec-sub">Archives binaires `.tgz` prêtes à l'emploi. Injection directe dans vos bases vectorielles et moteurs FTS5 sans intermédiaire.</p>
+  <p class="sec-sub">Archives binaires prêtes à l'emploi. Injection directe dans vos bases vectorielles et moteurs FTS5 sans intermédiaire.</p>
 
   <div class="cards-grid">
+    <!-- Pack 1 -->
     <div class="card">
       <div>
         <div class="card-badge">Doctrine</div>
@@ -223,6 +268,7 @@ footer {
       <a href="https://buy.stripe.com/test_pack1" class="card-btn">Télécharger (49 €) →</a>
     </div>
 
+    <!-- Pack 2 -->
     <div class="card highlight">
       <div class="card-badge">⭐ Le Plus Demandé</div>
       <div>
@@ -238,6 +284,7 @@ footer {
       <a href="https://buy.stripe.com/test_pack2" class="card-btn">Télécharger (59 €) →</a>
     </div>
 
+    <!-- Pack 3 -->
     <div class="card">
       <div>
         <div class="card-badge">Cœur Technique</div>
@@ -253,16 +300,68 @@ footer {
       <a href="https://buy.stripe.com/test_pack3" class="card-btn">Télécharger (45 €) →</a>
     </div>
 
-    <div class="card highlight" style="grid-column: 1 / -1; background: linear-gradient(135deg, rgba(229,9,20,0.1), rgba(0,212,255,0.05));">
+    <!-- Pack 4 -->
+    <div class="card">
+      <div>
+        <div class="card-badge">Résilience</div>
+        <h3>Fiabilité & Auto-Guérison H24</h3>
+        <p class="desc">4 200 extraits de supervision systemd, watchdog, auto-restart et détection précoce d'anomalies.</p>
+        <div class="card-price">45 € <span class="unit">paiement unique</span></div>
+        <ul>
+          <li><span class="check">✓</span> 4 200 extraits sur la robustesse 24/7</li>
+          <li><span class="check">✓</span> Modèles de timers, sockets et failover réseau</li>
+          <li><span class="check">✓</span> Scripts de monitoring sonore et notifications</li>
+        </ul>
+      </div>
+      <a href="https://buy.stripe.com/test_pack4" class="card-btn">Télécharger (45 €) →</a>
+    </div>
+
+    <!-- Pack 5 -->
+    <div class="card">
+      <div>
+        <div class="card-badge">Économie</div>
+        <h3>Coûts & Énergie Zéro-Token</h3>
+        <p class="desc">2 800 extraits dédiés à l'optimisation watt/token, au calcul de TCO et à l'amortissement matériel.</p>
+        <div class="card-price">39 € <span class="unit">paiement unique</span></div>
+        <ul>
+          <li><span class="check">✓</span> Modèles de calcul TCO GPU vs API Cloud</li>
+          <li><span class="check">✓</span> Optimisation de la consommation électrique</li>
+          <li><span class="check">✓</span> Stratégies de mise en veille et réveil réseau</li>
+        </ul>
+      </div>
+      <a href="https://buy.stripe.com/test_pack5" class="card-btn">Télécharger (39 €) →</a>
+    </div>
+
+    <!-- Pack 6 -->
+    <div class="card">
+      <div>
+        <div class="card-badge">Interopérabilité</div>
+        <h3>Protocoles & Formats Ouverts</h3>
+        <p class="desc">1 950 extraits sur les standards JSONL, SQLite, Parquet, MCP et formats d'échange sans verrou propriétaire.</p>
+        <div class="card-price">35 € <span class="unit">paiement unique</span></div>
+        <ul>
+          <li><span class="check">✓</span> Spécifications de packaging de données</li>
+          <li><span class="check">✓</span> Connecteurs MCP universels prêts à coder</li>
+          <li><span class="check">✓</span> Schémas SQL d'indexation ultra-rapide</li>
+        </ul>
+      </div>
+      <a href="https://buy.stripe.com/test_pack6" class="card-btn">Télécharger (35 €) →</a>
+    </div>
+
+    <!-- Pack 7 & Bundle -->
+    <div class="card highlight" style="grid-column: 1 / -1; background: linear-gradient(135deg, rgba(229,9,20,0.12), rgba(0,212,255,0.06));">
       <div style="display:flex; justify-content:space-between; flex-wrap:wrap; align-items:center; gap:20px;">
         <div>
-          <div class="card-badge">👑 Bundle Intégral</div>
-          <h3>Le Coffre Intégral Souverain (7 Packs Inclus)</h3>
-          <p class="desc" style="max-width:600px;">Inclut l'intégralité des corpus : Doctrine, Agents, Inférence, Fiabilité 24/7, Coûts & Énergie, Protocoles ouverts + Bonus templates.</p>
+          <div class="card-badge">👑 BUNDLE INTÉGRAL SOUVERAIN</div>
+          <h3 style="font-size:26px;">Le Coffre Intégral Souverain (Les 7 Packs Réunis)</h3>
+          <p class="desc" style="max-width:680px; margin-bottom:0;">
+            Inclut l'intégralité des corpus : Doctrine, Agents, Inférence, Fiabilité 24/7, Coûts & Énergie, Protocoles, et Code de Production. 
+            Bonus exclusif : scripts d'injection SQLite FTS5 et templates d'intégration multi-modèles.
+          </p>
         </div>
         <div style="text-align:right;">
-          <div class="card-price" style="margin-bottom:10px;">199 € <span class="unit" style="text-decoration:line-through;color:#777;">252 €</span></div>
-          <a href="https://buy.stripe.com/test_bundle" class="btn-cta" style="padding:16px 36px; display:inline-block;">Obtenir le Coffre Complet (199 €) →</a>
+          <div class="card-price" style="margin-bottom:10px;">199 € <span class="unit" style="text-decoration:line-through;color:#777;">311 €</span></div>
+          <a href="https://buy.stripe.com/test_bundle" class="btn-cta" style="padding:16px 36px; display:inline-block; font-size:15px;">Obtenir le Coffre Complet (199 €) →</a>
         </div>
       </div>
     </div>
@@ -271,98 +370,159 @@ footer {
 
 <!-- SECTION 2 : PRESTATIONS ENTREPRISES (CLÉS EN MAIN SUR SITE) -->
 <section id="view-pro" style="display:none;">
-  <div class="sec-tag">Rayon 2 — Implantation & Clés en Main</div>
-  <h2 class="sec-title">Packs d'Automatisation Entreprise</h2>
-  <p class="sec-sub">Je viens installer l'infrastructure sur votre matériel ou vos serveurs. Zéro interruption, formation de vos équipes incluse.</p>
+  <div class="sec-tag">Rayon 2 — Implantation & Déploiement Entreprise</div>
+  <h2 class="sec-title">Packs d'Implantation Clés en Main</h2>
+  <p class="sec-sub">Nous installons l'infrastructure IA directement sur votre matériel interne ou serveurs dédiés. Zéro fuite de données, formation de vos équipes incluse.</p>
 
   <div class="cards-grid">
+    <!-- Offre 1 : Audit Souveraineté 48h -->
     <div class="card">
       <div>
-        <div class="card-badge">Indépendants & TPE</div>
-        <h3>Starter</h3>
-        <p class="desc">Votre première chaîne automatisée opérationnelle en 1 semaine.</p>
-        <div class="card-price">490 € <span class="unit">/ projet</span></div>
+        <div class="card-badge">Offre Flash · Décision Rapide</div>
+        <h3>Audit Souveraineté & Risques Data (48h)</h3>
+        <p class="desc">Diagnostic complet de votre exposition au Cloud Act et cartographie de votre parc matériel éligible à l'IA locale.</p>
+        <div class="card-price">1 500 € <span class="unit">HT / diagnostic</span></div>
         <ul>
-          <li><span class="check">✓</span> Audit de vos processus (2h)</li>
-          <li><span class="check">✓</span> 1 automatisation clé (devis, email, stock)</li>
-          <li><span class="check">✓</span> Guide PDF + 1 mois de support prioritaire</li>
-          <li><span class="check">✓</span> <strong>Bonus :</strong> 1 Pack RAG digital offert</li>
+          <li><span class="check">✓</span> Rapport d'exposition Shadow-AI (outils cloud des salariés)</li>
+          <li><span class="check">✓</span> Diagnostic parc GPU / serveurs internes</li>
+          <li><span class="check">✓</span> Plan de migration de 3 processus métiers sensibles</li>
+          <li><span class="check">✓</span> Livré sous 48h chrono avec restitution visio dirigeant</li>
         </ul>
       </div>
-      <a href="#contact" class="card-btn">Choisir le Pack Starter →</a>
+      <a href="#contact" class="card-btn">Commander l'Audit 48h →</a>
     </div>
 
+    <!-- Offre 2 : Pack Starter -->
     <div class="card highlight">
-      <div class="card-badge">⭐ Recommandé PME</div>
+      <div class="card-badge">⭐ Recommandé PME / Cabinets</div>
       <div>
-        <h3>Business</h3>
-        <p class="desc">Système complet pour automatiser votre gestion, vos commandes et votre contenu 24/7.</p>
-        <div class="card-price">1 490 € <span class="unit">/ projet</span></div>
+        <h3>Pack Starter IA Locale Clés en Main</h3>
+        <p class="desc">Votre première appliance ou serveur IA interne opérationnel en 1 semaine, sans aucun abonnement récurrent.</p>
+        <div class="card-price">4 900 € <span class="unit">HT (one-shot)</span></div>
         <ul>
-          <li><span class="check">✓</span> Tout du pack Starter</li>
-          <li><span class="check">✓</span> Jusqu'à 5 automatisations sur mesure</li>
-          <li><span class="check">✓</span> Tableau de bord IA personnalisé en temps réel</li>
-          <li><span class="check">✓</span> Formation équipe 1 journée sur site ou visio</li>
+          <li><span class="check">✓</span> Déploiement modèle local (Qwen 7B / Mistral) sur votre infra</li>
+          <li><span class="check">✓</span> Moteur RAG avec indexation de vos documents (PDF, devis, emails)</li>
+          <li><span class="check">✓</span> Interface Web Cockpit sécurisée sans dépendance Internet</li>
+          <li><span class="check">✓</span> Formation équipe (1/2 journée) + 30 jours de support prioritaire</li>
           <li><span class="check">✓</span> <strong>Bonus :</strong> Le Coffre Intégral RAG offert (199€)</li>
         </ul>
       </div>
-      <a href="#contact" class="card-btn">Je veux le Pack Business →</a>
+      <a href="#contact" class="card-btn">Déployer le Pack Starter →</a>
     </div>
 
+    <!-- Offre 3 : Cluster Industriel -->
     <div class="card">
       <div>
-        <div class="card-badge">Entreprises</div>
-        <h3>Pro</h3>
-        <p class="desc">Architecture multi-sites, intégration ERP/CRM et accompagnement approfondi.</p>
-        <div class="card-price">3 900 € <span class="unit">/ projet</span></div>
+        <div class="card-badge">ETI · Industrie · Aéronautique</div>
+        <h3>Cluster Turbo OS Entreprise</h3>
+        <p class="desc">Infrastructure complète multi-GPU distribuée, résilience H24, conformité NIS 2 et secret des affaires.</p>
+        <div class="card-price">15 000 € <span class="unit">HT à 35 000 €</span></div>
         <ul>
-          <li><span class="check">✓</span> Tout du pack Business</li>
-          <li><span class="check">✓</span> Jusqu'à 15 automatisations complexes</li>
-          <li><span class="check">✓</span> Intégration SAP / Odoo / Salesforce / Stripe</li>
-          <li><span class="check">✓</span> Formation 3 jours + vidéos de maintenance</li>
-          <li><span class="check">✓</span> 6 mois de mises à jour et support inclus</li>
+          <li><span class="check">✓</span> Architecture multi-GPU distribuée (inférence + fine-tuning)</li>
+          <li><span class="check">✓</span> Orchestrateur multi-agents OMEGA avec traçabilité totale</li>
+          <li><span class="check">✓</span> Cloisonnement réseau étanche (0 fuite vers l'extérieur)</li>
+          <li><span class="check">✓</span> Intégration ERP / CRM / GED métiers sur mesure</li>
+          <li><span class="check">✓</span> MCO & contrat d'astreinte 24/7 disponible</li>
         </ul>
       </div>
-      <a href="#contact" class="card-btn">Demander un Devis Pro →</a>
+      <a href="#contact" class="card-btn">Demander une Étude Cluster →</a>
     </div>
   </div>
 </section>
 
-<!-- SECTION SERVICES A LA CARTE -->
-<section id="services">
-  <div class="sec-tag">Intervention Ciblée</div>
-  <h2 class="sec-title">Services à la Carte & Dépannage</h2>
-  <div class="cards-grid" style="grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));">
-    <div class="card" style="padding:22px;">
-      <h4>🔍 Audit Système</h4>
-      <p class="desc" style="font-size:13px;">Cartographie de vos flux et calcul de rentabilité immédiat.</p>
-      <div style="font-weight:900; color:var(--red);">À partir de 290 €</div>
+<!-- SECTION 3 : COMPARATIF CLOUD VS TURBO OS -->
+<section id="comparatif">
+  <div class="sec-tag">Rentabilité & Sécurité</div>
+  <h2 class="sec-title">Pourquoi Choisir Turbo OS face au Cloud US ?</h2>
+  <p class="sec-sub">Comparez la réalité des coûts et des risques juridiques sur 3 ans :</p>
+
+  <div class="table-wrap">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Critère</th>
+          <th>Solutions Cloud (OpenAI, Anthropic, AWS)</th>
+          <th>Turbo OS (Souverain Local)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Coût d'utilisation</strong></td>
+          <td class="tag-bad">Facturation aux tokens (coût imprévisible qui explose avec le volume)</td>
+          <td class="tag-good">0 € de coût récurrent (coût fixe matériel amorti en quelques mois)</td>
+        </tr>
+        <tr>
+          <td><strong>Confidentialité des données</strong></td>
+          <td class="tag-bad">Transférées sur des serveurs tiers soumis au Cloud Act américain</td>
+          <td class="tag-good">100% sur vos machines locales en circuit fermé (127.0.0.1)</td>
+        </tr>
+        <tr>
+          <td><strong>Conformité RGPD & NIS 2</strong></td>
+          <td class="tag-bad">Risque juridique permanent, DPA complexe, audits difficiles</td>
+          <td class="tag-good">Conformité native absolue (zéro transfert de données)</td>
+        </tr>
+        <tr>
+          <td><strong>Disponibilité & Continuité</strong></td>
+          <td class="tag-bad">Dépendance à votre connexion Internet et aux pannes des API cloud</td>
+          <td class="tag-good">Fonctionne même sans connexion Internet, 24h/24 et 7j/7</td>
+        </tr>
+        <tr>
+          <td><strong>Propriété intellectuelle</strong></td>
+          <td class="tag-bad">Modèles hébergés chez des tiers, risque d'entraînement sur vos prompts</td>
+          <td class="tag-good">Vous possédez vos données, vos corpus et votre infrastructure</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- SECTION 4 : FAQ -->
+<section id="faq">
+  <div class="sec-tag">Transparence</div>
+  <h2 class="sec-title">Foire Aux Questions</h2>
+  <div class="faq-grid">
+    <div class="faq-card">
+      <h4>Quel matériel est nécessaire pour faire tourner Turbo OS ?</h4>
+      <p>Une simple machine équipée d'une carte graphique grand public (RTX 3060/3080/4060 avec 8 à 12 Go de VRAM) suffit pour faire tourner des modèles de pointe de 7 à 14 milliards de paramètres à plus de 30 tokens par seconde.</p>
     </div>
-    <div class="card" style="padding:22px;">
-      <h4>🧮 Calcul Infrastructure</h4>
-      <p class="desc" style="font-size:13px;">Dimensionnement CPU/GPU/VRAM sans surcoût inutile.</p>
-      <div style="font-weight:900; color:var(--red);">À partir de 190 €</div>
+    <div class="faq-card">
+      <h4>Mes données peuvent-elles fuiter sur Internet ?</h4>
+      <p>Non. Le système est conçu dès son architecture pour boucler exclusivement sur l'interface locale loopback 127.0.0.1. Aucun octet de vos documents ou de vos requêtes ne quitte vos locaux.</p>
     </div>
-    <div class="card" style="padding:22px;">
-      <h4>🔧 Dépannage & Optimisation</h4>
-      <p class="desc" style="font-size:13px;">Diagnostic, déblocage de pipeline ou latence LLM.</p>
-      <div style="font-weight:900; color:var(--red);">90 € / heure</div>
+    <div class="faq-card">
+      <h4>Comment se passe le déploiement en entreprise ?</h4>
+      <p>Nous intervenons soit sur votre matériel existant, soit nous livrons une station préconfigurée clé en main. L'installation complète et la configuration de votre RAG prennent entre 24h et 5 jours selon la formule choisie.</p>
     </div>
-    <div class="card" style="padding:22px;">
-      <h4>📋 Devis & Faisabilité</h4>
-      <p class="desc" style="font-size:13px;">Étude préalable sans engagement sous 48h.</p>
-      <div style="font-weight:900; color:var(--green);">0 € (Offert)</div>
+    <div class="faq-card">
+      <h4>Quelle est la différence entre les packs RAG et l'installation clé en main ?</h4>
+      <p>Les packs RAG sont des jeux de données et corpus structurés téléchargeables immédiatement pour enrichir vos propres IA. L'installation clé en main est un service d'intégration complet où nous installons et configurons tout le système pour vous.</p>
     </div>
   </div>
 </section>
 
+<!-- SECTION 5 : CONTACT DIRECT & FOOTER -->
 <footer id="contact">
-  <div style="max-width:600px; margin:0 auto 30px;">
-    <h3 style="font-size:22px; font-weight:800; margin-bottom:10px;">Contact Direct & Réservation</h3>
-    <p style="color:var(--muted); font-size:14px; margin-bottom:20px;">Contactez Franck Delmas pour calibrer votre projet ou commander directement :</p>
-    <a href="mailto:franck.delmas31@gmail.com" class="btn-cta" style="display:inline-block; padding:14px 30px;">Envoyer un Message / Demande d'Audit →</a>
+  <div style="max-width:700px; margin:0 auto 30px;">
+    <h3 style="font-size:26px; font-weight:900; margin-bottom:12px; color:#fff;">Contact Direct & Prise de Rendez-vous</h3>
+    <p style="color:var(--muted); font-size:15px; margin-bottom:24px; line-height:1.6;">
+      Vous souhaitez réaliser un <strong>Audit Souveraineté sous 48h</strong> ou déployer un <strong>Pack Starter</strong> dans votre entreprise ?<br>
+      Échangez directement avec Franck Delmas, concepteur de Turbo OS :
+    </p>
+    <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:24px;">
+      <a href="mailto:franckdelmas00@gmail.com" class="btn-cta" style="padding:14px 28px; font-size:14px;">✉️ franckdelmas00@gmail.com</a>
+      <a href="tel:0651585746" class="btn-cta" style="background:#262630; padding:14px 28px; font-size:14px;">📞 06 51 58 57 46</a>
+    </div>
+    <p style="font-size:12px; color:#777;">
+      Éditeur : Franck DELMAS (EI) · SIREN : 815 353 966 · Toulouse / Saint-Orens-de-Gameville, France
+    </p>
   </div>
-  <p>© 2026 TURBO OS & ALKYMIA OSS — Tous droits réservés. Hébergé en local 127.0.0.1.</p>
+
+  <div class="footer-links">
+    <a href="./mentions-legales.html">Mentions Légales</a>
+    <a href="./cgv.html">Conditions Générales de Vente (B2B)</a>
+    <a href="./confidentialite.html">Politique de Confidentialité</a>
+  </div>
+  <p style="margin-top:20px; font-size:12px; color:#555;">© 2026 TURBO OS × ALKYMIA — Tous droits réservés. Vente réservée aux professionnels.</p>
 </footer>
 
 <script>

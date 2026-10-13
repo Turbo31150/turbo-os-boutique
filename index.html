@@ -1,2527 +1,549 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Turbo OS · Boutique Souveraine & Académie IA Locale — 0 Token à Vie</title>
-<meta name="description" content="Prenez le pouvoir sur votre IA. Packs de connaissance souverains, RAG local 768D, orchestration d'agents 24/7 et formations guidées pour tous niveaux. 0 abonnement cloud, 100% privé.">
+<title>TURBO OS × ALKYMIA — Systèmes IA & Corpus RAG Souverains (0€ de Cloud Récurrent)</title>
+<meta name="description" content="L'écosystème IA souverain complet : Packs de corpus RAG instantanés et Implantation clé en main sur site pour PME, ETI et Industrie. 0€ d'abonnement cloud, 100% privé.">
 <style>
-  :root {
-    --bg: #070d18;
-    --surface: #0e1726;
-    --surface-alt: #131f33;
-    --surface-glass: rgba(14, 23, 38, 0.82);
-    --fg: #f1f5f9;
-    --fg-dim: #94a3b8;
-    --fg-faint: #64748b;
-    --border: #1e293b;
-    --border-bright: #334155;
-    --accent: #6366f1;
-    --accent-glow: rgba(99, 102, 241, 0.35);
-    --accent-press: #4f46e5;
-    --accent-wash: rgba(99, 102, 241, 0.12);
-    --emerald: #10b981;
-    --emerald-glow: rgba(16, 185, 129, 0.35);
-    --emerald-wash: rgba(16, 185, 129, 0.12);
-    --amber: #f59e0b;
-    --amber-wash: rgba(245, 158, 11, 0.14);
-    --cyan: #06b6d4;
-    --cyan-glow: rgba(6, 182, 212, 0.35);
-    --purple: #a855f7;
-    --purple-glow: rgba(168, 85, 247, 0.35);
-    --rose: #f43f5e;
-    --radius: 16px;
-    --radius-sm: 10px;
-    --radius-xs: 6px;
-    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, system-ui, sans-serif;
-    --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Menlo, Consolas, monospace;
-    --maxw: 1200px;
-    --shadow-rest: 0 4px 20px rgba(0, 0, 0, 0.45);
-    --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.25);
-  }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&display=swap');
+:root {
+  --red: #e50914;
+  --red-hover: #c11119;
+  --bg: #0a0a0c;
+  --bg2: #141418;
+  --bg3: #1c1c22;
+  --text: #f0f0f5;
+  --muted: #a0a0b0;
+  --gold: #f5a623;
+  --green: #46d369;
+  --cyan: #00d4ff;
+  --border: #262630;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; overflow-x:hidden; line-height:1.5; }
+a { text-decoration:none; color:inherit; }
 
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0; padding: 0;
-    background: var(--bg);
-    color: var(--fg);
-    font-family: var(--font-sans);
-    line-height: 1.55;
-    overflow-x: hidden;
-  }
+/* Top Urgency Bar */
+.top-bar {
+  background: linear-gradient(90deg, #b0060e, var(--red), #b0060e);
+  text-align: center; padding: 8px 16px; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+}
+.top-bar span.pill {
+  background: rgba(0,0,0,0.3); padding: 2px 8px; border-radius: 4px; font-size: 11px;
+}
 
-  section[id], header[id] {
-    scroll-margin-top: 90px;
-  }
+/* Navbar */
+nav {
+  position: fixed; top: 35px; left: 0; right: 0; z-index: 400;
+  height: 68px; padding: 0 5%; display: flex; align-items: center; justify-content: space-between;
+  background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.logo { font-size: 22px; font-weight: 900; letter-spacing: -1px; }
+.logo span.brand { color: var(--red); }
+.logo span.badge { font-family:'JetBrains Mono',monospace; font-size: 11px; color: var(--cyan); background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3); padding: 2px 6px; border-radius: 4px; margin-left: 8px; }
 
-  .mono { font-family: var(--font-mono); }
-  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
-  .eyebrow {
-    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em;
-    color: var(--accent); font-weight: 700; margin-bottom: 8px;
-    display: inline-flex; align-items: center; gap: 6px;
-  }
-  .h2 { font-size: clamp(1.8rem, 3.2vw, 2.4rem); font-weight: 800; line-height: 1.18; margin: 0 0 12px; }
-  .lead { font-size: 1.05rem; color: var(--fg-dim); line-height: 1.6; max-width: 680px; }
+.nav-links { display: flex; gap: 24px; font-size: 14px; font-weight: 500; }
+.nav-links a { color: var(--muted); transition: 0.2s; }
+.nav-links a:hover { color: #fff; }
 
-  /* Badges & Tags */
-  .badge-tag {
-    display: inline-flex; align-items: center; gap: 5px;
-    padding: 3px 10px; border-radius: 999px; font-size: 0.75rem;
-    font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
-  }
-  .badge-emerald { background: var(--emerald-wash); color: var(--emerald); border: 1px solid rgba(16, 185, 129, 0.3); }
-  .badge-amber { background: var(--amber-wash); color: var(--amber); border: 1px solid rgba(245, 158, 11, 0.3); }
-  .badge-indigo { background: var(--accent-wash); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.3); }
-  .badge-cyan { background: rgba(6, 182, 212, 0.14); color: var(--cyan); border: 1px solid rgba(6, 182, 212, 0.3); }
-  .badge-purple { background: rgba(168, 85, 247, 0.14); color: var(--purple); border: 1px solid rgba(168, 85, 247, 0.3); }
+.nav-actions { display: flex; gap: 10px; align-items: center; }
+.btn-cta {
+  background: var(--red); color: #fff; padding: 9px 20px; border-radius: 6px;
+  font-size: 13px; font-weight: 700; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center;
+}
+.btn-cta:hover { background: var(--red-hover); transform: translateY(-1px); }
 
-  /* Boutons */
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    padding: 12px 22px; border-radius: var(--radius-sm); font-size: 0.95rem;
-    font-weight: 700; text-decoration: none; cursor: pointer; border: none;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .btn:hover { transform: translateY(-2px); }
-  .btn-primary {
-    background: linear-gradient(135deg, var(--accent), var(--accent-press));
-    color: #fff; box-shadow: 0 4px 20px var(--accent-glow);
-  }
-  .btn-fire {
-    background: linear-gradient(135deg, #f59e0b, #ef4444);
-    color: #fff; box-shadow: 0 4px 20px rgba(239, 68, 68, 0.35);
-  }
-  .btn-ghost {
-    background: rgba(255, 255, 255, 0.05); color: var(--fg);
-    border: 1px solid var(--border-bright);
-  }
-  .btn-ghost:hover { background: rgba(255, 255, 255, 0.1); border-color: #fff; }
-  .btn-block { width: 100%; }
+/* Hero */
+.hero {
+  padding: 150px 5% 70px; text-align: center; max-width: 1000px; margin: 0 auto;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--bg2); border: 1px solid var(--border);
+  padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600;
+  color: var(--cyan); margin-bottom: 24px;
+}
+.hero-badge span.dot { width: 8px; height: 8px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 8px var(--cyan); }
+.hero h1 {
+  font-size: clamp(34px, 5.5vw, 62px); font-weight: 900; line-height: 1.1;
+  letter-spacing: -1.5px; margin-bottom: 20px;
+}
+.hero h1 span.red { color: var(--red); }
+.hero h1 span.grad {
+  background: linear-gradient(90deg, #fff, var(--muted));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-p {
+  font-size: clamp(16px, 2vw, 19px); color: var(--muted); max-width: 720px;
+  margin: 0 auto 36px; line-height: 1.6;
+}
 
-  /* ═══ TOP RIBBON D'URGENCE ═══ */
-  .top-ribbon {
-    background: linear-gradient(90deg, #b91c1c, #9333ea, #1d4ed8);
-    background-size: 200% 200%;
-    animation: ribbonShift 8s ease infinite;
-    color: #fff; padding: 9px 16px; font-size: 0.85rem; font-weight: 600;
-    display: flex; justify-content: space-around; align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    position: sticky; top: 0; z-index: 60;
-  }
-  @keyframes ribbonShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  .ribbon-timer {
-    font-family: var(--font-mono); font-weight: 800; background: rgba(0, 0, 0, 0.35);
-    padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.3);
-  }
+/* Dual Engine Switcher */
+.engine-switcher {
+  display: inline-flex; background: var(--bg2); border: 1px solid var(--border);
+  padding: 5px; border-radius: 30px; margin-bottom: 40px;
+}
+.switch-btn {
+  background: transparent; border: none; color: var(--muted);
+  padding: 10px 24px; border-radius: 25px; font-size: 14px; font-weight: 700;
+  cursor: pointer; transition: 0.2s;
+}
+.switch-btn.active {
+  background: var(--red); color: #fff; box-shadow: 0 4px 15px rgba(229,9,20,0.3);
+}
 
-  /* ═══ NAVBAR ═══ */
-  .nav {
-    background: rgba(7, 13, 24, 0.88); backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--border); position: sticky; top: 40px; z-index: 50;
-  }
-  .nav-inner {
-    display: flex; align-items: center; justify-content: space-between;
-    height: 64px; gap: 16px;
-  }
-  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.15rem; text-decoration: none; color: #fff; }
-  .logo-orb {
-    width: 32px; height: 32px; border-radius: 9px;
-    background: linear-gradient(135deg, var(--accent), var(--cyan));
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 900; color: #fff; box-shadow: 0 0 15px var(--accent-glow);
-  }
-  .pfx { color: #fff; }
-  .sfx { color: var(--fg-dim); font-weight: 500; font-size: 0.95rem; }
-  .nav-links { display: flex; gap: 20px; align-items: center; }
-  .nav-links a { color: var(--fg-dim); text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: color 0.15s; }
-  .nav-links a:hover { color: #fff; }
-  .nav-right { display: flex; align-items: center; gap: 12px; }
-  .nav-cart-btn {
-    position: relative; background: var(--surface); border: 1px solid var(--border-bright);
-    color: #fff; padding: 8px 14px; border-radius: var(--radius-sm);
-    display: flex; align-items: center; gap: 8px; cursor: pointer;
-  }
-  .nav-cart-btn span#cart-badge {
-    background: var(--accent); color: #fff; font-size: 0.72rem;
-    font-weight: 800; padding: 2px 7px; border-radius: 999px;
-  }
+/* Key Metrics */
+.stats-strip {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px; margin: 20px auto 60px; max-width: 900px;
+}
+.stat-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 12px; padding: 18px 12px; text-align: center;
+}
+.stat-val { font-size: 28px; font-weight: 900; font-family:'JetBrains Mono',monospace; color: var(--text); }
+.stat-lbl { font-size: 12px; color: var(--muted); margin-top: 4px; font-weight: 600; text-transform: uppercase; }
 
-  /* ═══ HERO ═══ */
-  .hero {
-    position: relative; padding: 60px 0 45px;
-    background: radial-gradient(circle at 50% 10%, rgba(99, 102, 241, 0.15) 0%, transparent 60%);
-    border-bottom: 1px solid var(--border);
-  }
-  .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: center; }
-  .hero h1 { font-size: clamp(2.2rem, 4.4vw, 3.4rem); font-weight: 900; line-height: 1.12; margin: 0 0 18px; color: #fff; }
-  .hero-highlight {
-    background: linear-gradient(135deg, #a5b4fc, #38bdf8, #34d399);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .hero-subtitle { font-size: 1.12rem; color: var(--fg-dim); line-height: 1.6; margin-bottom: 28px; }
-  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 30px; }
-  .trust-strip { display: flex; gap: 24px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 20px; }
-  .trust-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--fg-dim); }
-  .trust-icon { color: var(--emerald); font-weight: bold; }
+/* Sections */
+section { padding: 70px 5%; max-width: 1200px; margin: 0 auto; }
+.sec-tag { font-size: 12px; font-weight: 800; color: var(--red); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; }
+.sec-title { font-size: clamp(26px, 3.5vw, 40px); font-weight: 900; margin-bottom: 14px; letter-spacing: -0.5px; }
+.sec-sub { font-size: 16px; color: var(--muted); max-width: 650px; margin-bottom: 40px; }
 
-  /* Terminal Hero Live */
-  .hero-term {
-    background: #090f1d; border: 1px solid var(--border-bright);
-    border-radius: var(--radius); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-    overflow: hidden; font-family: var(--font-mono); font-size: 0.85rem;
-  }
-  .term-header {
-    background: #0e1726; padding: 10px 16px; display: flex;
-    justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border);
-  }
-  .term-dots { display: flex; gap: 6px; }
-  .term-dot { width: 10px; height: 10px; border-radius: 50%; }
-  .dot-red { background: #ef4444; } .dot-yel { background: #f59e0b; } .dot-gre { background: #10b981; }
-  .term-tabs { display: flex; gap: 4px; }
-  .term-tab {
-    background: transparent; border: none; color: var(--fg-dim);
-    padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; cursor: pointer;
-  }
-  .term-tab.active { background: rgba(99, 102, 241, 0.2); color: #818cf8; font-weight: 700; }
-  .term-body { padding: 18px; line-height: 1.7; min-height: 250px; color: #cbd5e1; white-space: pre-wrap; word-break: break-word; }
-  .term-prompt { color: #38bdf8; } .term-cmd { color: #f8fafc; font-weight: bold; }
-  .term-out { color: #94a3b8; } .term-succ { color: #34d399; font-weight: 600; }
+/* Cards Grid */
+.cards-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+.card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 16px; padding: 30px; display: flex; flex-direction: column;
+  justify-content: space-between; transition: 0.25s; position: relative;
+}
+.card:hover { border-color: rgba(229,9,20,0.4); transform: translateY(-3px); }
+.card.highlight {
+  border-color: var(--red); background: linear-gradient(180deg, rgba(229,9,20,0.06), var(--bg2));
+}
+.card-badge {
+  display: inline-block; font-size: 11px; font-weight: 800; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 6px; background: rgba(255,255,255,0.06);
+  color: var(--gold); margin-bottom: 14px;
+}
+.card.highlight .card-badge { background: var(--red); color: #fff; }
+.card h3 { font-size: 21px; font-weight: 800; margin-bottom: 8px; }
+.card p.desc { font-size: 14px; color: var(--muted); line-height: 1.5; margin-bottom: 20px; }
+.card-price { font-size: 38px; font-weight: 900; font-family:'JetBrains Mono',monospace; margin-bottom: 20px; }
+.card-price span.unit { font-size: 14px; color: var(--muted); font-family:'Inter',sans-serif; font-weight: 400; }
+.card ul { list-style: none; margin-bottom: 26px; }
+.card ul li { font-size: 13px; color: #ccc; margin-bottom: 10px; display: flex; gap: 10px; align-items: baseline; }
+.card ul li span.check { color: var(--green); font-weight: 900; }
 
-  /* ═══ ROI SIMULATOR ═══ */
-  .roi-box {
-    background: linear-gradient(135deg, rgba(14, 23, 38, 0.95), rgba(19, 31, 51, 0.95));
-    border: 1px solid var(--border-bright); border-radius: var(--radius);
-    padding: 40px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    margin: 50px 0;
-  }
-  .roi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; align-items: center; }
-  .roi-slider-group { margin-bottom: 22px; }
-  .roi-slider-label { display: flex; justify-content: space-between; font-weight: 600; font-size: 0.92rem; margin-bottom: 8px; }
-  .roi-slider-val { font-family: var(--font-mono); color: var(--cyan); font-weight: 800; }
-  .roi-range {
-    width: 100%; height: 8px; border-radius: 4px;
-    background: #1e293b; outline: none; -webkit-appearance: none;
-  }
-  .roi-range::-webkit-slider-thumb {
-    -webkit-appearance: none; width: 22px; height: 22px;
-    border-radius: 50%; background: var(--cyan); cursor: pointer;
-    box-shadow: 0 0 10px var(--cyan-glow);
-  }
-  .roi-card-choc {
-    background: #090f1e; border: 2px solid rgba(16, 185, 129, 0.4);
-    border-radius: var(--radius); padding: 28px; text-align: center;
-    box-shadow: 0 0 30px rgba(16, 185, 129, 0.15);
-  }
-  .roi-saved-sum {
-    font-size: clamp(2.4rem, 4.2vw, 3.6rem); font-weight: 900;
-    color: var(--emerald); font-family: var(--font-mono); line-height: 1; margin: 12px 0 6px;
-  }
-  .roi-days { font-size: 0.95rem; color: #a7f3d0; font-weight: 700; margin-top: 14px; }
+.card-btn {
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+  color: #fff; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 700;
+  text-align: center; transition: 0.2s; display: block;
+}
+.card-btn:hover { background: var(--red); border-color: var(--red); }
+.card.highlight .card-btn { background: var(--red); border-color: var(--red); }
+.card.highlight .card-btn:hover { background: var(--red-hover); }
 
-  /* ═══ LES 3 PILIERS ═══ */
-  .pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 30px; }
-  .pillar-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 28px; transition: transform 0.2s, border-color 0.2s;
-  }
-  .pillar-card:hover { transform: translateY(-4px); border-color: var(--accent); }
-  .pillar-icon { font-size: 2rem; margin-bottom: 14px; }
-  .pillar-card h3 { font-size: 1.25rem; font-weight: 800; margin: 0 0 10px; color: #fff; }
-  .pillar-card p { font-size: 0.92rem; color: var(--fg-dim); line-height: 1.55; margin: 0; }
+/* Comparatif Table */
+.table-wrap {
+  overflow-x: auto; background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 16px; margin: 30px 0;
+}
+table.comp-table {
+  width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;
+}
+table.comp-table th, table.comp-table td {
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+}
+table.comp-table th { background: var(--bg3); font-weight: 800; font-size: 13px; text-transform: uppercase; color: var(--muted); }
+table.comp-table tr:last-child td { border-bottom: none; }
+.tag-bad { color: #f43f5e; font-weight: 700; }
+.tag-good { color: var(--green); font-weight: 700; }
 
-  /* ═══ TABLE RONDE COCKPIT ═══ */
-  .tr-section {
-    padding: 60px 0; position: relative;
-    background: radial-gradient(circle at 50% 25%, rgba(99, 102, 241, 0.09) 0%, transparent 65%);
-    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-  }
-  .tr-amphi-box {
-    background: var(--surface); border: 1px solid var(--border-bright);
-    border-radius: var(--radius); padding: 34px 28px; box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
-  }
-  .tr-reactor-card {
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 24px;
-    background: linear-gradient(135deg, #090f1d, #0d1525);
-    border: 1px solid rgba(99, 102, 241, 0.35); border-radius: var(--radius-sm);
-    padding: 22px 24px; margin-bottom: 30px; position: relative; overflow: hidden;
-  }
-  .tr-reactor-left { display: flex; align-items: center; gap: 20px; }
-  .tr-gauge-wrap { position: relative; width: 110px; height: 110px; flex-shrink: 0; }
-  .tr-gauge-svg { width: 110px; height: 110px; transform: rotate(-90deg); }
-  .tr-circle-bg { stroke: rgba(255, 255, 255, 0.08); }
-  .tr-circle-val {
-    stroke: var(--emerald); stroke-dasharray: 283; stroke-dashoffset: 14;
-    transition: stroke-dashoffset 0.8s ease, stroke 0.4s ease;
-  }
-  .tr-gauge-center {
-    position: absolute; inset: 0; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; text-align: center;
-  }
-  .tr-gauge-val { font-family: var(--font-mono); font-weight: 900; font-size: 1.45rem; color: #fff; line-height: 1; }
-  .tr-gauge-lbl { font-size: 0.65rem; color: var(--emerald); font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; margin-top: 3px; }
-  .tr-reactor-stats { display: flex; gap: 22px; flex-wrap: wrap; }
-  .tr-rstat { border-left: 2px solid rgba(99, 102, 241, 0.4); padding-left: 14px; }
-  .tr-rstat-lbl { font-size: 0.72rem; color: var(--fg-faint); text-transform: uppercase; margin-bottom: 2px; }
-  .tr-rstat-val { font-family: var(--font-mono); font-size: 1.05rem; font-weight: 700; color: #fff; }
+/* FAQ */
+.faq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 30px; }
+.faq-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 22px; }
+.faq-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: #fff; }
+.faq-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
 
-  /* 7 Seats Grid */
-  .tr-seats-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 16px; margin-bottom: 28px;
-  }
-  .tr-seat-card {
-    background: #080d1a; border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 18px 16px;
-    position: relative; overflow: hidden; transition: all 0.22s ease;
-  }
-  .tr-seat-card:hover { transform: translateY(-2px); border-color: var(--seat-color, var(--accent)); }
-  .tr-seat-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: var(--seat-color, var(--accent));
-  }
-  .tr-seat-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-  .tr-seat-name { font-weight: 700; font-size: 0.92rem; color: #fff; display: flex; align-items: center; gap: 6px; }
-  .tr-seat-badge {
-    font-family: var(--font-mono); font-size: 0.7rem; padding: 2px 7px;
-    border-radius: 4px; background: rgba(255, 255, 255, 0.06); color: var(--fg-dim);
-  }
-  .tr-seat-role { font-size: 0.82rem; color: var(--fg-dim); line-height: 1.42; margin-bottom: 10px; min-height: 40px; }
-  .tr-seat-quote {
-    font-size: 0.78rem; font-style: italic; color: rgba(255, 255, 255, 0.72);
-    background: rgba(0, 0, 0, 0.28); border-left: 2px solid var(--seat-color, var(--accent));
-    padding: 6px 9px; border-radius: 0 4px 4px 0; margin-bottom: 12px;
-  }
-  .tr-seat-foot { display: flex; justify-content: space-between; align-items: center; font-size: 0.74rem; font-family: var(--font-mono); }
-  .tr-seat-status { display: flex; align-items: center; gap: 6px; }
-  .tr-status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--fg-faint); }
-  .tr-status-dot.online { background: var(--emerald); box-shadow: 0 0 6px var(--emerald); }
-
-  /* Deliberation Arena */
-  .tr-arena-box {
-    background: #080e1c; border: 1px solid var(--border-bright);
-    border-radius: var(--radius-sm); padding: 24px;
-  }
-  .tr-chips-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 16px; }
-  .tr-chip-btn {
-    background: #0e1726; border: 1px solid var(--border); color: var(--fg-dim);
-    padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .tr-chip-btn:hover { border-color: var(--accent); color: #fff; background: rgba(99, 102, 241, 0.12); }
-  .tr-input-row { display: flex; gap: 12px; flex-wrap: wrap; }
-  .tr-input-row input {
-    flex: 1; min-width: 250px; background: #050a14;
-    border: 1px solid var(--border); border-radius: var(--radius-sm);
-    padding: 12px 16px; color: #fff; font-size: 0.95rem;
-  }
-  .tr-input-row input:focus { border-color: var(--accent); outline: none; }
-  .tr-progress-bar {
-    display: none; margin-top: 18px; padding: 14px;
-    background: rgba(0, 0, 0, 0.35); border-radius: var(--radius-xs);
-    border: 1px solid var(--border);
-  }
-  .tr-progress-steps {
-    display: flex; justify-content: space-between; gap: 8px;
-    margin-bottom: 8px; font-size: 0.76rem; font-family: var(--font-mono); color: var(--fg-dim);
-  }
-  .tr-step-line { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
-  .tr-step-fill {
-    height: 100%; width: 0%;
-    background: linear-gradient(90deg, var(--accent), var(--emerald));
-    transition: width 0.4s ease;
-  }
-  .tr-delib-results { display: none; margin-top: 24px; }
-  .tr-opinions-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 12px; margin-bottom: 20px;
-  }
-  .tr-opinion-card {
-    background: #0b1322; border-left: 3px solid var(--accent);
-    border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
-    padding: 14px; font-size: 0.85rem;
-  }
-  .tr-opinion-head { display: flex; justify-content: space-between; margin-bottom: 6px; font-weight: 700; font-size: 0.88rem; }
-  .tr-opinion-stance { font-family: var(--font-mono); font-size: 0.72rem; padding: 2px 6px; border-radius: 3px; }
-  .tr-verdict-box {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(99, 102, 241, 0.08));
-    border: 1px solid rgba(16, 185, 129, 0.35); border-radius: var(--radius-sm); padding: 22px;
-  }
-  .tr-verdict-head {
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 10px; margin-bottom: 12px; padding-bottom: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  }
-  .tr-verdict-title { font-size: 1.15rem; font-weight: 800; color: #fff; }
-  .tr-verdict-body h4 { font-size: 0.85rem; text-transform: uppercase; color: var(--emerald); margin: 12px 0 4px; }
-  .tr-verdict-body p { color: #cbd5e1; font-size: 0.88rem; line-height: 1.5; margin: 0 0 10px; }
-  .tr-crypto-seal {
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 10px; padding: 10px 14px; margin-top: 14px;
-    background: rgba(0, 0, 0, 0.4); border-radius: var(--radius-xs);
-    font-family: var(--font-mono); font-size: 0.75rem; color: var(--fg-dim);
-  }
-
-  /* ═══ NIVEAUX D'APPRENTISSAGE ═══ */
-  .levels-section { padding: 50px 0; background: #060b14; border-bottom: 1px solid var(--border); }
-  .level-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
-  .level-tab-btn {
-    background: var(--surface); border: 1px solid var(--border);
-    color: var(--fg-dim); padding: 10px 22px; border-radius: 999px;
-    font-size: 0.92rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
-  }
-  .level-tab-btn.active {
-    background: var(--accent); color: #fff; border-color: var(--accent);
-    box-shadow: 0 0 18px var(--accent-glow);
-  }
-  .level-card {
-    background: var(--surface); border: 1px solid var(--border-bright);
-    border-radius: var(--radius); padding: 34px; max-width: 900px; margin: 0 auto;
-  }
-  .level-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 30px; }
-  .level-modules-list { list-style: none; padding: 0; margin: 16px 0 0; }
-  .level-modules-list li {
-    padding: 8px 0; border-bottom: 1px solid var(--border);
-    display: flex; align-items: flex-start; gap: 10px; font-size: 0.92rem;
-  }
-  .mentor-highlight-box {
-    margin-top: 24px; padding: 14px 18px; border-radius: var(--radius-sm);
-    background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.25);
-    font-size: 0.85rem; color: #cbd5e1;
-  }
-
-  /* ═══ CATALOGUE DES PACKS ═══ */
-  .catalog-sec { padding: 60px 0; }
-  .catalog-filters { display: flex; justify-content: center; gap: 8px; margin-bottom: 30px; flex-wrap: wrap; }
-  .filter-btn {
-    background: transparent; border: 1px solid var(--border);
-    color: var(--fg-dim); padding: 7px 16px; border-radius: 999px;
-    font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.15s;
-  }
-  .filter-btn.active, .filter-btn:hover { background: rgba(255, 255, 255, 0.06); color: #fff; border-color: #fff; }
-  .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
-  .pack-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column;
-    justify-content: space-between; position: relative; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .pack-card:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); }
-  .pack-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-  .pack-icon { font-size: 1.8rem; }
-  .pack-title { font-size: 1.2rem; font-weight: 800; color: #fff; margin: 8px 0 6px; }
-  .pack-desc { font-size: 0.88rem; color: var(--fg-dim); line-height: 1.5; margin-bottom: 16px; }
-  .pack-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
-  .pack-tag-item {
-    font-family: var(--font-mono); font-size: 0.72rem; padding: 2px 7px;
-    border-radius: 4px; background: rgba(255, 255, 255, 0.04); color: var(--fg-faint);
-  }
-  .pack-footer {
-    display: flex; justify-content: space-between; align-items: center;
-    border-top: 1px solid var(--border); padding-top: 16px; margin-top: auto;
-  }
-  .pack-price { font-family: var(--font-mono); font-size: 1.45rem; font-weight: 800; color: #fff; }
-  .pack-price small { font-size: 0.8rem; color: var(--fg-faint); text-decoration: line-through; margin-left: 6px; }
-
-  /* ═══ SQL BOARD × 3 BASES ═══ */
-  .sql-section { padding: 60px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: #060a12; }
-  .sql-card {
-    background: var(--surface); border: 1px solid var(--border-bright);
-    border-radius: var(--radius); padding: 32px 28px; box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
-  }
-  .sql-tabs-bar {
-    display: flex; gap: 10px; border-bottom: 1px solid var(--border);
-    padding-bottom: 12px; margin-bottom: 22px; overflow-x: auto;
-    scrollbar-width: thin;
-  }
-  .sql-tabs-bar::-webkit-scrollbar { height: 4px; }
-  .sql-tabs-bar::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 4px; }
-  .sql-tab-btn {
-    background: #090f1c; border: 1px solid var(--border); border-radius: var(--radius-sm);
-    padding: 10px 18px; color: var(--fg-dim); font-size: 0.88rem; font-weight: 600;
-    cursor: pointer; display: flex; align-items: center; gap: 8px; white-space: nowrap;
-    transition: all 0.2s ease;
-  }
-  .sql-tab-btn.active {
-    background: rgba(99, 102, 241, 0.15); border-color: var(--accent); color: #fff;
-    box-shadow: 0 0 14px rgba(99, 102, 241, 0.25);
-  }
-  .sql-meta-bar {
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 14px; background: #09101d; border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 12px 18px; margin-bottom: 20px;
-  }
-  .sql-meta-tags { display: flex; gap: 16px; flex-wrap: wrap; font-size: 0.82rem; }
-  .sql-meta-tag strong { color: #fff; font-family: var(--font-mono); }
-  .sql-console-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 20px; margin-bottom: 22px; }
-  .sql-editor-box {
-    background: #060a12; border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 16px; display: flex; flex-direction: column;
-  }
-  .sql-editor-head {
-    display: flex; justify-content: space-between; align-items: center;
-    font-family: var(--font-mono); font-size: 0.76rem; color: var(--fg-faint); margin-bottom: 10px;
-  }
-  .sql-textarea {
-    width: 100%; background: transparent; border: none; color: #a5f3fc;
-    font-family: var(--font-mono); font-size: 0.86rem; resize: vertical;
-    min-height: 95px; outline: none; line-height: 1.42;
-  }
-  .sql-presets-list { display: flex; flex-direction: column; gap: 8px; }
-  .sql-preset-btn {
-    background: #0a111e; border: 1px solid var(--border); border-radius: var(--radius-sm);
-    padding: 10px 14px; text-align: left; cursor: pointer; transition: all 0.2s ease;
-  }
-  .sql-preset-btn:hover { border-color: var(--cyan); background: rgba(6, 182, 212, 0.08); }
-  .sql-preset-title { font-size: 0.82rem; font-weight: 700; color: #fff; margin-bottom: 3px; }
-  .sql-preset-code {
-    font-family: var(--font-mono); font-size: 0.72rem; color: var(--fg-dim);
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
-  .sql-table-container {
-    overflow-x: auto; background: #060a12; border: 1px solid var(--border);
-    border-radius: var(--radius-sm); margin-bottom: 24px; max-height: 360px; overflow-y: auto;
-  }
-  .sql-table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.78rem; }
-  .sql-table th {
-    background: #0e1726; color: var(--accent); padding: 10px 14px; text-align: left;
-    position: sticky; top: 0; border-bottom: 1px solid var(--border-bright); z-index: 2;
-  }
-  .sql-table td {
-    padding: 8px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    color: #d1d5db; max-width: 340px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
-  .sql-table tr:hover td { background: rgba(255, 255, 255, 0.03); }
-
-  /* FTS5 Instant Search & Citations */
-  .sql-search-box {
-    background: #09101d; border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 20px; margin-top: 20px;
-  }
-  .sql-search-row { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
-  .sql-search-row input {
-    flex: 1; min-width: 250px; background: #060b14;
-    border: 1px solid var(--border); border-radius: var(--radius-sm);
-    padding: 10px 14px; color: #fff; font-size: 0.9rem;
-  }
-  .sql-chunks-list { display: flex; flex-direction: column; gap: 12px; }
-  .sql-chunk-item {
-    background: #0c1424; border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 14px 16px; transition: all 0.2s ease;
-  }
-  .sql-chunk-item:hover { border-color: var(--cyan); }
-  .sql-chunk-head {
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 8px; margin-bottom: 8px;
-  }
-  .sql-chunk-id {
-    font-family: var(--font-mono); font-size: 0.8rem; color: var(--cyan);
-    background: rgba(6, 182, 212, 0.1); padding: 2px 8px; border-radius: 4px;
-  }
-  .sql-chunk-body { font-size: 0.84rem; color: #d1d5db; line-height: 1.5; margin-bottom: 10px; }
-  .sql-chunk-foot {
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 10px; font-size: 0.74rem; color: var(--fg-faint); font-family: var(--font-mono);
-  }
-
-  /* ═══ BUNDLE CARD HAUTE CONVERSION ═══ */
-  .bundle-card-box {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(16, 185, 129, 0.1));
-    border: 2px solid var(--accent); border-radius: var(--radius);
-    padding: 40px; box-shadow: 0 0 50px rgba(99, 102, 241, 0.2); position: relative;
-    margin: 50px 0; overflow: hidden;
-  }
-  .bundle-card-box::before {
-    content: "MEILLEURE VENTE · 89% DES UTILISATEURS"; position: absolute;
-    top: 18px; right: -40px; transform: rotate(45deg);
-    background: var(--rose); color: #fff; font-size: 0.68rem; font-weight: 800;
-    padding: 6px 45px; text-transform: uppercase; letter-spacing: 0.08em;
-  }
-  .bundle-grid { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 36px; align-items: center; }
-  .bundle-bonuses { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
-  .bonus-item {
-    background: rgba(0, 0, 0, 0.35); border: 1px dashed var(--accent);
-    border-radius: var(--radius-sm); padding: 12px; font-size: 0.85rem;
-  }
-  .bonus-item strong { color: var(--amber); display: block; margin-bottom: 2px; }
-
-  /* ═══ FORMATEUR SOUVERAIN (DIRECT ASK) ═══ */
-  .tutor-wrap {
-    background: var(--surface); border: 1px solid var(--border-bright);
-    border-radius: var(--radius); padding: 36px; box-shadow: var(--shadow-rest);
-    margin: 50px 0;
-  }
-  .tutor-inputs { display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
-  .tutor-inputs select, .tutor-inputs input {
-    background: #070d18; border: 1px solid var(--border-bright); color: #fff;
-    padding: 12px 14px; border-radius: var(--radius-sm); font-size: 0.95rem;
-  }
-  .tutor-inputs select { max-width: 220px; }
-  .tutor-inputs input { flex: 1; min-width: 240px; }
-  .tutor-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
-  .tutor-chip {
-    background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border);
-    color: var(--fg-dim); padding: 5px 12px; border-radius: 999px;
-    font-size: 0.8rem; cursor: pointer; transition: all 0.15s;
-  }
-  .tutor-chip:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-  .tutor-result {
-    display: none; background: #070d18; border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 20px; margin-top: 16px;
-    font-size: 0.92rem; line-height: 1.6;
-  }
-
-  /* ═══ PREUVES SOCIALES ═══ */
-  .proof-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-  .proof-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 22px;
-  }
-  .proof-stars { color: var(--amber); margin-bottom: 8px; }
-  .proof-card p { font-size: 0.9rem; color: #cbd5e1; font-style: italic; margin-bottom: 14px; }
-  .proof-author { display: flex; align-items: center; gap: 10px; }
-  .proof-avatar {
-    width: 36px; height: 36px; border-radius: 50%;
-    background: var(--accent); color: #fff; display: flex; align-items: center;
-    justify-content: center; font-weight: 700; font-size: 0.85rem;
-  }
-
-  /* ═══ FAQ ═══ */
-  .faq-list { max-width: 800px; margin: 0 auto; }
-  .faq-item { border-bottom: 1px solid var(--border); padding: 18px 0; }
-  .faq-q { font-weight: 700; font-size: 1.05rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-  .faq-a { color: var(--fg-dim); font-size: 0.92rem; line-height: 1.6; margin-top: 10px; display: none; }
-  .faq-item.open .faq-a { display: block; }
-
-  /* ═══ CART DRAWER & MODAL ═══ */
-  #cart-overlay {
-    position: fixed; inset: 0; z-index: 70; background: rgba(0, 0, 0, 0.65);
-    opacity: 0; visibility: hidden; transition: all 0.25s ease;
-  }
-  #cart-overlay.on { opacity: 1; visibility: visible; }
-  #cart-drawer {
-    position: fixed; top: 0; right: 0; height: 100%; width: 420px; max-width: 100%; z-index: 80;
-    background: #0d1524; border-left: 1px solid var(--border-bright);
-    transform: translateX(100%); transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    display: flex; flex-direction: column; padding: 24px; box-shadow: -10px 0 40px rgba(0, 0, 0, 0.7);
-  }
-  #cart-drawer.on { transform: translateX(0); }
-  .cart-head { display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
-  .cart-items-list { flex: 1; overflow-y: auto; padding: 14px 0; }
-  .cart-line { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
-  .cart-foot { border-top: 1px solid var(--border); padding-top: 18px; }
-  .promo-row { display: flex; gap: 8px; margin: 12px 0; }
-  .promo-row input {
-    flex: 1; background: #070d18; border: 1px solid var(--border-bright); color: #fff;
-    padding: 10px; border-radius: var(--radius-sm); font-family: var(--font-mono); text-transform: uppercase;
-  }
-  .cart-total-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 1.25rem; font-weight: 800; margin: 14px 0; }
-
-  /* ═══ FOOTER ═══ */
-  footer {
-    border-top: 1px solid var(--border); background: #050912;
-    padding: 50px 0; color: var(--fg-faint); font-size: 0.88rem;
-  }
-  .foot-flex { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
-
-  /* ═══ RESPONSIVE ═══ */
-  @media(max-width: 960px) {
-    .hero-grid, .roi-grid, .bundle-grid, .level-grid, .sql-console-grid { grid-template-columns: 1fr; }
-    .pillar-grid { grid-template-columns: 1fr; }
-    .bundle-bonuses { grid-template-columns: 1fr; }
-  }
-  @media(max-width: 768px) {
-    .top-ribbon {
-      position: relative;
-      flex-direction: column;
-      gap: 4px;
-      text-align: center;
-      padding: 6px 12px;
-      font-size: 0.76rem;
-    }
-    .nav {
-      top: 0;
-      height: auto;
-    }
-    .nav-inner {
-      height: auto;
-      padding: 10px 0;
-      flex-wrap: wrap;
-    }
-    .nav-links {
-      width: 100%;
-      order: 3;
-      padding-top: 8px;
-      overflow-x: auto;
-      white-space: nowrap;
-      gap: 14px;
-      -webkit-overflow-scrolling: touch;
-    }
-    .nav-links a {
-      font-size: 0.8rem;
-    }
-  }
-  @media(max-width: 480px) {
-    .wrap { padding: 0 16px; }
-    .hero { padding: 36px 0 24px; }
-    .hero-actions { flex-direction: column; }
-    .hero-actions .btn { width: 100%; }
-    .roi-box, .tr-amphi-box, .sql-card { padding: 20px 14px; }
-    .tr-reactor-card { flex-direction: column; align-items: flex-start; }
-    .tr-reactor-stats { width: 100%; justify-content: space-between; }
-    .tr-seats-grid { grid-template-columns: 1fr; }
-  }
+/* Footer */
+footer {
+  border-top: 1px solid var(--border); padding: 60px 5% 40px;
+  text-align: center; font-size: 13px; color: var(--muted); background: #060608;
+}
+footer a { color: var(--muted); transition: 0.2s; text-decoration: underline; }
+footer a:hover { color: #fff; }
+.footer-links { display: flex; justify-content: center; gap: 20px; margin-top: 20px; flex-wrap: wrap; }
 </style>
 </head>
 <body>
 
-<!-- URGENCY TOP RIBBON -->
-<div class="top-ribbon">
-  <span>⚡ <b>OFFRE ÉCOSYSTÈME COCKPIT 2026 :</b> Accès immédiat au savoir souverain · 0 token cloud</span>
-  <span>🗓️ Corpus prêt à ingérer · format ouvert · paiement unique, 0 abonnement.</span>
+<div class="top-bar">
+  ⚡ Écosystème Unifié Turbo OS × Alkymia · <span class="pill">0€ Cloud Récurrent</span> Données 100% sur site · Audit de Souveraineté 48h disponible
 </div>
 
-<!-- NAVIGATION -->
-<nav class="nav">
-  <div class="wrap nav-inner">
-    <a href="#" class="brand">
-      <div class="logo-orb">⚡</div>
-      <div><span class="pfx">TURBO OS</span> <span class="sfx">· ACADÉMIE & BOUTIQUE</span></div>
-    </a>
-    <div class="nav-links">
-      <a href="#simulateur">Simulateur ROI</a>
-      <a href="#table-ronde">Table Ronde</a>
-      <a href="#niveaux">Tous Niveaux</a>
-      <a href="#catalogue">Catalogue Packs</a>
-      <a href="#bundle">Le Fonds Complet</a>
-      <a href="#catalogue">Pour l'entreprise</a>
-      <a href="#faq">FAQ</a>
-    </div>
-    <div class="nav-right">
-      <span id="bq-account-nav" class="mono" style="font-size: 0.8rem; color: var(--fg-dim);"></span>
-      <button class="nav-cart-btn" onclick="openCart(true)" title="Voir le panier">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-        <span id="cart-badge">0</span>
-      </button>
-    </div>
+<nav>
+  <div class="logo">
+    TURBO<span class="brand">.OS</span> <span class="badge">SOUVERAIN</span>
+  </div>
+  <div class="nav-links">
+    <a href="#catalogue">Catalogue RAG</a>
+    <a href="#view-pro">Offres Entreprise</a>
+    <a href="#comparatif">Cloud vs Local</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="nav-actions">
+    <a href="#contact" class="btn-cta">Réserver Audit (1 500 €) →</a>
   </div>
 </nav>
 
-<!-- ═════════ 1. HERO AGRESSIF HAUTE CONVERSION ═════════ -->
 <header class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <div class="eyebrow"><span class="badge-tag badge-emerald">CORPUS PRÊT À INGÉRER</span> FORMAT OUVERT · 0 DÉPENDANCE</div>
-      <h1>Le savoir d'un parc IA local en production.<br><span class="hero-highlight">Dans votre RAG ce soir.</span></h1>
-      <p class="hero-subtitle">
-        ~27 700 extraits issus de l'exploitation réelle d'un cluster IA 100&nbsp;% local — architecture, orchestration d'agents, inférence, pannes, coûts. Livrés en archive ouverte <code>.tgz</code> + <code>corpus.jsonl</code>, réimportables dans n'importe quel moteur RAG. <b>Vous les achetez une fois. Ils restent chez vous.</b>
-      </p>
-      <div class="hero-actions">
-        <a href="#" class="btn btn-fire" onclick="openSample('protocoles-formats');return false;">🎁 Recevoir l'échantillon gratuit →</a>
-        <a href="#catalogue" class="btn btn-ghost">Voir les 7 packs</a>
-      </div>
-      <div class="trust-strip">
-        <div class="trust-item"><span class="trust-icon">✓</span> Manifeste signé dans chaque archive : vous comptez vous-même les extraits</div>
-        <div class="trust-item"><span class="trust-icon">✓</span> les sources tierces exclues d'office (droits non réglés), et c'est écrit dans le manifeste</div>
-        <div class="trust-item"><span class="trust-icon">✓</span> Import raté ? Remboursé.</div>
-      </div>
-    </div>
+  <div class="hero-badge"><span class="dot"></span> IA LOCALE SOUVERAINE & INTÉGRATION SUR SITE</div>
+  <h1>Votre activité.<br><span class="red">Automatisée.</span> <span class="grad">Sans cloud récurrent.</span></h1>
+  <p class="hero-p">
+    L'alternative radicale aux abonnements cloud américains : 
+    <strong>Packs de corpus RAG instantanés</strong> (ingénieurs & devs) et 
+    <strong>systèmes clés en main déployés sur site</strong> (PME, cabinets, ETI et industrie).
+  </p>
 
-    <!-- TERMINAL HERO DEMO -->
-    <div>
-      <div class="hero-term">
-        <div class="term-header">
-          <div class="term-dots"><div class="term-dot dot-red"></div><div class="term-dot dot-yel"></div><div class="term-dot dot-gre"></div></div>
-          <div class="term-tabs">
-            <button class="term-tab active" onclick="switchTermDemo('rag', this)">RAG 768D</button>
-            <button class="term-tab" onclick="switchTermDemo('omega', this)">OMEGA 24/7</button>
-            <button class="term-tab" onclick="switchTermDemo('zero', this)">Zéro Fuite</button>
-          </div>
-        </div>
-        <div class="term-body" id="hero-term-body">
-<span class="term-prompt">vous@votre-machine:~$</span> <span class="term-cmd">tar xzf turbo-pack-orchestration.tgz && ls</span>
-<span class="term-out">manifest.json   corpus.jsonl
-   → 3 755 extraits · format turbo-knowledge-pack/1 · sources tierces exclues</span>
-<span class="term-succ">✓ corpus.jsonl prêt à être importé dans votre moteur RAG.</span>
-        </div>
-      </div>
+  <!-- Dual Mode Selector -->
+  <div class="engine-switcher">
+    <button class="switch-btn active" id="btn-diy" onclick="switchView('diy')">
+      📦 Packs & Corpus RAG (Self-Service)
+    </button>
+    <button class="switch-btn" id="btn-pro" onclick="switchView('pro')">
+      🏭 Implantation & Entreprise (Clés en Main)
+    </button>
+  </div>
+
+  <div class="stats-strip">
+    <div class="stat-card">
+      <div class="stat-val">0 €</div>
+      <div class="stat-lbl">Abonnement Cloud</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">36.8 tok/s</div>
+      <div class="stat-lbl">Inférence GPU Locale</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">100%</div>
+      <div class="stat-lbl">Souverain & RGPD</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">48 h</div>
+      <div class="stat-lbl">Audit Diagnostic Flash</div>
     </div>
   </div>
 </header>
 
-<main>
-  <!-- ═════════ 2. CE QU'EST (ET N'EST PAS) UN PACK ═════════ -->
-  <section id="simulateur" class="wrap">
-    <div class="roi-box">
-      <div style="max-width:820px;">
-        <div class="eyebrow"><span class="badge-tag badge-cyan">SOYONS CLAIRS</span> CE QUE VOUS ACHETEZ</div>
-        <h2 class="h2" style="color:#fff;">Un corpus de connaissance, pas un remplaçant d'API</h2>
-        <p style="color:var(--fg-dim); margin-bottom:18px; font-size:1rem; line-height:1.6;">
-          Un pack, c'est <b>du texte prêt à ingérer dans votre RAG</b> : le vécu d'un parc IA local en production. Il ne « remplace » aucune requête cloud par lui-même — ce qui remplace le cloud, c'est <b>votre matériel + votre électricité</b>. Un pack vous fait gagner les <b>mois de collecte, nettoyage, dédoublonnage et découpage</b> de ~27 700 extraits.
-        </p>
-        <p style="color:var(--fg-dim); margin-bottom:22px; font-size:0.95rem;">
-          Vous voulez le vrai calcul <i>cloud vs. local</i> (matériel, électricité, maintenance sur 3 ans) ? Il est sur la page entreprise, honnête et chiffré — y compris quand le cloud reste gagnant.
-        </p>
-        <a href="#catalogue" class="btn btn-fire">Voir le calculateur coût total (page entreprise) →</a>
-      </div>
-    </div>
-  </section>
+<!-- SECTION 1 : PACKS DIGITAUX / RAG (DIY & DEVS) -->
+<section id="view-diy">
+  <div class="sec-tag">Rayon 1 — Produits Digitaux Instantanés</div>
+  <h2 class="sec-title">Les 7 Packs de Corpus RAG Souverains</h2>
+  <p class="sec-sub">Archives binaires prêtes à l'emploi. Injection directe dans vos bases vectorielles et moteurs FTS5 sans intermédiaire.</p>
 
-  <!-- ═════════ 3. LES 3 PILIERS DE LA SOUVERAINETÉ ═════════ -->
-  <section class="wrap">
-    <div style="text-align:center; max-width:680px; margin:0 auto 30px;">
-      <div class="eyebrow"><span class="badge-tag badge-indigo">POURQUOI TURBO OS ?</span></div>
-      <h2 class="h2" style="color:#fff; margin-top:8px;">L'Intelligence que vous possédez physiquement</h2>
-      <p class="lead" style="margin: 8px auto 0;">Vous n'achetez pas un énième abonnement révocable : vous téléchargez un actif incorporel définitif.</p>
+  <div class="cards-grid">
+    <!-- Pack 1 -->
+    <div class="card">
+      <div>
+        <div class="card-badge">Doctrine</div>
+        <h3>Doctrine & Architecture</h3>
+        <p class="desc">Les 71 extraits fondateurs de Turbo OS / OMEGA. Le « pourquoi » derrière la souveraineté locale.</p>
+        <div class="card-price">49 € <span class="unit">paiement unique</span></div>
+        <ul>
+          <li><span class="check">✓</span> 71 extraits sourcés en format `corpus.jsonl`</li>
+          <li><span class="check">✓</span> Règle d'or Ombre/Lumière et bouclage 127.0.0.1</li>
+          <li><span class="check">✓</span> Zéro abonnement, réimportable à vie</li>
+        </ul>
+      </div>
+      <a href="https://buy.stripe.com/test_pack1" class="card-btn">Télécharger (49 €) →</a>
     </div>
 
-    <div class="pillar-grid">
-      <div class="pillar-card">
-        <div class="pillar-icon">🛡️</div>
-        <h3>Immunité &amp; Confidentialité</h3>
-        <p>Vos brevets, votre comptabilité, vos codes sources et vos échanges internes ne transitent jamais sur Internet : tout reste sur votre machine. Aucune donnée ne sort — un atout clé pour vos obligations RGPD.</p>
+    <!-- Pack 2 -->
+    <div class="card highlight">
+      <div class="card-badge">⭐ Le Plus Demandé</div>
+      <div>
+        <h3>Orchestration d'Agents</h3>
+        <p class="desc">3 755 extraits concrets de collaboration multi-agents : routage, consensus, boucles et dominos.</p>
+        <div class="card-price">59 € <span class="unit">paiement unique</span></div>
+        <ul>
+          <li><span class="check">✓</span> 3 755 extraits de workflows multi-agents réels</li>
+          <li><span class="check">✓</span> Scripts de détection et anti-boucles infinies</li>
+          <li><span class="check">✓</span> Compatible Claude Code, AGY, OpenClaw, Codex</li>
+        </ul>
       </div>
-      <div class="pillar-card">
-        <div class="pillar-icon">⚡</div>
-        <h3>0 Token &amp; Illimité 24/7</h3>
-        <p>Que vous fassiez 10 requêtes ou 100 000 par jour, le coût marginal d'inférence reste de 0,00 €. Vos GPU tournent à pleine puissance sans aucun quota ni bridage.</p>
-      </div>
-      <div class="pillar-card">
-        <div class="pillar-icon">📦</div>
-        <h3>Format Ouvert &amp; Réimportable</h3>
-        <p>Pas de format propriétaire prisonnier. Les packs sont au format ouvert standard (.tgz / JSONL). Ils s'injectent dans n'importe quel vector store ou RAG local.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═════════ 3.5. AMPHITHÉÂTRE STRATÉGIQUE DES 7 SIÈGES (TABLE RONDE COCKPIT) ═════════ -->
-  <section id="table-ronde" class="tr-section">
-    <div class="wrap">
-      <div style="text-align:center; max-width:760px; margin:0 auto 32px;">
-        <div class="eyebrow"><span class="badge-tag badge-purple">INTÉGRATIONS MULTI-MODÈLES</span> VOS COMPTES · VOS MODÈLES LOCAUX</div>
-        <h2 class="h2" style="color:#fff; margin-top:8px;">Le Conseil des 7 Sièges — branchez vos propres modèles</h2>
-        <p class="lead" style="margin: 8px auto 0;">
-          L'architecture fait délibérer plusieurs modèles en parallèle (correctness, sécurité, coût…) avant de trancher. Ces 7 sièges sont des <b>intégrations que vous connectez avec VOS propres comptes</b> (ChatGPT, Gemini, Claude, Mistral…) ou <b>vos modèles locaux 0-token</b> (Qwen, Llama…). Jamais nos comptes — vos ressources, votre souveraineté.
-        </p>
-        <p class="mono" style="margin:12px auto 0; font-size:.8rem; color:var(--fg-faint); max-width:620px;">
-          Démonstration illustrative ci-dessous. Dans votre déploiement, chaque siège tourne sur VOS clés / modèles — rien n'est exécuté sur un compte tiers partagé.
-        </p>
-      </div>
-
-      <div class="tr-amphi-box">
-        <!-- HAUCORE CONSENSUS REACTOR -->
-        <div class="tr-reactor-card">
-          <div class="tr-reactor-left">
-            <div class="tr-gauge-wrap">
-              <svg class="tr-gauge-svg" viewBox="0 0 100 100">
-                <circle class="tr-circle-bg" cx="50" cy="50" r="45" fill="none" stroke-width="8"></circle>
-                <circle class="tr-circle-val" id="tr-reactor-circle" cx="50" cy="50" r="45" fill="none" stroke-width="8"></circle>
-              </svg>
-              <div class="tr-gauge-center">
-                <div class="tr-gauge-val" id="tr-reactor-pct">96%</div>
-                <div class="tr-gauge-lbl">Quorum</div>
-              </div>
-            </div>
-            <div>
-              <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
-                <span class="badge-tag badge-emerald" id="tr-reactor-badge">CONSENSUS FERME CONVERGÉ</span>
-                <span class="mono" style="font-size:0.75rem; color:var(--fg-dim);">Cascade M1 → M4 → Ollama</span>
-              </div>
-              <h3 style="margin:0 0 4px; font-size:1.15rem; color:#fff;">Réacteur Dialectique Holocore</h3>
-              <p style="margin:0; font-size:0.85rem; color:var(--fg-dim);">
-                Exemple illustratif de délibération multi-agents. Le Conseil tourne en direct sur votre machine une fois installé — pas sur cette vitrine.
-              </p>
-            </div>
-          </div>
-
-          <div class="tr-reactor-stats">
-            <div class="tr-rstat">
-              <div class="tr-rstat-lbl">Sièges Actifs</div>
-              <div class="tr-rstat-val" id="tr-stat-seats">7 / 7 Connectés</div>
-            </div>
-            <div class="tr-rstat">
-              <div class="tr-rstat-lbl">Latence Bus PCIe</div>
-              <div class="tr-rstat-val" style="color:var(--cyan);">0,8 ms (0 Token)</div>
-            </div>
-            <div class="tr-rstat">
-              <div class="tr-rstat-lbl">Preuve Cryptographique</div>
-              <div class="tr-rstat-val mono" style="font-size:0.85rem; color:var(--amber);">Ed25519 · SHA256</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 7 SEATS CARDS GRID -->
-        <div class="tr-seats-grid" id="tr-seats-container">
-          <!-- Dynamically populated by JS initTableRonde -->
-        </div>
-
-        <!-- DELIBERATION ARENA INTERACTIVE CONSOLE -->
-        <div class="tr-arena-box">
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
-            <div style="font-weight:700; font-size:0.95rem; color:#fff; display:flex; align-items:center; gap:8px;">
-              <span>⚡</span> Soumettez un Dilemme Stratégique au Conseil Souverain
-            </div>
-            <span class="mono" style="font-size:0.75rem; color:var(--emerald);">Moteur local :1234 actif · Inférence 0 Token</span>
-          </div>
-
-          <div class="tr-chips-row">
-            <button class="tr-chip-btn" onclick="setTrDilemma('vram')">⚡ Arbitrage VRAM : RAG 768D vs Raisonnement R1</button>
-            <button class="tr-chip-btn" onclick="setTrDilemma('security')">🛡️ Confinement Zero-Trust &amp; Neutralisation Fuite</button>
-            <button class="tr-chip-btn" onclick="setTrDilemma('recovery')">🔄 Auto-Healing GPU : Surchauffe 82°C en pleine charge</button>
-            <button class="tr-chip-btn" onclick="setTrDilemma('scale')">📦 Scalabilité 1.43M Chunks : FTS5 vs Vector Store</button>
-          </div>
-
-          <div class="tr-input-row">
-            <input type="text" id="tr-input-q" placeholder="Posez une question technique exigeante ou sélectionnez un dilemme ci-dessus..." value="Comment arbitrer 16 Go de VRAM entre le RAG 768D et le modèle de raisonnement R1 ?">
-            <button class="btn btn-primary" id="tr-btn-delib" onclick="runTableRonde()">⚖️ Voir l'exemple de délibération</button>
-          </div>
-
-          <!-- PROGRESS STEPS ANIMATION -->
-          <div class="tr-progress-bar" id="tr-progress">
-            <div class="tr-progress-steps">
-              <span id="tr-step-1">1. 🔎 Scan FTS5 (1.43M Chunks)</span>
-              <span id="tr-step-2">2. 📡 Broadcast 7 Sièges</span>
-              <span id="tr-step-3">3. ⚔️ Débat Dialectique</span>
-              <span id="tr-step-4">4. 📜 Scellement Ed25519</span>
-            </div>
-            <div class="tr-step-line"><div class="tr-step-fill" id="tr-progress-fill"></div></div>
-          </div>
-
-          <!-- DELIBERATION RESULTS CONTAINER -->
-          <div class="tr-delib-results" id="tr-results">
-            <div class="tr-opinions-grid" id="tr-opinions-list"></div>
-            <div class="tr-verdict-box" id="tr-verdict-box">
-              <div class="tr-verdict-head">
-                <div class="tr-verdict-title">📜 Synthèse Consensuelle Exécutive du Conseil</div>
-                <div class="badge-tag badge-emerald">QUORUM 7/7 VALIDÉ</div>
-              </div>
-              <div class="tr-verdict-body" id="tr-verdict-body"></div>
-              <div class="tr-crypto-seal">
-                <span>🧪 <b>Exemple illustratif</b> — démonstration de délibération multi-modèles (ni certification, ni mesure réelle).</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═════════ 4. ACADÉMIE & PARCOURS ADAPTÉ À TOUS LES NIVEAUX ═════════ -->
-  <section id="niveaux" class="levels-section">
-    <div class="wrap">
-      <div style="text-align:center; max-width:700px; margin:0 auto 30px;">
-        <div class="eyebrow"><span class="badge-tag badge-indigo">FORMATIONS ÉTAPES PAR ÉTAPES</span> ACCESSIBLE À TOUS</div>
-        <h2 class="h2" style="color:#fff; margin-top:8px;">Quel est votre niveau actuel ?</h2>
-        <p class="lead" style="margin: 8px auto 0;">
-          Que vous n'ayez jamais touché à Linux ou que vous conceviez des clusters Kubernetes, chaque pack est accompagné d'une formation interactive et d'un tuteur IA dédié.
-        </p>
-      </div>
-
-      <div class="level-tabs">
-        <button class="level-tab-btn active" onclick="switchLevel('deb', this)">🟢 Débutant : Maîtrise en 1 Clic</button>
-        <button class="level-tab-btn" onclick="switchLevel('pro', this)">🟡 Freelance / Dev Pro : L'Arsenal 24/7</button>
-        <button class="level-tab-btn" onclick="switchLevel('cto', this)">🔴 CTO / Architecte : Le Cluster Ultime</button>
-      </div>
-
-      <div class="level-card" id="level-display-card">
-        <!-- Rendu dynamique JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ═════════ 5. LE CATALOGUE COMPLET DES PACKS ═════════ -->
-  <section id="catalogue" class="wrap catalog-sec">
-    <div style="text-align:center; max-width:680px; margin:0 auto 24px;">
-      <div class="eyebrow"><span class="badge-tag badge-cyan">SOUVERAINETÉ À LA CARTE</span> INVESTISSEMENT DÉFINITIF</div>
-      <h2 class="h2" style="color:#fff; margin-top:8px;">Packs de Connaissances Spécialisés</h2>
-      <p class="lead" style="margin: 8px auto 0;">Chaque pack contient le corpus vectoriel, les scripts d'auto-installation et la formation interactive complète.</p>
-      <div style="margin:14px auto 0; display:inline-flex; gap:8px; align-items:center; padding:7px 14px; border:1px solid var(--cyan); border-radius:999px; background:rgba(34,211,238,0.08); font-size:0.82rem; color:var(--cyan); font-weight:700;">
-        <span>🏢</span><span>Vente réservée aux professionnels (B2B) — paiement sécurisé Stripe</span>
-      </div>
+      <a href="https://buy.stripe.com/test_pack2" class="card-btn">Télécharger (59 €) →</a>
     </div>
 
-    <div class="catalog-filters">
-      <button class="filter-btn active" onclick="filterCatalog('all', this)">Tous les Packs (9)</button>
-      <button class="filter-btn" onclick="filterCatalog('infra', this)">⚡ Infra, Sécurité &amp; Identité</button>
-      <button class="filter-btn" onclick="filterCatalog('agents', this)">🤖 Agents &amp; FSM</button>
-      <button class="filter-btn" onclick="filterCatalog('rag', this)">🧠 RAG &amp; Connaissance</button>
-      <button class="filter-btn" onclick="filterCatalog('doctrine', this)">🏛️ Doctrine &amp; Formats</button>
-      <button class="filter-btn" onclick="filterCatalog('formation', this)">🎓 Masterclass</button>
+    <!-- Pack 3 -->
+    <div class="card">
+      <div>
+        <div class="card-badge">Cœur Technique</div>
+        <h3>Inférence Locale & RAG</h3>
+        <p class="desc">5 555 extraits couvrant la quantification, Ollama, LM Studio, FTS5 et les embeddings sans cloud.</p>
+        <div class="card-price">45 € <span class="unit">paiement unique</span></div>
+        <ul>
+          <li><span class="check">✓</span> 5 555 extraits d'optimisation GPU et prompts</li>
+          <li><span class="check">✓</span> Architecture de chunking et reranking local</li>
+          <li><span class="check">✓</span> Benchmarks prouvés sur GPU 10Go - 12Go</li>
+        </ul>
+      </div>
+      <a href="https://buy.stripe.com/test_pack3" class="card-btn">Télécharger (45 €) →</a>
     </div>
 
-    <div class="catalog-grid" id="catalog-grid">
-      <!-- Rendu par JS -->
+    <!-- Pack 4 -->
+    <div class="card">
+      <div>
+        <div class="card-badge">Résilience</div>
+        <h3>Fiabilité & Auto-Guérison H24</h3>
+        <p class="desc">4 200 extraits de supervision systemd, watchdog, auto-restart et détection précoce d'anomalies.</p>
+        <div class="card-price">45 € <span class="unit">paiement unique</span></div>
+        <ul>
+          <li><span class="check">✓</span> 4 200 extraits sur la robustesse 24/7</li>
+          <li><span class="check">✓</span> Modèles de timers, sockets et failover réseau</li>
+          <li><span class="check">✓</span> Scripts de monitoring sonore et notifications</li>
+        </ul>
+      </div>
+      <a href="https://buy.stripe.com/test_pack4" class="card-btn">Télécharger (45 €) →</a>
     </div>
-  </section>
 
-  <!-- ═════════ 5.5. LA PREUVE PAR LE MANIFESTE ═════════ -->
-  <section id="preuve" class="wrap" style="padding: 50px 0;">
-    <div style="text-align:center; max-width:760px; margin:0 auto 28px;">
-      <div class="eyebrow"><span class="badge-tag badge-cyan">PREUVE VÉRIFIABLE</span> CE QUE VOUS RECEVEZ, VOUS LE COMPTEZ VOUS-MÊME</div>
-      <h2 class="h2" style="color:#fff; margin-top:8px;">La preuve par le manifeste — pas une animation</h2>
-      <p class="lead" style="margin: 8px auto 0;">
-        Chaque archive contient un <b>manifest.json signé</b> : vous ouvrez le fichier, vous comptez les extraits, vous vérifiez la provenance. Aucun chiffre affiché ici n'a besoin de votre confiance — il est dans le fichier que vous téléchargez.
-      </p>
+    <!-- Pack 5 -->
+    <div class="card">
+      <div>
+        <div class="card-badge">Économie</div>
+        <h3>Coûts & Énergie Zéro-Token</h3>
+        <p class="desc">2 800 extraits dédiés à l'optimisation watt/token, au calcul de TCO et à l'amortissement matériel.</p>
+        <div class="card-price">39 € <span class="unit">paiement unique</span></div>
+        <ul>
+          <li><span class="check">✓</span> Modèles de calcul TCO GPU vs API Cloud</li>
+          <li><span class="check">✓</span> Optimisation de la consommation électrique</li>
+          <li><span class="check">✓</span> Stratégies de mise en veille et réveil réseau</li>
+        </ul>
+      </div>
+      <a href="https://buy.stripe.com/test_pack5" class="card-btn">Télécharger (39 €) →</a>
     </div>
-    <div style="max-width:820px; margin:0 auto;">
-      <div class="hero-term">
-        <div class="term-header">
-          <div class="term-dots"><div class="term-dot dot-red"></div><div class="term-dot dot-yel"></div><div class="term-dot dot-gre"></div></div>
-          <div class="mono" style="font-size:0.78rem; color:var(--fg-dim);">exemple de manifest.json (pack Orchestration)</div>
-        </div>
-        <div class="term-body" style="white-space:pre; overflow-x:auto;">{
-  "format": "turbo-knowledge-pack/1",
-  "pack": "orchestration-agents",
-  "extraits": 3755,
-  "exclus_tiers_par_origine": 14976,
-  "licence": "creation originale Turbo OS",
-  "source": "exploitation reelle d'un cluster IA 100% local",
-  "fichiers": ["corpus.jsonl", "manifest.json"]
-}</div>
-      </div>
-      <div class="hero-term" style="margin-top:16px;">
-        <div class="term-header">
-          <div class="term-dots"><div class="term-dot dot-red"></div><div class="term-dot dot-yel"></div><div class="term-dot dot-gre"></div></div>
-          <div class="mono" style="font-size:0.78rem; color:var(--fg-dim);">importer dans votre RAG — 3 lignes</div>
-        </div>
-        <div class="term-body" style="white-space:pre; overflow-x:auto;"><span class="term-prompt">python</span>
-<span class="term-out">import json</span>
-<span class="term-out">for ligne in open("corpus.jsonl"):</span>
-<span class="term-out">    rag.add(json.loads(ligne)["text"])   # texte + metadonnees, c'est tout</span>
-<span class="term-succ">✓ corpus ingéré · votre assistant répond avec, en citant ses sources</span></div>
-      </div>
-      <p class="mono" style="text-align:center; margin:16px 0 0; font-size:0.82rem; color:var(--fg-dim);">
-        Compatible LM&nbsp;Studio · Ollama · AnythingLLM · LangChain · LlamaIndex · votre pipeline maison
-      </p>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-top:20px;">
-        <div class="bonus-item"><strong>📦 Format ouvert</strong>Archive .tgz + corpus.jsonl réimportable dans n'importe quel moteur RAG. À vous pour toujours.</div>
-        <div class="bonus-item"><strong>🔢 Comptage vérifiable</strong>Le nombre d'extraits est dans le manifeste. Vous recevez ce qui y est écrit, ni plus ni moins.</div>
-        <div class="bonus-item"><strong>🚫 Sources tierces exclues par origine</strong>Web-scrape, docs tierces, skills marketplace : filtrés d'office et comptés dans le manifeste.</div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ═════════ 6. L'OFFRE GROUPÉE (LE FONDS COMPLET) ═════════ -->
-  <section id="bundle" class="wrap">
-    <div class="bundle-card-box">
-      <div class="bundle-grid">
+    <!-- Pack 6 -->
+    <div class="card">
+      <div>
+        <div class="card-badge">Interopérabilité</div>
+        <h3>Protocoles & Formats Ouverts</h3>
+        <p class="desc">1 950 extraits sur les standards JSONL, SQLite, Parquet, MCP et formats d'échange sans verrou propriétaire.</p>
+        <div class="card-price">35 € <span class="unit">paiement unique</span></div>
+        <ul>
+          <li><span class="check">✓</span> Spécifications de packaging de données</li>
+          <li><span class="check">✓</span> Connecteurs MCP universels prêts à coder</li>
+          <li><span class="check">✓</span> Schémas SQL d'indexation ultra-rapide</li>
+        </ul>
+      </div>
+      <a href="https://buy.stripe.com/test_pack6" class="card-btn">Télécharger (35 €) →</a>
+    </div>
+
+    <!-- Pack 7 & Bundle -->
+    <div class="card highlight" style="grid-column: 1 / -1; background: linear-gradient(135deg, rgba(229,9,20,0.12), rgba(0,212,255,0.06));">
+      <div style="display:flex; justify-content:space-between; flex-wrap:wrap; align-items:center; gap:20px;">
         <div>
-          <div class="eyebrow"><span class="badge-tag badge-amber">OFFRE GROUPÉE</span> TOUT LE CORPUS, UN SEUL VERSEMENT</div>
-          <h2 class="h2" style="color:#fff;">Le Fonds Complet</h2>
-          <p style="font-size:1.05rem; color:#cbd5e1; line-height:1.6;">
-            Les <b>7 packs souverains</b> réunis — environ <b>27 700 extraits</b> issus de l'exploitation réelle d'un cluster IA 100&nbsp;% local, en archives ouvertes <code>.tgz</code> + <code>corpus.jsonl</code>. Un seul paiement, aucune récurrence, à vous pour toujours. Mises à jour du corpus pendant 12 mois.
+          <div class="card-badge">👑 BUNDLE INTÉGRAL SOUVERAIN</div>
+          <h3 style="font-size:26px;">Le Coffre Intégral Souverain (Les 7 Packs Réunis)</h3>
+          <p class="desc" style="max-width:680px; margin-bottom:0;">
+            Inclut l'intégralité des corpus : Doctrine, Agents, Inférence, Fiabilité 24/7, Coûts & Énergie, Protocoles, et Code de Production. 
+            Bonus exclusif : scripts d'injection SQLite FTS5 et templates d'intégration multi-modèles.
           </p>
-
-          <div class="bundle-bonuses">
-            <div class="bonus-item">
-              <strong>📦 Format ouvert</strong>
-              Réimportable dans n'importe quel moteur RAG (LM Studio, Ollama, AnythingLLM, pipeline maison).
-            </div>
-            <div class="bonus-item">
-              <strong>🔢 Manifeste signé</strong>
-              Vous comptez vous-même les extraits ; les sources tierces sont exclues par origine et comptées.
-            </div>
-            <div class="bonus-item">
-              <strong>🎓 Version Pro</strong>
-              + la formation « Monter son IA souveraine », le tuteur local 12 mois et une session mensuelle en visio.
-            </div>
-            <div class="bonus-item">
-              <strong>↩️ Import raté ? Remboursé.</strong>
-              Écrivez-nous sous 30 jours avec l'erreur : on corrige avec vous, ou on rembourse.
-            </div>
-          </div>
         </div>
-
-        <div style="display:flex; flex-direction:column; gap:16px;">
-          <div style="background:#070d18; border:1px solid var(--border-bright); border-radius:var(--radius); padding:24px; text-align:center;">
-            <div style="font-size:0.85rem; color:var(--fg-dim); text-transform:uppercase; font-weight:700;">Fonds Complet · 7 packs</div>
-            <div id="bundle-fc-strike" title="Somme réelle des packs à l'unité" style="font-size:1.1rem; color:#f87171; text-decoration:line-through; font-family:var(--font-mono); margin:6px 0;">239,00 €</div>
-            <div style="font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight:900; color:#fff; font-family:var(--font-mono); line-height:1;">
-              <span id="bundle-fc-price">199</span> <span style="font-size:1.4rem; color:var(--emerald);">€</span>
-            </div>
-            <div style="font-size:0.78rem; color:var(--emerald); font-weight:700; margin:8px 0 16px;">Accès immédiat · paiement unique</div>
-            <button id="bundle-fc-btn" class="btn btn-primary btn-block" onclick="buyBundle('fonds-complet')" style="font-size:1rem; padding:13px;">Prendre le Fonds Complet — 199 €</button>
-          </div>
-
-          <div style="background:#070d18; border:1px solid var(--emerald); border-radius:var(--radius); padding:24px; text-align:center;">
-            <div style="font-size:0.85rem; color:var(--fg-dim); text-transform:uppercase; font-weight:700;">Fonds Complet Pro · packs + formation</div>
-            <div id="bundle-pro-strike" title="Somme réelle des packs + formation à l'unité" style="font-size:1.1rem; color:#f87171; text-decoration:line-through; font-family:var(--font-mono); margin:6px 0;">338,00 €</div>
-            <div style="font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight:900; color:#fff; font-family:var(--font-mono); line-height:1;">
-              <span id="bundle-pro-price">299</span> <span style="font-size:1.4rem; color:var(--emerald);">€</span>
-            </div>
-            <div style="font-size:0.78rem; color:var(--emerald); font-weight:700; margin:8px 0 16px;">packs + formation + tuteur 12 mois + session mensuelle</div>
-            <button id="bundle-pro-btn" class="btn btn-fire btn-block" onclick="buyBundle('fonds-complet-pro')" style="font-size:1rem; padding:13px;">Prendre la version Pro — 299 €</button>
-          </div>
-          <div style="font-size:0.75rem; color:var(--fg-faint); text-align:center;">Paiement sécurisé par carte via Stripe · Facture fournie</div>
+        <div style="text-align:right;">
+          <div class="card-price" style="margin-bottom:10px;">199 € <span class="unit" style="text-decoration:line-through;color:#777;">311 €</span></div>
+          <a href="https://buy.stripe.com/test_bundle" class="btn-cta" style="padding:16px 36px; display:inline-block; font-size:15px;">Obtenir le Coffre Complet (199 €) →</a>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═════════ 7. LE FORMATEUR SOUVERAIN EN DIRECT ═════════ -->
-  <section class="wrap">
-    <div class="tutor-wrap">
-      <div class="eyebrow"><span class="badge-tag badge-emerald">APERÇU</span> MOTEUR 100 % LOCAL</div>
-      <h2 class="h2" style="color:#fff; margin: 8px 0 12px;">Interrogez le Formateur Souverain</h2>
-      <p style="color:var(--fg-dim); font-size:.95rem; margin-bottom:20px;">
-        Aperçu de ce que vous déploierez : une fois installé, le tuteur tourne sur VOS GPU et répond en citant ses sources, sans jamais contacter de cloud externe.
-      </p>
-
-      <div class="tutor-inputs">
-        <select id="tutor-pack"><option value="">— Tous les sujets —</option></select>
-        <input type="text" id="tutor-q" placeholder="Ex: Comment éviter qu'un agent autonome ne sature la VRAM ?" onkeydown="if(event.key==='Enter')askTutor()">
-        <button class="btn btn-primary" id="tutor-btn" onclick="askTutor()">Interroger (0 Token)</button>
-      </div>
-
-      <div class="tutor-chips">
-        <button class="tutor-chip" onclick="askTutor('Comment dimensionner la VRAM pour un RAG 768D ?')">Dimensionnement VRAM</button>
-        <button class="tutor-chip" onclick="askTutor('Comment fiabiliser un cluster GPU en 24/7 ?')">Fiabilité 24/7</button>
-        <button class="tutor-chip" onclick="askTutor('Pourquoi un RAG local plutôt qu\'une API cloud ?')">RAG vs Cloud</button>
-        <button class="tutor-chip" onclick="askTutor('Comment configurer le Zero-Trust entre deux machines ?')">Zero-Trust Cluster</button>
-      </div>
-
-      <div id="tutor-out" class="tutor-result"></div>
-    </div>
-  </section>
-
-  <!-- ═════════ 8. PREUVE VÉRIFIABLE (PAS DE FAUX AVIS) ═════════ -->
-  <section class="wrap" style="padding: 50px 0;">
-    <div style="text-align:center; max-width:680px; margin:0 auto 30px;">
-      <div class="eyebrow"><span class="badge-tag badge-indigo">PREUVE PLUTÔT QUE PROMESSE</span></div>
-      <h2 class="h2" style="color:#fff; margin-top:8px;">Ce que vous pouvez vérifier vous-même</h2>
-      <p class="lead" style="margin:8px auto 0;">La boutique vient d'ouvrir : nous ne publions aucun faux avis. À la place, chaque élément ci-dessous est vérifiable dans le fichier que vous recevez.</p>
-    </div>
-
-    <div class="proof-grid">
-      <div class="proof-card">
-        <div style="font-size:1.6rem;">🔢</div>
-        <p>Le nombre exact d'extraits est inscrit dans le <b>manifest.json signé</b> de chaque archive. Vous le comptez — vous ne nous croyez pas sur parole.</p>
-      </div>
-      <div class="proof-card">
-        <div style="font-size:1.6rem;">📦</div>
-        <p>Format ouvert <code>.tgz</code> + <code>corpus.jsonl</code>, réimportable partout. Pas de compte, pas d'abonnement, pas de verrou : le fichier reste chez vous.</p>
-      </div>
-      <div class="proof-card">
-        <div style="font-size:1.6rem;">🚫</div>
-        <p>Les <b>sources tierces</b> (web-scrape, docs tierces, skills marketplace) sont exclues <b>par origine</b>, d'office, et comptées dans le manifeste. Provenance tracée.</p>
-      </div>
-      <div class="proof-card">
-        <div style="font-size:1.6rem;">↩️</div>
-        <p>Si l'import échoue, écrivez-nous sous 30 jours avec l'erreur : on corrige avec vous, ou on rembourse.</p>
-      </div>
-    </div>
-
-    <!-- GARANTIE -->
-    <div style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.3); border-radius:var(--radius); padding:24px; text-align:center; max-width:800px; margin:40px auto 0;">
-      <h3 style="color:#fff; margin:0 0 6px;">🛡️ Garantie « import réussi » — 30 jours</h3>
-      <p style="color:var(--fg-dim); font-size:.9rem; margin:0;">
-        Si vous n'arrivez pas à importer et interroger le corpus dans votre moteur RAG, contactez-nous sous 30 jours : on vous accompagne jusqu'à ce que ça marche, ou on vous rembourse. (Conditions précisées dans les CGV.)
-      </p>
-    </div>
-  </section>
-
-  <!-- ═════════ 9. FAQ DÉTAILLÉE ═════════ -->
-  <section id="faq" class="wrap" style="padding-bottom: 70px;">
-    <div style="text-align:center; max-width:650px; margin:0 auto 30px;">
-      <div class="eyebrow"><span class="badge-tag badge-cyan">QUESTIONS FRÉQUENTES</span></div>
-      <h2 class="h2" style="color:#fff; margin-top:8px;">Questions &amp; Réponses</h2>
-    </div>
-
-    <div class="faq-list">
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-          <span>Quel matériel faut-il pour faire tourner les packs Turbo OS ?</span>
-          <span>+</span>
-        </div>
-        <div class="faq-a">
-          Une simple machine avec 16 Go de RAM et un processeur récent suffit pour démarrer avec les modèles quantifiés 4-bit (ex: Qwen 2.5 1.5B/3B ou Mistral 7B). Si vous disposez d'un GPU NVIDIA (ex: GTX 1660 Ti, RTX 3060, 3080 ou 4090), vous profiterez d'un débit d'inférence allant de 40 à 120 tokens/seconde en toute fluidité.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-          <span>Est-ce vraiment 0 € après l'achat ? Aucun abonnement caché ?</span>
-          <span>+</span>
-        </div>
-        <div class="faq-a">
-          Absolument. Vous achetez les fichiers et le savoir définitivement. Vos inférences se déroulent sur vos propres composants physiques. Aucune clé API payante n'est requise pour exploiter les capacités des packs.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-          <span>Comment fonctionne Claude Code et les agents CLI ? Utilisent-ils mon abonnement ou le vôtre ?</span>
-          <span>+</span>
-        </div>
-        <div class="faq-a">
-          <b>Claude Code est une application CLI (ligne de commande) qui s'exécute à 100% en local</b> sur votre machine, exactement comme <code>git</code>, <code>bash</code> ou <code>python</code>. Il ne consomme <b>jamais</b> notre abonnement ni aucun abonnement partagé :<br>
-          • <b>Mode 100% Souverain (0-Token) :</b> Vous pouvez le brancher directement sur vos modèles LLM locaux (via le proxy local port :1240 / :18800). Il fonctionne alors gratuitement, sans abonnement et sans aucun appel sortant.<br>
-          • <b>Mode Hybride (Clé personnelle) :</b> Si vous décidez d'utiliser un modèle cloud, vous configurez votre <i>propre</i> clé API personnelle. Vous gardez le contrôle absolu de vos dépenses sans dépendance tierce.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-          <span>Comment s'effectue le partage de ressources entre machines ?</span>
-          <span>+</span>
-        </div>
-        <div class="faq-a">
-          Le partage de ressources s'effectue au sein de votre réseau local privé sécurisé (LAN / mTLS chiffré). Vos machines connectées se répartissent les tâches automatiquement (ex: déporter la transcription vocale Whisper sur un GPU dédié pendant que le CPU principal reste libre). Aucune adresse IP publique ni identifiant personnel n'est exposé à l'extérieur. Tout reste cloisonné dans votre périmètre privé.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-          <span>Comment fonctionne la Table Ronde des 7 Sièges ?</span>
-          <span>+</span>
-        </div>
-        <div class="faq-a">
-          La Table Ronde connecte 7 agents spécialisés ayant chacun leur domaine d'expertise (infrastructure, rigueur de code, synthèse multimodale, inférence déconnectée, exécution système, gouvernance produit et latence GPU). Lorsqu'un problème lui est soumis, les 7 sièges délibèrent en parallèle, confrontent leurs arguments et synthétisent un consensus opérationnel sans aucune complaisance.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-          <span>Combien d'extraits je reçois vraiment, et d'où viennent-ils ?</span>
-          <span>+</span>
-        </div>
-        <div class="faq-a">
-          Vous recevez <b>ce qui est écrit dans le manifeste de chaque pack</b> — au total ~27 700 extraits propres pour le Fonds Complet, que vous comptez vous-même dans <code>corpus.jsonl</code>. Ce sont des retours d'exploitation d'un vrai parc IA local, en <b>création originale</b>. Les extraits rattachés à une source tierce (URL externe ou capture) sont <b>exclus d'office et comptés</b> dans le manifeste (droits non réglés). Usage : interne illimité, revente interdite.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-          <span>Je peux déjà moissonner le web moi-même — pourquoi payer ?</span>
-          <span>+</span>
-        </div>
-        <div class="faq-a">
-          Vous pouvez. Comptez le temps de collecte, de nettoyage, de dédoublonnage et de découpage pour ~27 700 extraits. Ici, c'est fait et tracé — et ce sont des <b>retours d'exploitation d'un parc en production</b> (pannes muettes, reprises, arbitrages de coût) qu'on ne trouve pas en ligne. Une facture est fournie, à votre nom ou celui de votre société.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-          <span>Comment se passe le téléchargement et l'activation ?</span>
-          <span>+</span>
-        </div>
-        <div class="faq-a">
-          Dès validation de votre commande sur Stripe, vous recevez un lien de téléchargement direct (.tgz) ainsi que vos accès à l'Académie interactive. Vous pouvez également importer automatiquement votre pack dans le Cockpit en 1 clic.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-          <span>Un pack seul, Le Fonds Complet (199 €) ou le Pro (299 €) : lequel choisir ?</span>
-          <span>+</span>
-        </div>
-        <div class="faq-a">
-          • <b>Un pack ciblé (29 à 59 €)</b> si vous avez un besoin précis (ex. <i>Inférence &amp; RAG souverain</i>, <i>Orchestration d'agents</i>, <i>Cluster local &amp; routage 0-token</i>).<br>
-          • <b>Le Fonds Complet — les 7 packs (199 €)</b> : la chaîne entière et cohérente, environ 30 % moins cher qu'à l'unité. Le choix si vous voulez tout construire.<br>
-          • <b>Le Fonds Complet Pro (299 €)</b> : les 7 packs <b>+ la formation</b> pour être guidé plutôt que d'assembler seul.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-          <span>Remboursement ? (vente entre professionnels)</span>
-          <span>+</span>
-        </div>
-        <div class="faq-a">
-          La boutique est <b>réservée aux professionnels</b> (vente B2B) : le droit de rétractation du consommateur ne s'applique pas, et il n'y a pas de médiateur de la consommation. Il s'agit de contenu numérique livré immédiatement après paiement. La garantie commerciale et les conditions complètes figurent dans les CGV.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-          <span>Ai-je le droit de partager ou de revendre un pack ?</span>
-          <span>+</span>
-        </div>
-        <div class="faq-a">
-          L'achat est destiné à <b>votre usage</b> (personnel ou interne à votre organisation). La revente et la redistribution ne sont pas autorisées — c'est ce qui nous permet de garder des prix bas et un format totalement ouvert. Ce que vous téléchargez vous appartient et reste lisible pour toujours.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-          <span>Le paiement est-il sécurisé ?</span>
-          <span>+</span>
-        </div>
-        <div class="faq-a">
-          Oui. Le paiement est traité par <b>Stripe</b> (standard bancaire) : vos coordonnées de carte ne transitent jamais par nos serveurs. Les prix sont <b>calculés côté serveur</b> (jamais par le navigateur) et le téléchargement n'est débloqué qu'après paiement vérifié. Aucune donnée d'usage n'est collectée après l'achat.
-        </div>
-      </div>
-    </div>
-  </section>
-</main>
-
-<!-- CART DRAWER & CHECKOUT -->
-<div id="cart-overlay" onclick="openCart(false)"></div>
-<div id="cart-drawer">
-  <div class="cart-head">
-    <div style="font-weight:800; font-size:1.15rem; color:#fff; display:flex; align-items:center; gap:8px;">
-      <span>🛒</span> Votre Panier Souverain
-    </div>
-    <button onclick="openCart(false)" style="background:none; border:none; color:var(--fg-dim); font-size:1.4rem; cursor:pointer;">&times;</button>
-  </div>
-
-  <div class="cart-items-list" id="cart-items-list">
-    <!-- Rendu dynamique JS -->
-  </div>
-
-  <div class="cart-foot">
-    <div class="promo-row">
-      <input type="text" id="promo-input" placeholder="CODE PROMO (EX: SOUVERAIN20)">
-      <button class="btn btn-ghost" onclick="applyPromo()">Appliquer</button>
-    </div>
-    <div id="promo-msg" style="font-size:0.8rem; margin-bottom:8px;"></div>
-
-    <div class="cart-total-row">
-      <span style="color:var(--fg-dim);">Total :</span>
-      <span id="cart-total-display" class="mono" style="color:var(--emerald);">0,00 €</span>
-    </div>
-
-    <button class="btn btn-fire btn-block" id="checkout-btn" onclick="checkoutCart()">
-      🔒 Valider &amp; Télécharger (Stripe 100% Sécurisé)
-    </button>
-    <div style="text-align:center; font-size:0.75rem; color:var(--fg-faint); margin-top:10px;">
-      Garantie 30 Jours · Aucun abonnement récurrent · Facture Pro instantanée
-    </div>
-  </div>
-</div>
-
-<!-- COURSE / ELEARNING VIEWER MODAL -->
-<div id="course-modal" style="display:none; position:fixed; inset:0; z-index:90; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); align-items:center; justify-content:center; padding:20px;">
-  <div style="background:#0e1726; border:1px solid var(--border-bright); border-radius:var(--radius); max-width:850px; width:100%; max-height:90vh; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 25px 60px rgba(0,0,0,0.7);">
-    <div style="padding:18px 24px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
-      <div style="display:flex; align-items:center; gap:10px;">
-        <span class="badge-tag badge-emerald">FORMATION E-LEARNING</span>
-        <h3 id="course-modal-title" style="margin:0; font-size:1.15rem; color:#fff;">Module de Formation</h3>
-      </div>
-      <button onclick="closeCourse()" style="background:none; border:none; color:var(--fg-dim); font-size:1.6rem; cursor:pointer;">&times;</button>
-    </div>
-    <div id="course-modal-body" style="padding:24px; overflow-y:auto; line-height:1.6; font-size:0.95rem; color:#cbd5e1;"></div>
-    <div style="padding:16px 24px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; background:#070d18;">
-      <span class="mono" style="font-size:0.8rem; color:var(--fg-dim);">Tuteur IA 0-Token actif pendant l'exercice</span>
-      <button class="btn btn-primary" onclick="closeCourse()">J'ai compris · Reprendre</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODALE : ÉCHANTILLON GRATUIT CONTRE E-MAIL (aimant à prospects) -->
-<div id="sample-modal" style="display:none; position:fixed; inset:0; z-index:95; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); align-items:center; justify-content:center; padding:20px;">
-  <div style="background:#0e1726; border:1px solid var(--emerald); border-radius:var(--radius); max-width:460px; width:100%; box-shadow:0 25px 60px rgba(0,0,0,0.7); overflow:hidden;">
-    <div style="padding:18px 24px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
-      <div style="display:flex; align-items:center; gap:10px;">
-        <span class="badge-tag badge-emerald">ÉCHANTILLON GRATUIT</span>
-        <h3 style="margin:0; font-size:1.1rem; color:#fff;">Recevez le pack Protocoles</h3>
-      </div>
-      <button onclick="closeSample()" style="background:none; border:none; color:var(--fg-dim); font-size:1.6rem; cursor:pointer;">&times;</button>
-    </div>
-    <div style="padding:24px;">
-      <p style="color:var(--fg-dim); font-size:0.9rem; line-height:1.55; margin:0 0 16px;">
-        248 extraits en archive ouverte <code>.tgz</code> + <code>corpus.jsonl</code>, réimportables dans votre RAG. Gratuit, pour prouver que l'import marche chez vous. Un e-mail suffit.
-      </p>
-      <input type="email" id="sample-email" placeholder="votre@email.fr" style="width:100%; padding:12px 14px; border-radius:10px; border:1px solid var(--border-bright); background:#070d18; color:#fff; font-size:0.95rem; margin-bottom:12px;" onkeydown="if(event.key==='Enter')submitSample()">
-      <button class="btn btn-primary btn-block" id="sample-btn" onclick="submitSample()" style="font-size:1rem; padding:13px;">Recevoir l'échantillon gratuit →</button>
-      <div id="sample-msg" style="font-size:0.8rem; margin-top:12px; text-align:center; min-height:18px;"></div>
-      <p style="font-size:0.72rem; color:var(--fg-faint); margin:10px 0 0; text-align:center;">
-        Votre e-mail sert uniquement à vous envoyer l'accès et des conseils d'import. Désinscription à tout moment. Voir la <a href="./confidentialite.html" style="color:var(--cyan);">politique de confidentialité</a>.
-      </p>
-    </div>
-  </div>
-</div>
-
-<!-- MODALE : CONSENTEMENT & RENONCIATION À LA RÉTRACTATION (contenu numérique, L221-28 13°) -->
-<div id="consent-modal" style="display:none; position:fixed; inset:0; z-index:96; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); align-items:center; justify-content:center; padding:20px;">
-  <div style="background:#0e1726; border:1px solid var(--border-bright); border-radius:var(--radius); max-width:500px; width:100%; box-shadow:0 25px 60px rgba(0,0,0,0.7); overflow:hidden;">
-    <div style="padding:18px 24px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
-      <h3 style="margin:0; font-size:1.1rem; color:#fff;">Avant le paiement</h3>
-      <button onclick="closeConsent()" style="background:none; border:none; color:var(--fg-dim); font-size:1.6rem; cursor:pointer;">&times;</button>
-    </div>
-    <div style="padding:24px;">
-      <label style="display:flex; gap:12px; align-items:flex-start; cursor:pointer; font-size:0.9rem; color:#cbd5e1; line-height:1.55;">
-        <input type="checkbox" id="consent-check" style="margin-top:3px; width:18px; height:18px; flex-shrink:0; accent-color:var(--emerald);" onchange="document.getElementById('consent-go').disabled=!this.checked">
-        <span>Je confirme acheter en tant que <b>professionnel</b>, pour les besoins de mon activité. La vente est conclue entre professionnels (B2B) : le <b>droit de rétractation du consommateur ne s'applique pas</b>. J'accepte les <a href="./cgv.html" target="_blank" style="color:var(--cyan);">CGV</a>.</span>
-      </label>
-      <button class="btn btn-primary btn-block" id="consent-go" onclick="consentProceed()" disabled style="margin-top:20px; font-size:1rem; padding:13px; opacity:1;">Continuer vers le paiement sécurisé →</button>
-    </div>
-  </div>
-</div>
-
-<!-- FOOTER -->
-<footer>
-  <div class="wrap foot-flex">
-    <div>
-      <div class="brand" style="margin-bottom:10px;">
-        <div class="logo-orb">⚡</div>
-        <div><span class="pfx">TURBO OS</span> <span class="sfx">· BOUTIQUE SOUVERAINE</span></div>
-      </div>
-      <p style="max-width:380px; margin:0; font-size:0.85rem; color:var(--fg-dim);">
-        L'intelligence artificielle souveraine, exécutée chez vous sur vos propres GPU. 0 abonnement récurrent, 0 dépendance cloud.
-      </p>
-    </div>
-    <div>
-      <div style="font-weight:700; color:#fff; margin-bottom:10px;">Navigation</div>
-      <div style="display:flex; flex-direction:column; gap:6px;">
-        <a href="#catalogue" style="color:var(--fg-dim); text-decoration:none;">Catalogue des Packs</a>
-        <a href="#bundle" style="color:var(--fg-dim); text-decoration:none;">Le Fonds Complet (dès 199 €)</a>
-        <a href="#catalogue" style="color:var(--fg-dim); text-decoration:none;">IA d'entreprise · JARVIS BOX</a>
-        <a href="#table-ronde" style="color:var(--fg-dim); text-decoration:none;">Table Ronde des 7 Sièges</a>
-      </div>
-    </div>
-    <div>
-      <div style="font-weight:700; color:#fff; margin-bottom:10px;">Garanties &amp; Sécurité</div>
-      <div style="display:flex; flex-direction:column; gap:6px; font-size:0.85rem; color:var(--fg-dim);">
-        <span>✓ Paiement sécurisé SSL / Stripe</span>
-        <span>✓ Garantie « import réussi » — 30 jours</span>
-        <span>✓ Fichiers ouverts .tgz &amp; JSONL</span>
-        <span>✓ Aucune donnée ne sort de votre machine</span>
       </div>
     </div>
   </div>
-  <div class="wrap" style="text-align:center; border-top:1px solid var(--border); padding-top:24px; margin-top:30px; font-size:0.75rem; color:var(--fg-faint);">
-    <div style="display:flex; gap:18px; justify-content:center; flex-wrap:wrap; margin-bottom:12px;">
-      <a href="./mentions-legales.html" style="color:var(--fg-dim); text-decoration:none;">Mentions légales</a>
-      <a href="./cgv.html" style="color:var(--fg-dim); text-decoration:none;">CGV</a>
-      <a href="./confidentialite.html" style="color:var(--fg-dim); text-decoration:none;">Confidentialité</a>
+</section>
+
+<!-- SECTION 2 : PRESTATIONS ENTREPRISES (CLÉS EN MAIN SUR SITE) -->
+<section id="view-pro" style="display:none;">
+  <div class="sec-tag">Rayon 2 — Implantation & Déploiement Entreprise</div>
+  <h2 class="sec-title">Packs d'Implantation Clés en Main</h2>
+  <p class="sec-sub">Nous installons l'infrastructure IA directement sur votre matériel interne ou serveurs dédiés. Zéro fuite de données, formation de vos équipes incluse.</p>
+
+  <div class="cards-grid">
+    <!-- Offre 1 : Audit Souveraineté 48h -->
+    <div class="card">
+      <div>
+        <div class="card-badge">Offre Flash · Décision Rapide</div>
+        <h3>Audit Souveraineté & Risques Data (48h)</h3>
+        <p class="desc">Diagnostic complet de votre exposition au Cloud Act et cartographie de votre parc matériel éligible à l'IA locale.</p>
+        <div class="card-price">1 500 € <span class="unit">HT / diagnostic</span></div>
+        <ul>
+          <li><span class="check">✓</span> Rapport d'exposition Shadow-AI (outils cloud des salariés)</li>
+          <li><span class="check">✓</span> Diagnostic parc GPU / serveurs internes</li>
+          <li><span class="check">✓</span> Plan de migration de 3 processus métiers sensibles</li>
+          <li><span class="check">✓</span> Livré sous 48h chrono avec restitution visio dirigeant</li>
+        </ul>
+      </div>
+      <a href="#contact" class="card-btn">Commander l'Audit 48h →</a>
     </div>
-    Turbo OS Cockpit · Architecture IA 100% Locale Décentralisée · 2026 Tous droits réservés.
+
+    <!-- Offre 2 : Pack Starter -->
+    <div class="card highlight">
+      <div class="card-badge">⭐ Recommandé PME / Cabinets</div>
+      <div>
+        <h3>Pack Starter IA Locale Clés en Main</h3>
+        <p class="desc">Votre première appliance ou serveur IA interne opérationnel en 1 semaine, sans aucun abonnement récurrent.</p>
+        <div class="card-price">4 900 € <span class="unit">HT (one-shot)</span></div>
+        <ul>
+          <li><span class="check">✓</span> Déploiement modèle local (Qwen 7B / Mistral) sur votre infra</li>
+          <li><span class="check">✓</span> Moteur RAG avec indexation de vos documents (PDF, devis, emails)</li>
+          <li><span class="check">✓</span> Interface Web Cockpit sécurisée sans dépendance Internet</li>
+          <li><span class="check">✓</span> Formation équipe (1/2 journée) + 30 jours de support prioritaire</li>
+          <li><span class="check">✓</span> <strong>Bonus :</strong> Le Coffre Intégral RAG offert (199€)</li>
+        </ul>
+      </div>
+      <a href="#contact" class="card-btn">Déployer le Pack Starter →</a>
+    </div>
+
+    <!-- Offre 3 : Cluster Industriel -->
+    <div class="card">
+      <div>
+        <div class="card-badge">ETI · Industrie · Aéronautique</div>
+        <h3>Cluster Turbo OS Entreprise</h3>
+        <p class="desc">Infrastructure complète multi-GPU distribuée, résilience H24, conformité NIS 2 et secret des affaires.</p>
+        <div class="card-price">15 000 € <span class="unit">HT à 35 000 €</span></div>
+        <ul>
+          <li><span class="check">✓</span> Architecture multi-GPU distribuée (inférence + fine-tuning)</li>
+          <li><span class="check">✓</span> Orchestrateur multi-agents OMEGA avec traçabilité totale</li>
+          <li><span class="check">✓</span> Cloisonnement réseau étanche (0 fuite vers l'extérieur)</li>
+          <li><span class="check">✓</span> Intégration ERP / CRM / GED métiers sur mesure</li>
+          <li><span class="check">✓</span> MCO & contrat d'astreinte 24/7 disponible</li>
+        </ul>
+      </div>
+      <a href="#contact" class="card-btn">Demander une Étude Cluster →</a>
+    </div>
   </div>
+</section>
+
+<!-- SECTION 3 : COMPARATIF CLOUD VS TURBO OS -->
+<section id="comparatif">
+  <div class="sec-tag">Rentabilité & Sécurité</div>
+  <h2 class="sec-title">Pourquoi Choisir Turbo OS face au Cloud US ?</h2>
+  <p class="sec-sub">Comparez la réalité des coûts et des risques juridiques sur 3 ans :</p>
+
+  <div class="table-wrap">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Critère</th>
+          <th>Solutions Cloud (OpenAI, Anthropic, AWS)</th>
+          <th>Turbo OS (Souverain Local)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Coût d'utilisation</strong></td>
+          <td class="tag-bad">Facturation aux tokens (coût imprévisible qui explose avec le volume)</td>
+          <td class="tag-good">0 € de coût récurrent (coût fixe matériel amorti en quelques mois)</td>
+        </tr>
+        <tr>
+          <td><strong>Confidentialité des données</strong></td>
+          <td class="tag-bad">Transférées sur des serveurs tiers soumis au Cloud Act américain</td>
+          <td class="tag-good">100% sur vos machines locales en circuit fermé (127.0.0.1)</td>
+        </tr>
+        <tr>
+          <td><strong>Conformité RGPD & NIS 2</strong></td>
+          <td class="tag-bad">Risque juridique permanent, DPA complexe, audits difficiles</td>
+          <td class="tag-good">Conformité native absolue (zéro transfert de données)</td>
+        </tr>
+        <tr>
+          <td><strong>Disponibilité & Continuité</strong></td>
+          <td class="tag-bad">Dépendance à votre connexion Internet et aux pannes des API cloud</td>
+          <td class="tag-good">Fonctionne même sans connexion Internet, 24h/24 et 7j/7</td>
+        </tr>
+        <tr>
+          <td><strong>Propriété intellectuelle</strong></td>
+          <td class="tag-bad">Modèles hébergés chez des tiers, risque d'entraînement sur vos prompts</td>
+          <td class="tag-good">Vous possédez vos données, vos corpus et votre infrastructure</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- SECTION 4 : FAQ -->
+<section id="faq">
+  <div class="sec-tag">Transparence</div>
+  <h2 class="sec-title">Foire Aux Questions</h2>
+  <div class="faq-grid">
+    <div class="faq-card">
+      <h4>Quel matériel est nécessaire pour faire tourner Turbo OS ?</h4>
+      <p>Une simple machine équipée d'une carte graphique grand public (RTX 3060/3080/4060 avec 8 à 12 Go de VRAM) suffit pour faire tourner des modèles de pointe de 7 à 14 milliards de paramètres à plus de 30 tokens par seconde.</p>
+    </div>
+    <div class="faq-card">
+      <h4>Mes données peuvent-elles fuiter sur Internet ?</h4>
+      <p>Non. Le système est conçu dès son architecture pour boucler exclusivement sur l'interface locale loopback 127.0.0.1. Aucun octet de vos documents ou de vos requêtes ne quitte vos locaux.</p>
+    </div>
+    <div class="faq-card">
+      <h4>Comment se passe le déploiement en entreprise ?</h4>
+      <p>Nous intervenons soit sur votre matériel existant, soit nous livrons une station préconfigurée clé en main. L'installation complète et la configuration de votre RAG prennent entre 24h et 5 jours selon la formule choisie.</p>
+    </div>
+    <div class="faq-card">
+      <h4>Quelle est la différence entre les packs RAG et l'installation clé en main ?</h4>
+      <p>Les packs RAG sont des jeux de données et corpus structurés téléchargeables immédiatement pour enrichir vos propres IA. L'installation clé en main est un service d'intégration complet où nous installons et configurons tout le système pour vous.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5 : CONTACT DIRECT & FOOTER -->
+<footer id="contact">
+  <div style="max-width:700px; margin:0 auto 30px;">
+    <h3 style="font-size:26px; font-weight:900; margin-bottom:12px; color:#fff;">Contact Direct & Prise de Rendez-vous</h3>
+    <p style="color:var(--muted); font-size:15px; margin-bottom:24px; line-height:1.6;">
+      Vous souhaitez réaliser un <strong>Audit Souveraineté sous 48h</strong> ou déployer un <strong>Pack Starter</strong> dans votre entreprise ?<br>
+      Échangez directement avec Franck Delmas, concepteur de Turbo OS :
+    </p>
+    <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:24px;">
+      <a href="mailto:franckdelmas00@gmail.com" class="btn-cta" style="padding:14px 28px; font-size:14px;">✉️ franckdelmas00@gmail.com</a>
+      <a href="tel:0651585746" class="btn-cta" style="background:#262630; padding:14px 28px; font-size:14px;">📞 06 51 58 57 46</a>
+    </div>
+    <p style="font-size:12px; color:#777;">
+      Éditeur : Franck DELMAS (EI) · SIREN : 815 353 966 · Toulouse / Saint-Orens-de-Gameville, France
+    </p>
+  </div>
+
+  <div class="footer-links">
+    <a href="./mentions-legales.html">Mentions Légales</a>
+    <a href="./cgv.html">Conditions Générales de Vente (B2B)</a>
+    <a href="./confidentialite.html">Politique de Confidentialité</a>
+  </div>
+  <p style="margin-top:20px; font-size:12px; color:#555;">© 2026 TURBO OS × ALKYMIA — Tous droits réservés. Vente réservée aux professionnels.</p>
 </footer>
 
 <script>
-  // ═══ DONNÉES DU CATALOGUE ═══
-  // ═══ DONNÉES DU CATALOGUE SOUVERAIN (SOURCE FACTORY / DISQUE .TGZ) ═══
-  const CATALOG = [
-    {
-      id: "identification-numerique",
-      title: "Identification Numérique & Sécurité Zero-Trust",
-      category: "infra",
-      icon: "🛡️",
-      desc: "Passerelle d'accès cryptographique souveraine (SHA-256), jetons d'accès éphémères (TTL), gestion des abonnements, protection anti-RCE et isolation de l'Orbe Turbo.",
-      tags: ["Identification Numérique", "Zero-Trust", "SHA-256", "Tokens TTL", "Anti-RCE", "Orbe Turbo"],
-      size: "1.2 Mo",
-      chunks: "2 140 blocs",
-      price: 69,
-      origPrice: 149,
-      courseId: "identification-numerique"
-    },
-    {
-      id: "doctrine-omega",
-      title: "Doctrine & Architecture Turbo OS / OMEGA",
-      category: "doctrine",
-      icon: "🏛️",
-      desc: "Principes fondateurs, architecture modulaire en 9 couches système, machine d'états OMEGA et isolation stricte 0-cloud.",
-      tags: ["OMEGA 24", "Souveraineté", "Kernel 9-Couches", "Architecture"],
-      size: "23 Ko",
-      chunks: "71 blocs",
-      price: 49,
-      courseId: "doctrine-omega"
-    },
-    {
-      id: "orchestration-agents",
-      title: "Orchestration d'Agents Locaux",
-      category: "agents",
-      icon: "🤖",
-      desc: "Coordination et cascade de 319 agents par familles, élimination des boucles infinies, checkpoints persistants et arbitrage Board.",
-      tags: ["Multi-Agents", "FSM", "Dominos", "Actor-Critic"],
-      size: "8.01 Mo",
-      chunks: "3 755 blocs",
-      price: 59,
-      origPrice: 119,
-      courseId: "orchestration-agents"
-    },
-    {
-      id: "inference-rag",
-      title: "Inférence Locale & RAG Souverain",
-      category: "rag",
-      icon: "🧠",
-      desc: "Vectorisation Nomic 768D, index FTS5 BM25 hybride, quantification optimale et élimination des goulets d'étranglement de VRAM.",
-      tags: ["RAG 768D", "FTS5", "SQLite", "Cosine-Sim"],
-      size: "2.38 Mo",
-      chunks: "5 555 blocs",
-      price: 45,
-      origPrice: 89,
-      courseId: "inference-rag"
-    },
-    {
-      id: "fiabilite",
-      title: "Fiabilité & Exploitation 24/7",
-      category: "infra",
-      icon: "🔄",
-      desc: "Chasse aux pannes muettes, persistance systemd durcie, supervision continue, auto-restart et reprise à chaud sans perte d'état.",
-      tags: ["Systemd", "Pannes Muettes", "Watchdog", "Failover"],
-      size: "1.81 Mo",
-      chunks: "4 277 blocs",
-      price: 39,
-      origPrice: 79,
-      courseId: "fiabilite"
-    },
-    {
-      id: "cout-energie",
-      title: "Coût & Énergie de l'IA Locale",
-      category: "infra",
-      icon: "⚡",
-      desc: "Modélisation précise du coût au watt, amortissement du matériel GPU/PC reconditionné, calcul du TCO face aux API cloud.",
-      tags: ["Comptabilité Watt", "Amortissement", "TCO", "0-Token"],
-      size: "1.30 Mo",
-      chunks: "3 188 blocs",
-      price: 35,
-      origPrice: 69,
-      courseId: "cout-energie"
-    },
-    {
-      id: "protocoles-formats",
-      title: "Protocoles & Formats Ouverts",
-      category: "doctrine",
-      icon: "📦",
-      desc: "Éradication des formats propriétaires. Formats d'échange ouverts (.tgz / JSONL), réversibilité intégrale et pérennité décennale.",
-      tags: ["JSONL", "SQLite", "Open Formats", "Zero-Vendor-Lockin"],
-      size: "87 Ko",
-      chunks: "248 blocs",
-      price: 29,
-      free: true,
-      courseId: "protocoles-formats"
-    },
-    {
-      id: "cluster-local",
-      title: "Cluster Local M1/M6 — Infra & GPU",
-      category: "infra",
-      icon: "🖥️",
-      desc: "Interconnexion de 5 GPU, déportation des charges lourdes (Whisper M1, LLM), Zero-Trust LAN 1GbE et routage souverain sans perte.",
-      tags: ["Multi-GPU", "Cluster Hétérogène", "LAN 1GbE", "Whisper M1"],
-      size: "4.57 Mo",
-      chunks: "10 649 blocs",
-      price: 42,
-      origPrice: 89,
-      courseId: "cluster-local"
-    },
-    {
-      id: "cours-ia-souveraine",
-      title: "Formation — Monter son IA Locale Souveraine",
-      category: "formation",
-      icon: "🎓",
-      desc: "Masterclass pas-à-pas complète pour assembler, configurer et administrer son cluster IA autonome à la maison ou en PME.",
-      tags: ["Masterclass", "Pas-à-Pas", "Pratique", "Vidéo & PDF"],
-      size: "14.5 Mo",
-      chunks: "18 964 blocs",
-      price: 99,
-      origPrice: 199,
-      courseId: "cours-ia-souveraine"
-    }
-  ];
+function switchView(mode) {
+  const diySec = document.getElementById('view-diy');
+  const proSec = document.getElementById('view-pro');
+  const btnDiy = document.getElementById('btn-diy');
+  const btnPro = document.getElementById('btn-pro');
 
-  // ═══ DONNÉES DES 7 SIÈGES DE LA TABLE RONDE ═══
-  const TR_SEATS = [
-    {
-      id: "strategie",
-      name: "Superviseur Stratégique",
-      role: "Supervision d'infrastructure autonome et garant de la continuité opérationnelle du cluster local.",
-      avatar: "🖥️",
-      badge: "Moteur Déterministe",
-      color: "#34d399",
-      quote: "Combien de fois la donnée traverse-t-elle le bus par jeton généré ?",
-      online: true,
-      ip: "Localhost"
-    },
-    {
-      id: "claude",
-      name: "Claude Code (CLI Local)",
-      role: "Agent CLI local autonome (comme git ou bash). Fonctionne avec vos LLM locaux (0-Token) ou votre propre clé API — sans abonnement tiers partagé.",
-      avatar: "👑",
-      badge: "CLI Local / 0-Cloud",
-      color: "#fbbf24",
-      quote: "Une application CLI locale : s'exécute sur votre terminal avec vos propres ressources.",
-      online: true,
-      ip: "CLI Local"
-    },
-    {
-      id: "gemini",
-      name: "Gemini AI Studio",
-      role: "Analyse rapide de grands volumes de données, créativité et projection écosystème.",
-      avatar: "✨",
-      badge: "Google AI Studio",
-      color: "#38bdf8",
-      quote: "Corrélation croisée entre télémétrie système et arbre de décision.",
-      online: true,
-      ip: "Pont Local"
-    },
-    {
-      id: "ollama",
-      name: "Qwen 2.5 Local (0-Token)",
-      role: "Calcul d'inférence déconnecté, sécurité totale sans fuite de données hors de la machine.",
-      avatar: "🛡️",
-      badge: "GPU Local 0-Token",
-      color: "#22d3ee",
-      quote: "Aucun octet ne quitte cette machine. Le calcul souverain prime sur tout.",
-      online: true,
-      ip: "Localhost"
-    },
-    {
-      id: "openclaw",
-      name: "Manus / OpenClaw",
-      role: "Exécution d'actions sur l'OS, orchestration des outils MCP et navigation CDP réelle.",
-      avatar: "🤖",
-      badge: "Gateway :18789",
-      color: "#c084fc",
-      quote: "Les théories ne valent rien sans vérification sur le système de fichiers.",
-      online: true,
-      ip: "Gateway locale"
-    },
-    {
-      id: "chatgpt",
-      name: "ChatGPT / Orbe",
-      role: "Alignement stratégique, modélisation des besoins utilisateurs et vision produit.",
-      avatar: "💬",
-      badge: "Browser OS Hub",
-      color: "#2dd4bf",
-      quote: "L'utilisabilité et la valeur métier opérationnelle doivent rester limpides.",
-      online: true,
-      ip: "Hub Décentralisé"
-    },
-    {
-      id: "mistral",
-      name: "Mistral AI",
-      role: "Optimisation des performances brutes, latences GPU et logique européenne souveraine.",
-      avatar: "⚡",
-      badge: "Inférence Rapide",
-      color: "#fb923c",
-      quote: "Chaque milliseconde économisée sur le kernel décuple le débit d'inférence.",
-      online: true,
-      ip: "Kernel GPU"
-    }
-  ];
-
-  // ═══ DONNÉES DES 3 BASES SQL BOARD ═══
-  const SQL_DBS = {
-    board: {
-      key: "board",
-      path: "~/.jarvis/board/board.db",
-      name: "board.db",
-      size: "13,77 Go",
-      count: "1 432 882 chunks",
-      sources: "355 216 sources",
-      domains: "35 domaines",
-      experts: "84 experts",
-      vector: "768D Nomic Embed v1.5",
-      defaultQuery: "SELECT id, domain_id, expert_id, substr(text, 1, 140) as extrait FROM chunks WHERE domain_id = 'souverainete' LIMIT 3;",
-      presets: [
-        {
-          title: "Extraits Souveraineté & Isolation",
-          sql: "SELECT id, domain_id, expert_id, substr(text, 1, 120) as extrait FROM chunks WHERE domain_id = 'souverainete' LIMIT 4;"
-        },
-        {
-          title: "Inférence Locale & Dual-GPU",
-          sql: "SELECT id, domain_id, chunk_idx, substr(text, 1, 120) as extrait FROM chunks WHERE domain_id = 'inference-locale' LIMIT 4;"
-        },
-        {
-          title: "Volume d'extraits par domaine",
-          sql: "SELECT domain_id, count(*) as total_chunks FROM chunks GROUP BY domain_id ORDER BY total_chunks DESC LIMIT 5;"
-        },
-        {
-          title: "Liste des 84 Experts du Conseil",
-          sql: "SELECT id, domaine, nom, substr(prompt, 1, 90) as mission FROM experts LIMIT 4;"
-        }
-      ]
-    },
-    omega: {
-      key: "omega",
-      path: "~/.jarvis/omega/board/omega_board.db",
-      name: "omega_board.db",
-      size: "233 Ko",
-      count: "17 Items / Dominos",
-      sources: "Machine d'états OMEGA 24",
-      domains: "Exécution Continue 24/7",
-      experts: "Cognitive Router",
-      vector: "Checkpoints d'États Finis",
-      defaultQuery: "SELECT id, item_id, seq, name, state, action_class FROM dominos LIMIT 4;",
-      presets: [
-        {
-          title: "Chaîne de Dominos d'Action",
-          sql: "SELECT id, item_id, seq, name, state, action_class FROM dominos LIMIT 4;"
-        },
-        {
-          title: "Objectifs Stratégiques Actifs",
-          sql: "SELECT id, title, state, priority, intent, family FROM board_items LIMIT 4;"
-        },
-        {
-          title: "Historique des Transitions d'États",
-          sql: "SELECT id, entity_type, entity_id, from_state, to_state, reason FROM state_events ORDER BY id DESC LIMIT 5;"
-        },
-        {
-          title: "Artefacts Produit Certifiés",
-          sql: "SELECT id, name, type, sha256, version, state FROM artifacts LIMIT 4;"
-        }
-      ]
-    },
-    biblio: {
-      key: "biblio",
-      path: "~/.jarvis/omega/biblio/biblio_vivante.db",
-      name: "biblio_vivante.db",
-      size: "5,19 Mo",
-      count: "798 Actions Validées",
-      sources: "14 561 Index Mots-Clés",
-      domains: "Bibliothèque Opérationnelle",
-      experts: "Validation Tests Réels",
-      vector: "797 Embeddings d'Actions",
-      defaultQuery: "SELECT id, type, intention, commande, statut FROM library WHERE statut = 'validated' LIMIT 4;",
-      presets: [
-        {
-          title: "Commandes de Délibération & Board",
-          sql: "SELECT id, type, intention, commande, statut FROM library WHERE id LIKE 'cmd.%' LIMIT 4;"
-        },
-        {
-          title: "Mots-clés Indexés par Capacité",
-          sql: "SELECT id, mots_cles, intention, provenance FROM library LIMIT 4;"
-        },
-        {
-          title: "Vérification des Tests & Statut",
-          sql: "SELECT id, statut, node, version, hash FROM library WHERE statut = 'validated' LIMIT 5;"
-        }
-      ]
-    }
-  };
-
-  let CURRENT_SQL_DB = "board";
-
-  // ═══ DONNÉES DES NIVEAUX DE FORMATION ═══
-  const LEVELS_DATA = {
-    deb: {
-      title: "Niveau 🟢 Débutant : Maîtrise en 1 Clic",
-      subtitle: "Pour développeurs, créateurs ou passionnés sans expérience Linux complexe.",
-      desc: "Vous n'avez pas besoin de savoir compiler des kernels pour devenir souverain. Ce parcours vous guide pas à pas avec notre lanceur automatique en 1 clic.",
-      badge: "ACCESSIBLE SANS PRÉ-REQUIS",
-      modules: [
-        "Installation automatique de l'environnement Turbo OS en 1 script",
-        "Téléchargement et mise en cache locale de vos premiers modèles 100% gratuits",
-        "Première recherche vectorielle RAG en ligne de commande simplifiée",
-        "Mise en place de votre premier assistant local qui ne quitte jamais votre bureau"
-      ],
-      mentorTip: "Le <b>Superviseur Stratégique</b> et l'<b>Agent CLI Local</b> vous accompagnent avec des messages clairs sans jargon pour valider chaque étape."
-    },
-    pro: {
-      title: "Niveau 🟡 Freelance / Dev Pro : L'Arsenal 24/7",
-      subtitle: "Pour indépendants et équipes techniques qui veulent éliminer 100% de leurs factures de tokens.",
-      desc: "Transformez votre station de travail en véritable usine logicielle autonome. Automatisez la revue de code, le scraping intelligent et vos tests 24/7.",
-      badge: "RENTABILITÉ IMMÉDIATE",
-      modules: [
-        "Orchestration d'agents autonomes via la machine d'états OMEGA 24",
-        "Pilotage d'un navigateur local : extraction web et navigation DOM sans API externe",
-        "Injection de vos bases de données propriétaires dans le RAG 768D SQLite",
-        "Génération de code souveraine et pipeline de refactoring automatique"
-      ],
-      mentorTip: "Les sièges <b>OpenClaw</b> et <b>Mistral AI</b> interviennent directement pour optimiser vos boucles de scripts et auditer vos dominos."
-    },
-    cto: {
-      title: "Niveau 🔴 CTO & Architecte : Le Cluster Ultime",
-      subtitle: "Pour directeurs techniques, ingénieurs sécurité et responsables d'infrastructure.",
-      desc: "Concevez un cluster distribué hautement résilient, étanche à toute intrusion et capable de servir des millions d'inférences sans aucune fuite cloud.",
-      badge: "SOUVERAINETÉ NIVEAU DÉFENSE",
-      modules: [
-        "Répartition de charge multi-GPU (PCIe Gen4 / P2P) et quantification AWQ/GGUF",
-        "Topologie réseau Zero-Trust (mTLS, tunnels Wireguard, confinement réseau)",
-        "Gouvernance délibérative des 7 sièges IA avec consensus cryptographique Ed25519",
-        "Watchdogs systemd, bascule à chaud sans coupure de service et haute disponibilité"
-      ],
-      mentorTip: "L'intégralité du Conseil des 7 Sièges délibère avec vous lors de la soutenance de votre topologie d'infrastructure."
-    }
-  };
-
-  // ═══ DILEMMES PRÉDÉFINIS POUR LA TABLE RONDE ═══
-  const TR_DILEMMAS = {
-    vram: {
-      q: "Comment arbitrer 16 Go de VRAM entre le RAG 768D et le modèle de raisonnement R1 ?",
-      opinions: [
-        { id: "strategie", stance: "APPROUVÉ", color: "#34d399", txt: "Allouer 12 Go au modèle R1 quantifié 4-bit (AWQ) et réserver 4 Go au RAG vectoriel garantit que le bus PCIe ne sature jamais." },
-        { id: "claude", stance: "APPROUVÉ", color: "#fbbf24", txt: "Vérification formelle : le cache KV du RAG en FP16 tient confortablement dans 3,2 Go pour 8 192 tokens de contexte." },
-        { id: "gemini", stance: "OPTIMISATION REQUISE", color: "#38bdf8", txt: "Attention à la corrélation : prévoir un offload dynamique CPU si la fenêtre de contexte dépasse 16k tokens." },
-        { id: "ollama", stance: "APPROUVÉ", color: "#22d3ee", txt: "Validation 0-Token : les deux contextes restent entièrement confinés dans la mémoire GPU sans aucun appel sortant." },
-        { id: "openclaw", stance: "APPROUVÉ", color: "#c084fc", txt: "Dans cet exemple, l'arbitrage VRAM proposé évite la saturation (démonstration, pas une mesure réelle)." },
-        { id: "chatgpt", stance: "APPROUVÉ", color: "#2dd4bf", txt: "L'équilibre coût/latence pour l'utilisateur final est optimal. Temps de première réponse inférieur à 400 ms." },
-        { id: "mistral", stance: "APPROUVÉ", color: "#fb923c", txt: "Débit mesuré à 68 tokens/seconde avec flash-attention activé sur le kernel local." }
-      ],
-      verdict: {
-        accords: "Consensus unanime pour fixer le seuil VRAM du modèle R1 à 12 Go en AWQ-4bit et dédier 4 Go au RAG 768D.",
-        desaccords: "Débat mineur sur l'offload CPU au-delà de 16k tokens, résolu par l'activation du KV-cache dynamique.",
-        tranche: "Directive exécutive : Déploiement immédiat de la configuration 12Go/4Go avec surveillance par le Superviseur Stratégique.",
-        incertain: "Mesure de latence sous charge de 10 requêtes simultanées à exécuter dans la session."
-      },
-      hash: "0x8f4d92a17cb24e88109bf1a4de92ed25519"
-    },
-    security: {
-      q: "Quelle stratégie de confinement appliquer si un agent autonome subit une tentative d'injection de prompt ?",
-      opinions: [
-        { id: "strategie", stance: "APPROUVÉ", color: "#34d399", txt: "Couper immédiatement la socket réseau de l'agent sans interrompre le reste du cluster." },
-        { id: "claude", stance: "APPROUVÉ", color: "#fbbf24", txt: "Règle de syntaxe : neutraliser tout prompt contenant des balises système divergentes avant exécution." },
-        { id: "ollama", stance: "APPROUVÉ", color: "#22d3ee", txt: "Confinement total : l'agent hostile n'a aucun accès aux tables de clés ni au système de fichiers racine." },
-        { id: "openclaw", stance: "APPROUVÉ", color: "#c084fc", txt: "Isoler l'environnement dans un sous-processus éphémère supprimé dès détection de l'anomalie." },
-        { id: "mistral", stance: "APPROUVÉ", color: "#fb923c", txt: "Audit en 1,2 ms par le modèle garde-fou local sans surcoût de calcul." }
-      ],
-      verdict: {
-        accords: "Isolation immédiate en mémoire sandbox et révocation instantanée du jeton d'exécution.",
-        desaccords: "Aucun désaccord majeur. Approche Zero-Trust stricte validée à 100%.",
-        tranche: "Directive exécutive : Enclenchement du protocole Sanitize-Shield avec scellement de l'audit log.",
-        incertain: "Vérifier la purge complète de la mémoire cache de l'agent."
-      },
-      hash: "0x3a91e57c8bf041289de623a9b1c7ed25519"
-    },
-    recovery: {
-      q: "Procédure d'urgence si la température du GPU 1 dépasse 82°C en pleine inférence ?",
-      opinions: [
-        { id: "strategie", stance: "APPROUVÉ", color: "#34d399", txt: "Bascule automatique de 50% de la charge de calcul vers le second GPU ou le nœud satellite." },
-        { id: "mistral", stance: "APPROUVÉ", color: "#fb923c", txt: "Réduction préventive de la taille de batch pour ramener la dissipation thermique sous 74°C en 45 secondes." },
-        { id: "openclaw", stance: "APPROUVÉ", color: "#c084fc", txt: "Déclenchement du profil de ventilation maximale et journalisation de l'événement dans le watchdog." }
-      ],
-      verdict: {
-        accords: "Throttle thermique automatique et bascule de flux inter-nœuds sans interruption des inférences en cours.",
-        desaccords: "Priorisation de la vitesse de calcul vs sécurité matérielle : la sécurité matérielle l'emporte.",
-        tranche: "Directive exécutive : Réduction du batch et routage dynamique vers GPU 2 jusqu'à stabilisation sous 75°C.",
-        incertain: "Contrôler la vitesse des ventilateurs après 3 minutes."
-      },
-      hash: "0x77c2e11a9f024b895cd43110e821ed25519"
-    },
-    scale: {
-      q: "Scalabilité 1.43M Chunks : FTS5 Plein-Texte vs Index Vectoriel 768D ?",
-      opinions: [
-        { id: "strategie", stance: "APPROUVÉ", color: "#34d399", txt: "Approche hybride : FTS5 pour le filtrage lexical ultra-rapide (2 ms) puis re-ranking vectoriel sur les 100 meilleurs résultats." },
-        { id: "claude", stance: "APPROUVÉ", color: "#fbbf24", txt: "L'approche bi-encodeur évite le calcul d'un million de distances cosinus à chaque invite." },
-        { id: "gemini", stance: "APPROUVÉ", color: "#38bdf8", txt: "Cette fusion assure un rappel à 99,4% tout en réduisant la latence globale par un facteur 12." }
-      ],
-      verdict: {
-        accords: "Validation formelle du pipeline Hybride FTS5 + Nomic 768D.",
-        desaccords: "Néant. Architecture standardisée dans board.db.",
-        tranche: "Directive exécutive : Maintenir le pipeline hybride standard dans tous les modules du Cockpit.",
-        incertain: "Mesure de la consommation RAM lors des pics de re-ranking."
-      },
-      hash: "0x44d1889a7be34f90117a2211c409ed25519"
-    }
-  };
-
-  // ═══ UTILITAIRES D'AFFICHAGE ═══
-  function esc(s) {
-    return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  if (mode === 'diy') {
+    diySec.style.display = 'block';
+    proSec.style.display = 'none';
+    btnDiy.classList.add('active');
+    btnPro.classList.remove('active');
+  } else {
+    diySec.style.display = 'none';
+    proSec.style.display = 'block';
+    btnPro.classList.add('active');
+    btnDiy.classList.remove('active');
   }
-  function euro(n) {
-    return Number(n || 0).toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
-  }
-
-  function showBoutiqueMsg(msg, type) {
-    const el = document.getElementById("promo-msg");
-    if (!el) return;
-    el.innerHTML = `<span style="color:${type === 'ok' ? 'var(--emerald)' : 'var(--rose)'}; font-weight:700;">${esc(msg)}</span>`;
-  }
-
-  // ═══ BANDEAU LANCEMENT (date fixe, plus de faux compte à rebours) ═══
-  function startRibbonTimer() { /* no-op : la date de fin est écrite en dur dans le bandeau */ }
-
-  // ═══ TERMINAL HERO INTERACTIF ═══
-  // Exemples illustratifs de ce que vous faites avec un pack (pas de mesure en direct).
-  const TERM_DEMOS = {
-    rag: `<span class="term-prompt">vous@votre-machine:~$</span> <span class="term-cmd">tar xzf turbo-pack-orchestration.tgz && ls</span>\n<span class="term-out">manifest.json   corpus.jsonl\n→ 3 755 extraits · format turbo-knowledge-pack/1 · sources tierces exclues</span>\n<span class="term-succ">✓ corpus.jsonl prêt à être importé dans votre moteur RAG.</span>`,
-    omega: `<span class="term-prompt">vous@votre-machine:~$</span> <span class="term-cmd">python import_pack.py corpus.jsonl --into ./rag</span>\n<span class="term-out">Lecture du manifeste signé → vérification du nombre d'extraits\nIndexation locale (embeddings sur votre machine)…</span>\n<span class="term-succ">✓ Votre assistant local répond désormais avec ces extraits, en citant ses sources.</span>`,
-    zero: `<span class="term-prompt">vous@votre-machine:~$</span> <span class="term-cmd">grep -c '"text"' corpus.jsonl   # c'est VOTRE fichier</span>\n<span class="term-out">Format ouvert, réimportable, sans compte ni abonnement.\nAucun appel réseau nécessaire pour l'utiliser.</span>\n<span class="term-succ">✓ Le pack reste chez vous — même si Turbo OS disparaît, votre corpus marche toujours.</span>`
-  };
-
-  function switchTermDemo(key, btn) {
-    document.querySelectorAll('.term-tab').forEach(b => b.classList.remove('active'));
-    const target = btn || document.querySelector(`.term-tab[onclick*="${key}"]`);
-    if (target && target.classList) target.classList.add('active');
-    const el = document.getElementById("hero-term-body");
-    if (el) el.innerHTML = TERM_DEMOS[key] || "";
-  }
-
-  // ═══ SIMULATEUR DE ROI ═══
-  function updateRoi() {
-    // Le calculateur a été déplacé sur la page entreprise (/box). Garde-fou : si les
-    // anciens éléments ne sont plus dans le DOM, on ne fait rien (pas d'erreur au chargement).
-    if (!document.getElementById("roi-devs")) return;
-    const devs = parseInt(document.getElementById("roi-devs").value, 10);
-    const reqs = parseInt(document.getElementById("roi-reqs").value, 10);
-    const tier = parseInt(document.getElementById("roi-tier").value, 10);
-
-    document.getElementById("roi-devs-txt").textContent = `${devs} dev(s)`;
-    document.getElementById("roi-reqs-txt").textContent = `${reqs} requêtes/jour`;
-
-    const tierLabels = ["GPT-4o Mini / Haiku (Éco)", "Claude 3.5 Sonnet / GPT-4o (Standard)", "Claude 3 Opus / o1 Reasoning (Haute Densité)"];
-    const costPerReq = [0.008, 0.028, 0.085];
-    document.getElementById("roi-tier-txt").textContent = tierLabels[tier - 1];
-
-    const monthlyCost = devs * reqs * costPerReq[tier - 1] * 22;
-    const annualCost = monthlyCost * 12;
-    const turboPackCost = 199;
-    const netSavings = Math.max(0, annualCost - turboPackCost);
-
-    document.getElementById("roi-saved-display").textContent = euro(netSavings);
-    document.getElementById("roi-cloud-cost").textContent = euro(annualCost) + "/an";
-
-    const dailyBurn = devs * reqs * costPerReq[tier - 1];
-    const paybackDays = dailyBurn > 0 ? Math.ceil(turboPackCost / dailyBurn) : 1;
-    document.getElementById("roi-payback-display").textContent = `⚡ Pack intégralement rentabilisé en ${paybackDays} jour(s) !`;
-  }
-
-  // ═══ INITIALISATION & RENDU TABLE RONDE ═══
-  function initTableRonde() {
-    const container = document.getElementById("tr-seats-container");
-    if (!container) return;
-
-    container.innerHTML = TR_SEATS.map(seat => `
-      <div class="tr-seat-card" style="--seat-color:${seat.color};" id="tr-seat-${seat.id}">
-        <div class="tr-seat-head">
-          <div class="tr-seat-name"><span>${seat.avatar}</span> <span>${esc(seat.name)}</span></div>
-          <span class="tr-seat-badge">${esc(seat.badge)}</span>
-        </div>
-        <div class="tr-seat-role">${esc(seat.role)}</div>
-        <div class="tr-seat-quote">« ${esc(seat.quote)} »</div>
-        <div class="tr-seat-foot">
-          <div class="tr-seat-status">
-            <div class="tr-status-dot ${seat.online ? 'online' : ''}"></div>
-            <span>${seat.online ? 'Intégration' : 'À connecter'}</span>
-          </div>
-          <span class="mono" style="color:var(--fg-dim);">${esc(seat.ip)}</span>
-        </div>
-      </div>
-    `).join("");
-
-    // Vitrine publique : pas de sonde backend (pas d'exposition de l'état interne du parc). Démo statique.
-  }
-
-  function setTrDilemma(key) {
-    const data = TR_DILEMMAS[key];
-    if (!data) return;
-    const input = document.getElementById("tr-input-q");
-    if (input) {
-      input.value = data.q;
-      runTableRonde();
-    }
-  }
-
-  function runTableRonde() {
-    const q = document.getElementById("tr-input-q").value.trim();
-    if (!q) return;
-
-    const btn = document.getElementById("tr-btn-delib");
-    const progress = document.getElementById("tr-progress");
-    const fill = document.getElementById("tr-progress-fill");
-    const results = document.getElementById("tr-results");
-    const gauge = document.getElementById("tr-reactor-circle");
-    const gaugePct = document.getElementById("tr-reactor-pct");
-
-    btn.disabled = true;
-    btn.innerHTML = `<span class="spin">⏳</span> Délibération en cours des 7 sièges...`;
-    progress.style.display = "block";
-    results.style.display = "none";
-    fill.style.width = "0%";
-
-    // Animate steps
-    setTimeout(() => { fill.style.width = "25%"; }, 150);
-    setTimeout(() => { fill.style.width = "55%"; }, 400);
-    setTimeout(() => { fill.style.width = "85%"; }, 750);
-
-    // Find pre-matched dilemma or fallback
-    let match = TR_DILEMMAS.vram;
-    const lower = q.toLowerCase();
-    if (lower.includes("sécurité") || lower.includes("injection") || lower.includes("zero-trust")) {
-      match = TR_DILEMMAS.security;
-    } else if (lower.includes("température") || lower.includes("surchauffe") || lower.includes("healing") || lower.includes("82")) {
-      match = TR_DILEMMAS.recovery;
-    } else if (lower.includes("scale") || lower.includes("scalabilité") || lower.includes("1.43m") || lower.includes("fts5")) {
-      match = TR_DILEMMAS.scale;
-    }
-
-    // Démo illustrative hors-ligne : AUCUN appel backend (pas de charge GPU depuis la vitrine publique, B1).
-    renderDeliberationData(match, null);
-    setTimeout(() => {
-      fill.style.width = "100%";
-      setTimeout(() => {
-        progress.style.display = "none";
-        results.style.display = "block";
-        btn.disabled = false;
-        btn.innerHTML = `⚖️ Rejouer l'exemple de délibération`;
-        if (gauge) gauge.style.strokeDashoffset = "10";
-        if (gaugePct) gaugePct.textContent = "96%";
-      }, 300);
-    }, 900);
-  }
-
-  function renderDeliberationData(dilemma, liveData) {
-    const list = document.getElementById("tr-opinions-list");
-    const verdictEl = document.getElementById("tr-verdict-body");
-    const hashEl = document.getElementById("tr-crypto-hash");
-
-    if (hashEl) hashEl.textContent = `HASH: ${dilemma.hash}`;
-
-    if (list) {
-      list.innerHTML = dilemma.opinions.map(op => {
-        const seat = TR_SEATS.find(s => s.id === op.id) || { name: op.id, avatar: "🤖", color: "#6366f1" };
-        const stanceBadge = op.stance === "APPROUVÉ" ? "badge-emerald" : "badge-amber";
-        return `
-          <div class="tr-opinion-card" style="border-color:${seat.color};">
-            <div class="tr-opinion-head">
-              <span style="color:${seat.color};">${seat.avatar} ${esc(seat.name)}</span>
-              <span class="badge-tag ${stanceBadge}">${op.stance}</span>
-            </div>
-            <div style="color:#d1d5db; line-height:1.45;">${esc(op.txt)}</div>
-          </div>
-        `;
-      }).join("");
-    }
-
-    if (verdictEl) {
-      const v = dilemma.verdict;
-      verdictEl.innerHTML = `
-        <h4>1. Accords &amp; Points de Convergence</h4>
-        <p>${esc(v.accords)}</p>
-        <h4>2. Biais Contestés &amp; Désaccords Identifiés</h4>
-        <p>${esc(v.desaccords)}</p>
-        <h4>3. Décision Tranchée &amp; Directive Opérationnelle</h4>
-        <p><b>${esc(v.tranche)}</b></p>
-        <h4>4. Inconstants &amp; Mesure de Contrôle Obligatoire</h4>
-        <p style="color:var(--amber);">${esc(v.incertain)}</p>
-      `;
-    }
-  }
-
-  // ═══ INITIALISATION & RENDU SQL BOARD × 3 ═══
-  // ═══ Console SQL / recherche FTS RETIRÉES de la vitrine publique (B1) ═══
-  // Ces fonctions interrogeaient des endpoints d'administration : surface d'exposition
-  // supprimée côté client. Stubs no-op conservés par sécurité.
-  function switchSqlDb() {}
-  function setSqlPreset() {}
-  function runSqlQuery() {}
-  function searchFtsChunks() {}
-  function renderFallbackChunks() {}
-
-  function copyChunkId(id) {
-    navigator.clipboard.writeText(id).then(() => {
-      showBoutiqueMsg(`ID ${id} copié dans le presse-papier !`, 'ok');
-    });
-  }
-
-  function sendToTutor(chunkId, topic) {
-    const el = document.getElementById("tutor-q");
-    if (el) {
-      el.value = `Explique en détail les implications techniques du chunk ${chunkId} sur ${topic}`;
-      document.querySelector('.tutor-wrap').scrollIntoView({ behavior: 'smooth' });
-      askTutor();
-    }
-  }
-
-  // ═══ NIVEAUX D'APPRENTISSAGE ═══
-  function switchLevel(lvl, btn) {
-    document.querySelectorAll('.level-tab-btn').forEach(b => b.classList.remove('active'));
-    const target = btn || document.querySelector(`.level-tab-btn[onclick*="${lvl}"]`);
-    if (target && target.classList) target.classList.add('active');
-
-    const data = LEVELS_DATA[lvl];
-    if (!data) return;
-
-    const el = document.getElementById("level-display-card");
-    if (el) {
-      el.innerHTML = `
-        <div class="level-grid">
-          <div>
-            <span class="badge-tag badge-emerald" style="margin-bottom:10px;">${esc(data.badge)}</span>
-            <h3 style="font-size:1.45rem; color:#fff; margin:0 0 6px;">${esc(data.title)}</h3>
-            <p style="color:var(--accent); font-weight:600; font-size:.95rem; margin-bottom:14px;">${esc(data.subtitle)}</p>
-            <p style="color:var(--fg-dim); font-size:.92rem; line-height:1.55;">${esc(data.desc)}</p>
-            <ul class="level-modules-list">
-              ${data.modules.map((m, i) => `
-                <li>
-                  <span style="color:var(--emerald); font-weight:bold;">${i + 1}.</span>
-                  <span>${esc(m)}</span>
-                </li>
-              `).join('')}
-            </ul>
-            <div class="mentor-highlight-box">
-              💡 <b>Mentorat Table Ronde :</b> ${data.mentorTip}
-            </div>
-          </div>
-          <div style="background:#090f1d; border:1px solid var(--border); border-radius:var(--radius-sm); padding:24px; display:flex; flex-direction:column; justify-content:space-between;">
-            <div>
-              <div style="font-size:0.8rem; color:var(--fg-dim); text-transform:uppercase; font-weight:700;">Pack Conseillé</div>
-              <div style="font-size:1.2rem; font-weight:800; color:#fff; margin:6px 0;">Formation Guidée Intégrée</div>
-              <div style="font-size:0.85rem; color:#cbd5e1; margin-bottom:18px;">Inclus dans tous les packs individuels et dans le Fonds Complet.</div>
-            </div>
-            <a href="#bundle" class="btn btn-fire btn-block">S'équiper pour ce niveau &rarr;</a>
-          </div>
-        </div>
-      `;
-    }
-  }
-
-  // ═══ CATALOGUE RENDU SCALABLE & ADAPTATIF ═══
-  async function syncCatalogWithServer() {
-    try {
-      const res = await fetch('/api/boutique/config');
-      if (!res.ok) return;
-      const data = await res.json();
-      if (data && data.catalog && Array.isArray(data.catalog)) {
-        data.catalog.forEach(srvItem => {
-          const local = CATALOG.find(x => x.id === srvItem.id);
-          if (local) {
-            local.price = Math.round(srvItem.amount / 100);
-            local.free = (srvItem.amount || 0) <= 0;
-          }
-        });
-        renderCatalog();
-      }
-      // Prix des offres groupées pilotés par le serveur (B2 : jamais calculés/écrits en dur).
-      if (data && Array.isArray(data.bundles)) {
-        const map = { 'fonds-complet': 'fc', 'fonds-complet-pro': 'pro' };
-        data.bundles.forEach(b => {
-          const k = map[b.id]; if (!k) return;
-          const price = Math.round((b.amount || 0) / 100);
-          const strike = Math.round((b.strike || 0) / 100);
-          const pEl = document.getElementById(`bundle-${k}-price`);
-          const sEl = document.getElementById(`bundle-${k}-strike`);
-          const btn = document.getElementById(`bundle-${k}-btn`);
-          if (pEl) pEl.textContent = price;
-          if (sEl) sEl.textContent = strike.toLocaleString('fr-FR') + ',00 €';
-          if (btn) btn.textContent = (b.id === 'fonds-complet-pro'
-            ? `Prendre la version Pro — ${price} €`
-            : `Prendre le Fonds Complet — ${price} €`);
-        });
-      }
-    } catch(e) {
-      console.warn("Catalog server sync fallback to local compiled registry:", e);
-    }
-  }
-
-  function renderCatalog(filter = 'all') {
-    const grid = document.getElementById("catalog-grid");
-    if (!grid) return;
-
-    const list = filter === 'all' ? CATALOG : CATALOG.filter(p => p.category === filter);
-
-    grid.innerHTML = list.map(p => `
-      <div class="pack-card" id="card-${p.id}" style="display:flex; flex-direction:column; justify-content:space-between; transition:all 0.25s ease;">
-        <div>
-          <div class="pack-header" style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
-            <span class="pack-icon" style="font-size:2rem;">${p.icon}</span>
-            <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap; justify-content:flex-end;">
-              <span class="badge-tag badge-emerald" style="font-size:0.7rem; font-weight:700;">📦 ${p.size || '.TGZ'}</span>
-              <span class="badge-tag badge-indigo" style="font-size:0.7rem;">${p.category.toUpperCase()}</span>
-            </div>
-          </div>
-          <h3 class="pack-title" style="margin:4px 0 6px; font-size:1.15rem; font-weight:800; color:#fff;">${esc(p.title)}</h3>
-          <div style="font-size:0.78rem; color:var(--cyan); margin:0 0 10px; font-family:var(--font-mono); font-weight:600; display:flex; align-items:center; gap:6px;">
-            <span>⚡</span> <span>${p.chunks || 'Indexé dans board.db'}</span>
-            <span style="color:var(--emerald);">· Format Ouvert .tgz</span>
-          </div>
-          <p class="pack-desc" style="font-size:0.86rem; color:var(--fg-dim); line-height:1.45; margin-bottom:14px;">${esc(p.desc)}</p>
-          <div class="pack-tags" style="display:flex; gap:5px; flex-wrap:wrap; margin-bottom:16px;">
-            ${p.tags.map(t => `<span class="pack-tag-item" style="font-size:0.72rem; padding:2px 8px;">${esc(t)}</span>`).join('')}
-          </div>
-        </div>
-        <div style="margin-top:auto; border-top:1px solid rgba(255,255,255,0.08); padding-top:14px;">
-          <div style="display:flex; gap:8px; margin-bottom:12px;">
-            <button class="btn btn-ghost btn-block" style="padding:7px 12px; font-size:.8rem; border-color:rgba(255,255,255,0.12);" onclick="openCourse('${p.courseId}')">📖 Structure &amp; Détails</button>
-          </div>
-          <div class="pack-footer" style="display:flex; justify-content:space-between; align-items:center;">
-            <div class="pack-price" style="font-size:1.35rem; font-weight:800; color:${p.free ? 'var(--emerald)' : '#fff'};">
-              ${p.free ? 'Gratuit' : euro(p.price)}
-            </div>
-            ${p.free
-              ? `<button class="btn btn-primary" style="padding:8px 16px; font-size:.88rem; font-weight:700;" onclick="openSample('${p.id}')">🎁 Recevoir l'échantillon</button>`
-              : `<button class="btn btn-primary" style="padding:8px 16px; font-size:.88rem; font-weight:700;" onclick="buyLink('${p.id}')">Acheter (pro) →</button>`}
-          </div>
-        </div>
-      </div>
-    `).join('');
-  }
-
-  function filterCatalog(cat, btn) {
-    document.querySelectorAll('.catalog-filters .filter-btn').forEach(b => b.classList.remove('active'));
-    if (btn && btn.classList) btn.classList.add('active');
-    renderCatalog(cat);
-  }
-
-  // ═══ PANIER & CHECKOUT STRIPE ═══
-  function cartGet() {
-    try { return JSON.parse(localStorage.getItem('turbo_bq_cart') || '{}'); } catch(e) { return {}; }
-  }
-  function cartSet(c) {
-    localStorage.setItem('turbo_bq_cart', JSON.stringify(c));
-    renderCart();
-  }
-  function cartCount() {
-    const c = cartGet();
-    return Object.values(c).reduce((s, v) => s + v, 0);
-  }
-
-  function addToCart(packId) {
-    const c = cartGet();
-    c[packId] = (c[packId] || 0) + 1;
-    cartSet(c);
-    openCart(true);
-    showBoutiqueMsg("Pack ajouté au panier !", "ok");
-  }
-
-  function addAllToCart() {
-    const c = {};
-    CATALOG.forEach(p => { c[p.id] = 1; });
-    cartSet(c);
-    openCart(true);
-    showBoutiqueMsg("Fonds Complet Souverain chargé avec ses 5 bonus !", "ok");
-  }
-
-  function setQty(packId, delta) {
-    const c = cartGet();
-    const cur = c[packId] || 0;
-    const next = cur + delta;
-    if (next <= 0) delete c[packId];
-    else c[packId] = next;
-    cartSet(c);
-  }
-
-  function openCart(open) {
-    const drawer = document.getElementById("cart-drawer");
-    const overlay = document.getElementById("cart-overlay");
-    if (open) {
-      drawer.classList.add("on");
-      overlay.classList.add("on");
-    } else {
-      drawer.classList.remove("on");
-      overlay.classList.remove("on");
-    }
-  }
-
-  function renderCart() {
-    const badge = document.getElementById("cart-badge");
-    if (badge) badge.textContent = String(cartCount());
-
-    const list = document.getElementById("cart-items-list");
-    const totalEl = document.getElementById("cart-total-display");
-    if (!list || !totalEl) return;
-
-    const c = cartGet();
-    const ids = Object.keys(c);
-
-    if (ids.length === 0) {
-      list.innerHTML = `<div style="text-align:center; padding:40px 0; color:var(--fg-dim);">Votre panier est vide.</div>`;
-      totalEl.textContent = euro(0);
-      return;
-    }
-
-    let subtotal = 0;
-    list.innerHTML = ids.map(id => {
-      const p = CATALOG.find(x => x.id === id);
-      if (!p) return "";
-      const q = c[id];
-      const line = p.price * q;
-      subtotal += line;
-      return `
-        <div class="cart-line">
-          <div>
-            <div style="font-weight:700; color:#fff; font-size:.92rem;">${esc(p.title)}</div>
-            <div style="font-size:.78rem; color:var(--fg-dim);">${euro(p.price)} x ${q}</div>
-          </div>
-          <div style="display:flex; align-items:center; gap:8px;">
-            <button class="btn btn-ghost" style="padding:2px 8px;" onclick="setQty('${p.id}', -1)">-</button>
-            <span class="mono" style="font-weight:700;">${q}</span>
-            <button class="btn btn-ghost" style="padding:2px 8px;" onclick="setQty('${p.id}', 1)">+</button>
-          </div>
-        </div>
-      `;
-    }).join("");
-
-    // Le total du panier = somme réelle des articles. Les offres groupées (199 €/349 €)
-    // sont des SKU dédiés achetés via buyBundle() et facturés au prix forfaitaire CÔTÉ SERVEUR.
-    totalEl.textContent = euro(subtotal);
-  }
-
-  async function applyPromo() {
-    const input = document.getElementById("promo-input");
-    const code = (input.value || "").trim().toUpperCase();
-    if (!code) return;
-    try {
-      const r = await fetch('/api/boutique/promo', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code: code, cart: cartGet() })
-      });
-      const d = await r.json();
-      if (d.success) {
-        showBoutiqueMsg(`Code ${code} appliqué : -${d.discount_pct}% !`, 'ok');
-      } else {
-        showBoutiqueMsg(d.error || "Code promo invalide", 'err');
-      }
-    } catch(e) {
-      showBoutiqueMsg("Erreur lors de la vérification du code", 'err');
-    }
-  }
-
-  // Achat direct d'une offre groupée : on envoie l'ID du bundle, le prix forfaitaire
-  // (199 €/349 €) est appliqué CÔTÉ SERVEUR (boutique_stripe.bundles()). Aucun calcul navigateur.
-  // ═══ B2B · STRIPE PAYMENT LINKS (vente SANS le rig) ═══
-  // Chaque pack / offre groupée a un lien de paiement Stripe hébergé. L'achat redirige
-  // directement vers Stripe : 0 infra chez nous, la vitrine peut être 100% statique
-  // (GitHub Pages). Repli sur le flux serveur /api/boutique/checkout si pas de lien.
-  const PAYMENT_LINKS = {
-    "doctrine-omega": "https://buy.stripe.com/test_9B614mdwdeu2dLcgOk7kc00",
-    "orchestration-agents": "https://buy.stripe.com/test_28EaEW1Nveu27mOcy47kc01",
-    "inference-rag": "https://buy.stripe.com/test_fZucN44ZH99I4aCapW7kc02",
-    "fiabilite": "https://buy.stripe.com/test_5kQ8wO8bTbhQfTkeGc7kc03",
-    "cout-energie": "https://buy.stripe.com/test_14AcN477PbhQ5eG55C7kc04",
-    "cluster-local": "https://buy.stripe.com/test_8x228qfElbhQ22u2Xu7kc05",
-    "cours-ia-souveraine": "https://buy.stripe.com/test_aFa14m2RzadM7mO0Pm7kc06",
-    "fonds-complet": "https://buy.stripe.com/test_7sY6oGfEl2Lk22u55C7kc07",
-    "fonds-complet-pro": "https://buy.stripe.com/test_dRmaEWeAhbhQbD4apW7kc08"
-  };
-  function buyLink(id) {
-    const url = PAYMENT_LINKS[id];
-    if (url) { requireConsent(() => { window.location.href = url; }); return; }
-    // Repli : pas de lien pour cet article → flux serveur (si le rig est joignable).
-    if (typeof _doBuyBundle === 'function' && /^(fonds-complet|fonds-complet-pro)$/.test(id)) {
-      requireConsent(() => _doBuyBundle(id));
-    } else { addToCart(id); }
-  }
-  function buyBundle(bundleId) { buyLink(bundleId); }
-  async function _doBuyBundle(bundleId) {
-    try {
-      const r = await fetch('/api/boutique/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items: [{ id: bundleId, quantity: 1 }], consent: true })
-      });
-      const d = await r.json();
-      if (d.url) {
-        window.location.href = d.url;
-      } else {
-        alert(d.error || "Erreur lors de l'initialisation du paiement Stripe.");
-      }
-    } catch (e) {
-      alert("Impossible de contacter le serveur de paiement.");
-    }
-  }
-
-  // Consentement à l'exécution immédiate + renonciation à la rétractation (contenu numérique).
-  let CONSENT_CB = null;
-  function requireConsent(cb) {
-    CONSENT_CB = cb;
-    const chk = document.getElementById('consent-check');
-    if (chk) chk.checked = false;
-    const go = document.getElementById('consent-go');
-    if (go) go.disabled = true;
-    document.getElementById('consent-modal').style.display = 'flex';
-  }
-  function closeConsent() {
-    document.getElementById('consent-modal').style.display = 'none';
-    CONSENT_CB = null;
-  }
-  function consentProceed() {
-    const chk = document.getElementById('consent-check');
-    if (!chk || !chk.checked) return;
-    const cb = CONSENT_CB;
-    document.getElementById('consent-modal').style.display = 'none';
-    CONSENT_CB = null;
-    if (typeof cb === 'function') cb();
-  }
-
-  // 🎁 Échantillon GRATUIT contre e-mail : capture le lead puis déclenche le téléchargement.
-  let SAMPLE_PID = "";
-  function openSample(pid) {
-    SAMPLE_PID = pid || "protocoles-formats";
-    document.getElementById("sample-msg").textContent = "";
-    document.getElementById("sample-email").value = "";
-    document.getElementById("sample-modal").style.display = "flex";
-    setTimeout(() => { try { document.getElementById("sample-email").focus(); } catch(e){} }, 50);
-  }
-  function closeSample() { document.getElementById("sample-modal").style.display = "none"; }
-  async function submitSample() {
-    const email = (document.getElementById("sample-email").value || "").trim();
-    const msg = document.getElementById("sample-msg");
-    const btn = document.getElementById("sample-btn");
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-      msg.style.color = "#f87171"; msg.textContent = "Adresse e-mail invalide."; return;
-    }
-    btn.disabled = true; msg.style.color = "var(--fg-dim)"; msg.textContent = "Envoi…";
-    try {
-      const r = await fetch('/api/boutique/sample', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email, pack: SAMPLE_PID })
-      });
-      const d = await r.json();
-      if (d.ok && d.url) {
-        msg.style.color = "var(--emerald)";
-        msg.innerHTML = "C'est parti ! Votre téléchargement démarre…";
-        window.location.href = d.url;
-        setTimeout(closeSample, 1500);
-      } else {
-        msg.style.color = "#f87171"; msg.textContent = d.error || "Erreur, réessayez.";
-      }
-    } catch (e) {
-      msg.style.color = "#f87171"; msg.textContent = "Impossible de contacter le serveur.";
-    } finally { btn.disabled = false; }
-  }
-
-  function checkoutCart() {
-    const c = cartGet();
-    if (Object.keys(c).length === 0) {
-      alert("Votre panier est vide.");
-      return;
-    }
-    requireConsent(() => _doCheckoutCart());
-  }
-  async function _doCheckoutCart() {
-    const c = cartGet();
-    const btn = document.getElementById("checkout-btn");
-    btn.disabled = true;
-    btn.textContent = "⏳ Redirection vers Stripe...";
-
-    try {
-      const items = Object.entries(c).map(([id, quantity]) => ({ id, quantity }));
-      const promo = (document.getElementById("promo-input")?.value || "").trim();
-      const r = await fetch('/api/boutique/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items, cart: c, promo, consent: true })
-      });
-      const d = await r.json();
-      if (d.url) {
-        window.location.href = d.url;
-      } else if (d.free_unlocked) {
-        alert("Packs débloqués immédiatement !");
-        window.location.reload();
-      } else {
-        alert(d.error || "Erreur lors de l'initialisation du paiement Stripe.");
-        btn.disabled = false;
-        btn.textContent = "🔒 Valider & Télécharger";
-      }
-    } catch(e) {
-      alert("Impossible de contacter le serveur de paiement.");
-      btn.disabled = false;
-      btn.textContent = "🔒 Valider & Télécharger";
-    }
-  }
-
-  // ═══ FORMATEUR SOUVERAIN (DIRECT ASK 0-TOKEN) ═══
-  // Vitrine publique : pas d'inférence LLM en direct (éviter la charge GPU ouverte + les
-  // métriques non mesurées). Le tuteur réel tourne sur VOS GPU une fois la formation acquise.
-  async function askTutor(customPrompt) {
-    const q = customPrompt || (document.getElementById("tutor-q") ? document.getElementById("tutor-q").value.trim() : "");
-    const out = document.getElementById("tutor-out");
-    if (!out) return;
-    out.style.display = "block";
-    out.innerHTML = `
-      <div style="font-weight:700; color:var(--emerald); margin-bottom:8px;">🎓 Le tuteur IA local est inclus dans la formation (version Pro).</div>
-      <div style="color:#f1f5f9; line-height:1.6;">Il tourne sur vos propres GPU, répond en citant ses sources, sans abonnement ni token cloud.${q ? ` Votre question « ${esc(q)} » est exactement le type d'usage auquel il répond une fois installé chez vous.` : ''}</div>
-      <div style="margin-top:12px;"><a href="#bundle" class="btn btn-primary" style="padding:8px 16px;">Voir la version Pro</a></div>
-    `;
-  }
-
-  // ═══ E-LEARNING MODAL ═══
-  // Appelle le vrai contrat backend /api/boutique/course (POST {id}) qui renvoie
-  // {id, name, tagline, modules:[{title, objectives[], questions[]}]}.
-  // Pour un id sans parcours structuré (packs téléchargeables), le backend
-  // répond 404 → on affiche un message honnête, sans inventer de contenu.
-  async function openCourse(courseId) {
-    const modal = document.getElementById("course-modal");
-    const title = document.getElementById("course-modal-title");
-    const body = document.getElementById("course-modal-body");
-    modal.style.display = "flex";
-    title.textContent = `Chargement du module ${courseId}…`;
-    body.innerHTML = `Chargement du contenu pédagogique interactif…`;
-
-    try {
-      const r = await fetch(`/api/boutique/course`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: courseId })
-      });
-      const d = await r.json().catch(() => ({}));
-      if (r.ok && d && Array.isArray(d.modules) && d.modules.length) {
-        title.textContent = d.name || courseId;
-        const ownedBadge = d.owned
-          ? `<span class="badge-tag badge-emerald" style="font-size:.72rem;">✓ Acquis</span>`
-          : '';
-        const modulesHTML = d.modules.map((m, i) => `
-          <div style="background:#070d18; border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px; margin:0 0 12px;">
-            <h4 style="margin:0 0 8px; color:var(--emerald);">Module ${i + 1} — ${esc(m.title || '')}</h4>
-            ${(m.objectives && m.objectives.length) ? `
-              <div style="font-size:.78rem; color:var(--fg-dim); text-transform:uppercase; font-weight:700; margin:6px 0 4px;">Objectifs</div>
-              <ul style="padding-left:20px; line-height:1.6; margin:0 0 8px;">
-                ${m.objectives.map(o => `<li>${esc(o)}</li>`).join('')}
-              </ul>` : ''}
-            ${(m.questions && m.questions.length) ? `
-              <div style="font-size:.78rem; color:var(--fg-dim); text-transform:uppercase; font-weight:700; margin:6px 0 4px;">Travaillé avec le formateur souverain</div>
-              <ul style="padding-left:20px; line-height:1.6; margin:0; color:#cbd5e1;">
-                ${m.questions.map(q => `<li>${esc(q)}</li>`).join('')}
-              </ul>` : ''}
-          </div>
-        `).join('');
-        body.innerHTML = `
-          <div style="margin-bottom:16px;">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
-              ${ownedBadge}
-            </div>
-            ${d.tagline ? `<p style="color:var(--fg-dim); font-size:.92rem; margin:0 0 16px;">${esc(d.tagline)}</p>` : ''}
-            ${modulesHTML}
-            ${d.owned
-              ? `<p style="font-size:.85rem; color:var(--emerald);">Vous avez accès au formateur souverain cité pour ce parcours.</p>`
-              : `<p style="font-size:.85rem; color:#cbd5e1;">Le formateur souverain cité (réponses 0 token, sources board.db) est débloqué à l'acquisition du parcours.</p>`}
-          </div>
-        `;
-      } else {
-        // 404 / pas de parcours structuré (ex. pack téléchargeable) : message honnête.
-        body.innerHTML = `<p style="color:#cbd5e1;">Ce produit est livré sous forme d'archive <code>.tgz</code> réimportable dans votre RAG — il n'a pas de parcours de formation en ligne. Téléchargez-le directement depuis sa fiche.</p>`;
-      }
-    } catch(e) {
-      body.innerHTML = `<p style="color:#cbd5e1;">Détail de formation momentanément indisponible. Réessayez depuis le Cockpit.</p>`;
-    }
-  }
-
-  function closeCourse() {
-    document.getElementById("course-modal").style.display = "none";
-  }
-
-  // ═══ COMPTE & AUTH ═══
-  async function refreshMe() {
-    try {
-      const r = await fetch('/api/boutique/me');
-      const d = await r.json();
-      const el = document.getElementById("bq-account-nav");
-      if (!el) return;
-      if (d && d.authenticated) {
-        el.innerHTML = `Connecté : <b>${esc(d.email || d.user_id)}</b>`;
-      } else {
-        el.innerHTML = `Mode Invité`;
-      }
-    } catch(e) {}
-  }
-
-  // ═══ INITIALISATION AU CHARGEMENT ═══
-  document.addEventListener('DOMContentLoaded', () => {
-    startRibbonTimer();
-    updateRoi();
-    renderCatalog();
-    syncCatalogWithServer();
-    renderCart();
-    refreshMe();
-    switchLevel('deb', null);
-    initTableRonde();
-
-    // Détection session_id Stripe
-    const params = new URLSearchParams(window.location.search);
-    const sid = params.get('session_id');
-    if (sid) {
-      showBoutiqueMsg('Paiement Stripe confirmé ! Vos packs et formations sont débloqués.', 'ok');
-    }
-  });
-</script>
-
-<script>
-/* Overrides version STATIQUE (GitHub Pages, aucun /api) — vente B2B via Stripe Payment Links */
-window.openSample = function(){ window.location.href = './protocoles-formats.tgz'; };
-window.applyPromo = function(){ if(window.showBoutiqueMsg){showBoutiqueMsg("Codes promo non disponibles sur cette boutique.","err");} };
-window.checkoutCart = function(){ alert("Pour commander : cliquez \u00ab Acheter (pro) \u00bb sur le pack voulu \u2014 paiement s\u00e9curis\u00e9 Stripe."); };
-window.openCourse = function(){ alert("Le d\u00e9tail est sur la fiche de chaque pack. Cliquez \u00ab Acheter (pro) \u00bb pour commander."); };
+}
 </script>
 </body>
 </html>
