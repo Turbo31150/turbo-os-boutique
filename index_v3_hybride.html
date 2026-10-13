@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TURBO OS × ALKYMIA — Systèmes IA & Corpus RAG Souverains</title>
+<meta name="description" content="L'écosystème IA souverain complet : Packs de corpus RAG instantanés et Implantation clé en main sur site pour PME et Industrie. 0€ de cloud récurrent.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&display=swap');
+:root {
+  --red: #e50914;
+  --red-hover: #c11119;
+  --bg: #0a0a0c;
+  --bg2: #141418;
+  --bg3: #1c1c22;
+  --text: #f0f0f5;
+  --muted: #a0a0b0;
+  --gold: #f5a623;
+  --green: #46d369;
+  --cyan: #00d4ff;
+  --border: #262630;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; overflow-x:hidden; line-height:1.5; }
+a { text-decoration:none; color:inherit; }
+
+/* Top Urgency Bar */
+.top-bar {
+  background: linear-gradient(90deg, #b0060e, var(--red), #b0060e);
+  text-align: center; padding: 8px 16px; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+}
+.top-bar span.pill {
+  background: rgba(0,0,0,0.3); padding: 2px 8px; border-radius: 4px; font-size: 11px;
+}
+
+/* Navbar */
+nav {
+  position: fixed; top: 35px; left: 0; right: 0; z-index: 400;
+  height: 68px; padding: 0 5%; display: flex; align-items: center; justify-content: space-between;
+  background: rgba(10, 10, 12, 0.85); backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.logo { font-size: 22px; font-weight: 900; letter-spacing: -1px; }
+.logo span.brand { color: var(--red); }
+.logo span.badge { font-family:'JetBrains Mono',monospace; font-size: 11px; color: var(--cyan); background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3); padding: 2px 6px; border-radius: 4px; margin-left: 8px; }
+
+.nav-links { display: flex; gap: 24px; font-size: 14px; font-weight: 500; }
+.nav-links a { color: var(--muted); transition: 0.2s; }
+.nav-links a:hover { color: #fff; }
+
+.nav-actions { display: flex; gap: 10px; align-items: center; }
+.btn-cta {
+  background: var(--red); color: #fff; padding: 9px 20px; border-radius: 6px;
+  font-size: 13px; font-weight: 700; transition: 0.2s;
+}
+.btn-cta:hover { background: var(--red-hover); transform: translateY(-1px); }
+
+/* Hero */
+.hero {
+  padding: 170px 5% 100px; text-align: center; position: relative;
+  background: radial-gradient(circle at 50% 20%, rgba(229,9,20,0.12), transparent 70%);
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(229,9,20,0.1); border: 1px solid rgba(229,9,20,0.3);
+  padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;
+  color: #ff6b6b; margin-bottom: 24px;
+}
+.hero-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); box-shadow: 0 0 8px var(--red); }
+.hero h1 { font-size: clamp(36px, 6vw, 68px); font-weight: 900; letter-spacing: -2px; line-height: 1.08; margin-bottom: 24px; }
+.hero h1 span.grad { background: linear-gradient(135deg, #fff, var(--muted)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero h1 span.red { color: var(--red); }
+.hero-p { font-size: clamp(16px, 2vw, 19px); color: var(--muted); max-width: 720px; margin: 0 auto 36px; line-height: 1.6; }
+
+/* Hybrid Dual-Engine Selector */
+.engine-switcher {
+  display: inline-flex; background: var(--bg2); border: 1px solid var(--border);
+  padding: 4px; border-radius: 40px; margin: 0 auto 50px;
+}
+.switch-btn {
+  padding: 12px 28px; border-radius: 30px; font-size: 14px; font-weight: 700;
+  cursor: pointer; border: none; background: transparent; color: var(--muted);
+  transition: 0.25s; display: flex; align-items: center; gap: 8px;
+}
+.switch-btn.active {
+  background: var(--red); color: #fff; box-shadow: 0 4px 20px rgba(229,9,20,0.4);
+}
+
+/* Proof Numbers */
+.stats-strip {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px; max-width: 1000px; margin: 0 auto 80px;
+}
+.stat-card {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 8px;
+  padding: 22px; text-align: center;
+}
+.stat-val { font-size: 32px; font-weight: 900; font-family:'JetBrains Mono',monospace; color: #fff; }
+.stat-lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 4px; }
+
+/* Sections */
+section { padding: 80px 5%; max-width: 1300px; margin: 0 auto; }
+.sec-tag { font-size: 11px; font-weight: 800; color: var(--red); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+.sec-title { font-size: clamp(26px, 4vw, 42px); font-weight: 900; letter-spacing: -1px; margin-bottom: 12px; }
+.sec-sub { font-size: 16px; color: var(--muted); max-width: 640px; margin-bottom: 40px; }
+
+/* Cards Grid */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+.card {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 12px;
+  padding: 32px; display: flex; flex-direction: column; justify-content: space-between;
+  transition: 0.3s; position: relative; overflow: hidden;
+}
+.card:hover { border-color: rgba(229,9,20,0.5); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.4); }
+.card.highlight { border-color: rgba(229,9,20,0.4); background: linear-gradient(180deg, rgba(229,9,20,0.06), var(--bg2)); }
+.card-badge {
+  position: absolute; top: 16px; right: 16px; font-size: 10px; font-weight: 800;
+  padding: 4px 10px; border-radius: 20px; background: rgba(229,9,20,0.15); color: var(--red); border: 1px solid rgba(229,9,20,0.3);
+}
+.card h3 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
+.card p.desc { font-size: 14px; color: var(--muted); line-height: 1.5; margin-bottom: 24px; min-height: 42px; }
+.card-price { font-size: 40px; font-weight: 900; font-family:'JetBrains Mono',monospace; margin-bottom: 20px; }
+.card-price span.unit { font-size: 14px; color: var(--muted); font-family:'Inter',sans-serif; font-weight: 400; }
+.card ul { list-style: none; margin-bottom: 30px; display: flex; flex-direction: column; gap: 10px; font-size: 13px; color: var(--muted); }
+.card ul li { display: flex; gap: 10px; align-items: flex-start; }
+.card ul li span.check { color: var(--green); font-weight: 800; }
+.card-btn {
+  display: block; text-align: center; padding: 14px; border-radius: 6px;
+  font-weight: 800; font-size: 14px; background: rgba(255,255,255,0.08); color: #fff; transition: 0.2s;
+}
+.card-btn:hover { background: var(--red); box-shadow: 0 6px 20px rgba(229,9,20,0.3); }
+.card.highlight .card-btn { background: var(--red); }
+.card.highlight .card-btn:hover { background: var(--red-hover); }
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border); padding: 50px 5% 30px;
+  text-align: center; font-size: 13px; color: var(--muted); background: #060608;
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  🔥 Écosystème Unifié Turbo OS × Alkymia · <span class="pill">Double Moteur</span> Produits RAG Self-Service + Implantation sur site
+</div>
+
+<nav>
+  <div class="logo">
+    TURBO<span class="brand">.OS</span> <span class="badge">v3-HYBRIDE</span>
+  </div>
+  <div class="nav-links">
+    <a href="#catalogue">Catalogue</a>
+    <a href="#services">Services Clés en Main</a>
+    <a href="#roi">Calculateur ROI</a>
+    <a href="#garantie">Garantie Souveraine</a>
+  </div>
+  <div class="nav-actions">
+    <a href="#contact" class="btn-cta">Réserver Audit (0€) →</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-badge"><span class="dot"></span> IA LOCALE SOUVERAINE & INTÉGRATION SUR SITE</div>
+  <h1>Votre activité.<br><span class="red">Automatisée.</span> <span class="grad">Sans cloud récurrent.</span></h1>
+  <p class="hero-p">
+    Le pont parfait entre les <strong>packs de corpus RAG bruts</strong> (pour ingénieurs et développeurs)
+    et les <strong>systèmes clé en main déployés sur site</strong> (pour PME, cabinets et usines).
+  </p>
+
+  <!-- Dual Mode Selector -->
+  <div class="engine-switcher">
+    <button class="switch-btn active" id="btn-diy" onclick="switchView('diy')">
+      📦 Packs & Corpus RAG (Self-Service)
+    </button>
+    <button class="switch-btn" id="btn-pro" onclick="switchView('pro')">
+      🏭 Implantation & Clés en main (Entreprise)
+    </button>
+  </div>
+
+  <div class="stats-strip">
+    <div class="stat-card">
+      <div class="stat-val">0 €</div>
+      <div class="stat-lbl">Abonnement Cloud</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">36.8 tok/s</div>
+      <div class="stat-lbl">Inférence GPU Locale</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">100%</div>
+      <div class="stat-lbl">Souverain & RGPD</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">2 sem.</div>
+      <div class="stat-lbl">ROI Moyen Client</div>
+    </div>
+  </div>
+</header>
+
+<!-- SECTION 1 : PACKS DIGITAUX / RAG (DIY & DEVS) -->
+<section id="view-diy">
+  <div class="sec-tag">Rayon 1 — Produits Digitaux Immédiats</div>
+  <h2 class="sec-title">Les 7 Packs de Corpus RAG Souverains</h2>
+  <p class="sec-sub">Archives binaires `.tgz` prêtes à l'emploi. Injection directe dans vos bases vectorielles et moteurs FTS5 sans intermédiaire.</p>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div>
+        <div class="card-badge">Doctrine</div>
+        <h3>Doctrine & Architecture</h3>
+        <p class="desc">Les 71 extraits fondateurs de Turbo OS / OMEGA. Le « pourquoi » derrière la souveraineté locale.</p>
+        <div class="card-price">49 € <span class="unit">paiement unique</span></div>
+        <ul>
+          <li><span class="check">✓</span> 71 extraits sourcés en format `corpus.jsonl`</li>
+          <li><span class="check">✓</span> Règle d'or Ombre/Lumière et bouclage 127.0.0.1</li>
+          <li><span class="check">✓</span> Zéro abonnement, réimportable à vie</li>
+        </ul>
+      </div>
+      <a href="https://buy.stripe.com/test_pack1" class="card-btn">Télécharger (49 €) →</a>
+    </div>
+
+    <div class="card highlight">
+      <div class="card-badge">⭐ Le Plus Demandé</div>
+      <div>
+        <h3>Orchestration d'Agents</h3>
+        <p class="desc">3 755 extraits concrets de collaboration multi-agents : routage, consensus, boucles et dominos.</p>
+        <div class="card-price">59 € <span class="unit">paiement unique</span></div>
+        <ul>
+          <li><span class="check">✓</span> 3 755 extraits de workflows multi-agents réels</li>
+          <li><span class="check">✓</span> Scripts de détection et anti-boucles infinies</li>
+          <li><span class="check">✓</span> Compatible Claude Code, AGY, OpenClaw, Codex</li>
+        </ul>
+      </div>
+      <a href="https://buy.stripe.com/test_pack2" class="card-btn">Télécharger (59 €) →</a>
+    </div>
+
+    <div class="card">
+      <div>
+        <div class="card-badge">Cœur Technique</div>
+        <h3>Inférence Locale & RAG</h3>
+        <p class="desc">5 555 extraits couvrant la quantification, Ollama, LM Studio, FTS5 et les embeddings sans cloud.</p>
+        <div class="card-price">45 € <span class="unit">paiement unique</span></div>
+        <ul>
+          <li><span class="check">✓</span> 5 555 extraits d'optimisation GPU et prompts</li>
+          <li><span class="check">✓</span> Architecture de chunking et reranking local</li>
+          <li><span class="check">✓</span> Benchmarks prouvés sur GPU 10Go - 12Go</li>
+        </ul>
+      </div>
+      <a href="https://buy.stripe.com/test_pack3" class="card-btn">Télécharger (45 €) →</a>
+    </div>
+
+    <div class="card highlight" style="grid-column: 1 / -1; background: linear-gradient(135deg, rgba(229,9,20,0.1), rgba(0,212,255,0.05));">
+      <div style="display:flex; justify-content:space-between; flex-wrap:wrap; align-items:center; gap:20px;">
+        <div>
+          <div class="card-badge">👑 Bundle Intégral</div>
+          <h3>Le Coffre Intégral Souverain (7 Packs Inclus)</h3>
+          <p class="desc" style="max-width:600px;">Inclut l'intégralité des corpus : Doctrine, Agents, Inférence, Fiabilité 24/7, Coûts & Énergie, Protocoles ouverts + Bonus templates.</p>
+        </div>
+        <div style="text-align:right;">
+          <div class="card-price" style="margin-bottom:10px;">199 € <span class="unit" style="text-decoration:line-through;color:#777;">252 €</span></div>
+          <a href="https://buy.stripe.com/test_bundle" class="btn-cta" style="padding:16px 36px; display:inline-block;">Obtenir le Coffre Complet (199 €) →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2 : PRESTATIONS ENTREPRISES (CLÉS EN MAIN SUR SITE) -->
+<section id="view-pro" style="display:none;">
+  <div class="sec-tag">Rayon 2 — Implantation & Clés en Main</div>
+  <h2 class="sec-title">Packs d'Automatisation Entreprise</h2>
+  <p class="sec-sub">Je viens installer l'infrastructure sur votre matériel ou vos serveurs. Zéro interruption, formation de vos équipes incluse.</p>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div>
+        <div class="card-badge">Indépendants & TPE</div>
+        <h3>Starter</h3>
+        <p class="desc">Votre première chaîne automatisée opérationnelle en 1 semaine.</p>
+        <div class="card-price">490 € <span class="unit">/ projet</span></div>
+        <ul>
+          <li><span class="check">✓</span> Audit de vos processus (2h)</li>
+          <li><span class="check">✓</span> 1 automatisation clé (devis, email, stock)</li>
+          <li><span class="check">✓</span> Guide PDF + 1 mois de support prioritaire</li>
+          <li><span class="check">✓</span> <strong>Bonus :</strong> 1 Pack RAG digital offert</li>
+        </ul>
+      </div>
+      <a href="#contact" class="card-btn">Choisir le Pack Starter →</a>
+    </div>
+
+    <div class="card highlight">
+      <div class="card-badge">⭐ Recommandé PME</div>
+      <div>
+        <h3>Business</h3>
+        <p class="desc">Système complet pour automatiser votre gestion, vos commandes et votre contenu 24/7.</p>
+        <div class="card-price">1 490 € <span class="unit">/ projet</span></div>
+        <ul>
+          <li><span class="check">✓</span> Tout du pack Starter</li>
+          <li><span class="check">✓</span> Jusqu'à 5 automatisations sur mesure</li>
+          <li><span class="check">✓</span> Tableau de bord IA personnalisé en temps réel</li>
+          <li><span class="check">✓</span> Formation équipe 1 journée sur site ou visio</li>
+          <li><span class="check">✓</span> <strong>Bonus :</strong> Le Coffre Intégral RAG offert (199€)</li>
+        </ul>
+      </div>
+      <a href="#contact" class="card-btn">Je veux le Pack Business →</a>
+    </div>
+
+    <div class="card">
+      <div>
+        <div class="card-badge">Entreprises</div>
+        <h3>Pro</h3>
+        <p class="desc">Architecture multi-sites, intégration ERP/CRM et accompagnement approfondi.</p>
+        <div class="card-price">3 900 € <span class="unit">/ projet</span></div>
+        <ul>
+          <li><span class="check">✓</span> Tout du pack Business</li>
+          <li><span class="check">✓</span> Jusqu'à 15 automatisations complexes</li>
+          <li><span class="check">✓</span> Intégration SAP / Odoo / Salesforce / Stripe</li>
+          <li><span class="check">✓</span> Formation 3 jours + vidéos de maintenance</li>
+          <li><span class="check">✓</span> 6 mois de mises à jour et support inclus</li>
+        </ul>
+      </div>
+      <a href="#contact" class="card-btn">Demander un Devis Pro →</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION SERVICES A LA CARTE -->
+<section id="services">
+  <div class="sec-tag">Intervention Ciblée</div>
+  <h2 class="sec-title">Services à la Carte & Dépannage</h2>
+  <div class="cards-grid" style="grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));">
+    <div class="card" style="padding:22px;">
+      <h4>🔍 Audit Système</h4>
+      <p class="desc" style="font-size:13px;">Cartographie de vos flux et calcul de rentabilité immédiat.</p>
+      <div style="font-weight:900; color:var(--red);">À partir de 290 €</div>
+    </div>
+    <div class="card" style="padding:22px;">
+      <h4>🧮 Calcul Infrastructure</h4>
+      <p class="desc" style="font-size:13px;">Dimensionnement CPU/GPU/VRAM sans surcoût inutile.</p>
+      <div style="font-weight:900; color:var(--red);">À partir de 190 €</div>
+    </div>
+    <div class="card" style="padding:22px;">
+      <h4>🔧 Dépannage & Optimisation</h4>
+      <p class="desc" style="font-size:13px;">Diagnostic, déblocage de pipeline ou latence LLM.</p>
+      <div style="font-weight:900; color:var(--red);">90 € / heure</div>
+    </div>
+    <div class="card" style="padding:22px;">
+      <h4>📋 Devis & Faisabilité</h4>
+      <p class="desc" style="font-size:13px;">Étude préalable sans engagement sous 48h.</p>
+      <div style="font-weight:900; color:var(--green);">0 € (Offert)</div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div style="max-width:600px; margin:0 auto 30px;">
+    <h3 style="font-size:22px; font-weight:800; margin-bottom:10px;">Contact Direct & Réservation</h3>
+    <p style="color:var(--muted); font-size:14px; margin-bottom:20px;">Contactez Franck Delmas pour calibrer votre projet ou commander directement :</p>
+    <a href="mailto:franck.delmas31@gmail.com" class="btn-cta" style="display:inline-block; padding:14px 30px;">Envoyer un Message / Demande d'Audit →</a>
+  </div>
+  <p>© 2026 TURBO OS & ALKYMIA OSS — Tous droits réservés. Hébergé en local 127.0.0.1.</p>
+</footer>
+
+<script>
+function switchView(mode) {
+  const diySec = document.getElementById('view-diy');
+  const proSec = document.getElementById('view-pro');
+  const btnDiy = document.getElementById('btn-diy');
+  const btnPro = document.getElementById('btn-pro');
+
+  if (mode === 'diy') {
+    diySec.style.display = 'block';
+    proSec.style.display = 'none';
+    btnDiy.classList.add('active');
+    btnPro.classList.remove('active');
+  } else {
+    diySec.style.display = 'none';
+    proSec.style.display = 'block';
+    btnPro.classList.add('active');
+    btnDiy.classList.remove('active');
+  }
+}
+</script>
+</body>
+</html>
